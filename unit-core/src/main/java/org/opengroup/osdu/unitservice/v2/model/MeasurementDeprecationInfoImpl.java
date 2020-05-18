@@ -1,0 +1,94 @@
+package org.opengroup.osdu.unitservice.v2.model;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import org.opengroup.osdu.unitservice.v2.api.MeasurementDeprecationInfo;
+import org.opengroup.osdu.unitservice.v2.helper.Utility;
+
+import java.util.Map;
+import java.util.logging.Logger;
+
+/**
+ * A class declaring the owner/container as deprecated.
+ * The properties provide additional information about the status and potential recommended {@link MeasurementImpl}s.
+ */
+public class MeasurementDeprecationInfoImpl implements MeasurementDeprecationInfo {
+    private static final Logger log = Logger.getLogger( MeasurementDeprecationInfoImpl.class.getName() );
+
+    @Expose @SerializedName("state")
+    private String state;
+
+    @Expose @SerializedName("remarks")
+    private String remarks;
+
+    @Expose @SerializedName("supersededByUnitMeasurementID")
+    private String supersededByUnitMeasurementID;
+
+    private MeasurementImpl supersededByUnitMeasurement;
+
+    /*
+    Constructor for an empty instance.
+     */
+    public MeasurementDeprecationInfoImpl() { }
+
+    void postDeserialization(Map<String, MeasurementImpl> idMeasurements) {
+        // It is valid that the supersededByUnitMeasurementID is null
+        if(Utility.isNullOrEmpty(supersededByUnitMeasurementID))
+            return;
+
+        if(!idMeasurements.containsKey(supersededByUnitMeasurementID))
+            throw new IllegalArgumentException("Superseded measurement id '" + supersededByUnitMeasurementID
+                    + " does not have measurement definition associated.");
+
+        supersededByUnitMeasurement = idMeasurements.get(supersededByUnitMeasurementID);
+    }
+
+    /**
+     * Gets the deprecation state. The well-known states include:
+     * <ul>
+     *     <li>identical</li>
+     *     <li>precision</li>
+     *     <li>corrected</li>
+     *     <li>conversion</li>
+     *     <li>conditional</li>
+     *     <li>unsupported</li>
+     *     <li>different</li>
+     *     <li>unresolved</li>
+     * </ul>
+     * @return  deprecation state
+     */
+    public String getState() { return this.state;}
+
+    /**
+     * Sets the deprecation state.
+     * @param state deprecation state
+     */
+    public void setState(String state) { this.state = state; }
+
+    /**
+     * Gets further remarks about the deprecation reason.
+     * @return remark of the deprecation
+     */
+    public String getRemarks() { return this.remarks; }
+
+    /**
+     * Sets further remarks about the deprecation reason.
+     * @param remarks remark of the deprecation
+     */
+    public void setRemarks(String remarks) { this.remarks = remarks; }
+
+    /**
+     * Gets the persistable reference of {@link MeasurementImpl} superseding the owner/container measurement.
+     * @return persistable reference of the measurement superseding the owner/container measurement
+     */
+    public String getSupersededByUnitMeasurement() {
+        if(supersededByUnitMeasurement != null)
+            return this.supersededByUnitMeasurement.getEssence().toJsonString();
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "P-DeprecationInfo " + this.state;
+    }
+}

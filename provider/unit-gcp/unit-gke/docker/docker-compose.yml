@@ -1,0 +1,9 @@
+version: "3"
+services:
+  os-unit-app:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: gcr.io/opendes/os-unit-app
+    ports:
+     - "8080:8080"
