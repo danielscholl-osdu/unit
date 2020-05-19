@@ -67,11 +67,14 @@
             <version>1.0.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-api-1.0-sdk -->
+        <!--
         <dependency>
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-api-1.0-sdk</artifactId>
                 <version>1.9.76</version>
-            </dependency>
+          <!dependency>
+         -->
+
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-storage</artifactId>
