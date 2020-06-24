@@ -29,7 +29,7 @@ java -jar %UserProfile%\swagger-codegen-cli-2.2.3.jar generate -i unit_test_core
 ## Environment
 The following parameters are expected as environment variables:
 
-## Azure authentication provider (catalog_test_azure/jwt_client.py)
+## Azure authentication provider (unit_test_azure/jwt_client.py)
 | Variable | Contents |
 |----------|----------|
 | AZURE_AD_APP_RESOURCE_ID | e.g. |
