@@ -3,26 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-  <properties>
-    <java.version>1.8</java.version>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <docker.image.prefix>org.opengroup.osdu</docker.image.prefix>
-    <powermock.version>2.0.6</powermock.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <core-lib-azure.version>0.0.9</core-lib-azure.version>
-    <core-lib-gcp.version>0.1.17</core-lib-gcp.version>
-    <azure-spring-boot.version>2.2.4</azure-spring-boot.version>
-    <micrometer-registry-azure-monitor.version>1.4.1</micrometer-registry-azure-monitor.version>
-  </properties>
-
-  <licenses>
-  	<license>
-  		<name>Apache License, Version 2.0</name>
-  		<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-  		<distribution>repo</distribution>
-  	</license>
-  </licenses>
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <docker.image.prefix>org.opengroup.osdu</docker.image.prefix>
+        <powermock.version>2.0.6</powermock.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <core-lib-azure.version>0.0.9</core-lib-azure.version>
+      <core-lib-gcp.version>0.1.17</core-lib-gcp.version>
+      <azure-spring-boot.version>2.3.2</azure-spring-boot.version>
+      <micrometer-registry-azure-monitor.version>1.4.1</micrometer-registry-azure-monitor.version>
+    </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -183,19 +175,14 @@
 
     <repositories>
         <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
+            <id>os-core</id>
+            <url>https://pkgs.dev.azure.com/slb-des-ext-collaboration/_packaging/os-core/maven/v1</url>
+            <releases>
+              <enabled>true</enabled>
+            </releases>
+            <snapshots>
+              <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
-        </repository>
-        <snapshotRepository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
