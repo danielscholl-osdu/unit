@@ -2,8 +2,6 @@ package org.opengroup.osdu.unitservice.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.spring.autoconfigure.aad.AADAppRoleStatelessAuthenticationFilter;
-import com.slb.osdu.unitservice.middleware.sauth.CleanUpFilter;
-import com.slb.osdu.unitservice.middleware.sauth.SAuthAuthorizationFilter;
 import org.opengroup.osdu.unitservice.util.AppError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +28,6 @@ public class AADSecurityConfig extends WebSecurityConfigurerAdapter implements A
 
     @Autowired
     private AADAppRoleStatelessAuthenticationFilter appRoleAuthFilter;
-
-    @Autowired
-    private SAuthAuthorizationFilter slbAuthorizationFilter;
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -66,9 +61,7 @@ public class AADSecurityConfig extends WebSecurityConfigurerAdapter implements A
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(appRoleAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(slbAuthorizationFilter, appRoleAuthFilter.getClass())
-                .addFilterAfter(new CleanUpFilter(), appRoleAuthFilter.getClass());
+                .addFilterBefore(appRoleAuthFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

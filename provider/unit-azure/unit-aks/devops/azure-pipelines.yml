@@ -49,6 +49,3 @@ stages:
             kubeconfig: 'qa-aks-kubeconfig'
           - name: 'prod'
             kubeconfig: 'prod-aks-kubeconfig'
-          # Below env was commented because we've already got a working cluster with the valid certificate from the trusted issuer in the CVXTMP
-          # - name: 'cvxtmp'
-          #   kubeconfig: 'prod-aks-cvxtmp-kubeconfig'
