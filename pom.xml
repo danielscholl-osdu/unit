@@ -179,6 +179,18 @@
                 <module>provider/unit-gcp/unit-gke</module>
             </modules>
         </profile>
+        <profile>
+            <id>unit-ibm</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>unit-ocp</value>
+                </property>
+            </activation>
+            <modules>
+                <module>provider/unit-ibm/unit-ocp</module>
+            </modules>
+        </profile>
     </profiles>
 
     <repositories>
