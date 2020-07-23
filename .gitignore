@@ -1,4 +1,4 @@
-# IDEs and editors 
+# IDEs and editors
 /.idea
 .project
 .classpath
@@ -22,7 +22,7 @@ docker-compose.override.yml
 
 # Misc
 /cloc
-/bin
+**/bin
 /pkg
 /src/vendor
 /src/api/vendor
@@ -41,3 +41,6 @@ testing/*/env/
 
 #.pyc files in all directories
 **/*.pyc
+.env
+.DS_Store
+.sts*
