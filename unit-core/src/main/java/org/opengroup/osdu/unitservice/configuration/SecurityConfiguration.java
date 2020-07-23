@@ -16,7 +16,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.*;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String[] ALLOWED_URLS = {
+    protected static final String[] ALLOWED_URLS = {
             "/",
             "/v2/api-docs",
             "/swagger-resources/**",
