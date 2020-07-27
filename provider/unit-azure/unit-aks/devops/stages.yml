@@ -17,15 +17,14 @@ stages:
           pool: $(AGENT_POOL)
 
           steps:
-          - task: Maven@3
-            displayName: 'Maven: build, test, and install unit-core'
-            inputs:
-              mavenPomFile: 'pom.xml'
-              goals: 'install'
-              options: '--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN)'
-              codeCoverageToolOption: JaCoCo
-
-          - ${{ if or(eq(environment.name, 'devint'), eq(environment.name, 'qa')) }}:
+          - ${{ if eq(environment.name, 'devint') }}:
+            - task: Maven@3
+              displayName: 'Maven: build, test, and install unit-core'
+              inputs:
+                mavenPomFile: 'pom.xml'
+                goals: 'install'
+                options: '--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN)'
+                codeCoverageToolOption: JaCoCo
             - task: Maven@3
               displayName: 'Maven, unit-aks: test, code coverage'
               inputs:
@@ -35,28 +34,28 @@ stages:
                 testResultsFiles: '**/*/TEST-*.xml'
                 codeCoverageToolOption: JaCoCo
 
-          - task: Maven@3
-            displayName: 'Maven, unit-aks: package'
-            inputs:
-              mavenPomFile: 'pom.xml'
-              goals: 'package'
-              options: '--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P unit-aks -DskipTests'
+            - task: Maven@3
+              displayName: 'Maven, unit-aks: package'
+              inputs:
+                mavenPomFile: 'pom.xml'
+                goals: 'package'
+                options: '--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P unit-aks -DskipTests'
 
-          - bash: |
-              #!/bin/bash
-              set -e
-              pushd provider/unit-azure/unit-aks
-              docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
-              docker build -t $(dockerId).azurecr.io/$(imageName):$(tag) .
-              echo 'Image done.'
-              docker tag $(dockerId).azurecr.io/$(imageName):$(tag) $(dockerId).azurecr.io/$(imageName):latest
-              echo 'Added $(dockerId).azurecr.io/$(imageName):latest tag to $(dockerId).azurecr.io/$(imageName):$(tag)'
-              docker push $(dockerId).azurecr.io/$(imageName):$(tag)
-              echo 'Pushed $(dockerId).azurecr.io/$(imageName):$(tag)'
-              docker push $(dockerId).azurecr.io/$(imageName):latest
-              echo 'Pushed $(dockerId).azurecr.io/$(imageName):latest'
-              popd
-            displayName: 'build and upload docker image $(dockerId).azurecr.io/$(imageName)'
+            - bash: |
+                #!/bin/bash
+                set -e
+                pushd provider/unit-azure/unit-aks
+                docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
+                docker build -t $(dockerId).azurecr.io/$(imageName):$(tag) .
+                echo 'Image done.'
+                docker tag $(dockerId).azurecr.io/$(imageName):$(tag) $(dockerId).azurecr.io/$(imageName):latest
+                echo 'Added $(dockerId).azurecr.io/$(imageName):latest tag to $(dockerId).azurecr.io/$(imageName):$(tag)'
+                docker push $(dockerId).azurecr.io/$(imageName):$(tag)
+                echo 'Pushed $(dockerId).azurecr.io/$(imageName):$(tag)'
+                docker push $(dockerId).azurecr.io/$(imageName):latest
+                echo 'Pushed $(dockerId).azurecr.io/$(imageName):latest'
+                popd
+              displayName: 'build and upload docker image $(dockerId).azurecr.io/$(imageName)'
           - bash: |
               #!/bin/bash
               set -e
@@ -108,6 +107,10 @@ stages:
             runOnce:
               deploy:
                 steps:
+                - task: DownloadSecureFile@1
+                  name: kubeConfig
+                  inputs:
+                    secureFile: 'kubeconfig-${{environment.name}}'
                 - task: KubectlInstaller@0
                   displayName: 'Install Kubectl latest'
                 - bash: |
@@ -116,14 +119,7 @@ stages:
                     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
                     chmod 700 get_helm.sh
                     ./get_helm.sh                 
-                  displayName: 'Install helm 3'
-                - task: HelmDeploy@0
-                  displayName: 'helm delete: delete existing deployment'
-                  inputs:
-                    connectionType: 'Kubernetes Service Connection'
-                    kubernetesServiceConnection: ${{ environment.kubeconfig }}                   
-                    command: delete
-                    arguments: 'unit-aks'                   
+                  displayName: 'Install helm 3'                  
                 - task: HelmDeploy@0
                   displayName: 'helm upgrade'
                   inputs:
@@ -134,7 +130,13 @@ stages:
                     chartType: FilePath
                     chartPath: '$(Pipeline.Workspace)/drop_${{environment.name}}/unit-aks-0.0.1.tgz'
                     releaseName: 'unit-aks'
-                  condition: succeededOrFailed()                    
+
+                - bash: |
+                    #!/bin/bash
+                    set -e
+                    kubectl --kubeconfig $(kubeConfig.secureFilePath) rollout restart deployment/unit-aks
+                  displayName: 'kubectl rollout restart deployment/unit-aks'
+
                 # - bash: |
                 #     #!/bin/bash
                 #     set -e
