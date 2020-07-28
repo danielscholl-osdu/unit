@@ -42,8 +42,8 @@
 
     <repositories>
         <repository>
-            <id>os-core</id>
-            <url>https://pkgs.dev.azure.com/slb-des-ext-collaboration/_packaging/os-core/maven/v1</url>
+            <id>${gitlab-server}</id>
+            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
             <releases>
               <enabled>true</enabled>
             </releases>
