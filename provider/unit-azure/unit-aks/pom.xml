@@ -19,6 +19,10 @@
 
     <repositories>
         <repository>
+            <id>${gitlab-server}</id>
+            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
+        </repository>
+        <repository>
             <id>jboss</id>
             <name>jboss repo</name>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
