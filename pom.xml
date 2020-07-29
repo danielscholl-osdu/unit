@@ -12,7 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <core-lib-azure.version>0.0.9</core-lib-azure.version>
     <core-lib-gcp.version>0.1.17</core-lib-gcp.version>
-    <azure-spring-boot.version>2.2.4</azure-spring-boot.version>
+    <azure-spring-boot.version>2.3.2</azure-spring-boot.version>
     <micrometer-registry-azure-monitor.version>1.4.1</micrometer-registry-azure-monitor.version>
   </properties>
 
@@ -24,11 +24,11 @@
   	</license>
   </licenses>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-    </parent>
+  <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>2.2.5.RELEASE</version>
+  </parent>
 
 	<groupId>org.opengroup.osdu.unit-service</groupId>
 	<artifactId>unit-service</artifactId>
@@ -36,6 +36,31 @@
 	<packaging>pom</packaging>
 	<name>unit-service</name>
 	<description>Unit service</description>
+
+  <modules>
+    <module>unit-core</module>
+    <module>provider/unit-gcp/unit-gae</module>
+    <module>provider/unit-gcp/unit-gke</module>
+    <module>provider/unit-azure/unit-aks</module>
+  </modules>
+
+  <repositories>
+    <repository>
+        <id>${gitlab-server}</id>
+        <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+      <repository>
+          <id>${gitlab-server}</id>
+          <url>https://community.opengroup.org/api/v4/projects/74/packages/maven</url>
+      </repository>
+      <snapshotRepository>
+          <id>${gitlab-server}</id>
+          <url>https://community.opengroup.org/api/v4/projects/74/packages/maven</url>
+      </snapshotRepository>
+  </distributionManagement>
 
   <dependencyManagement>
     <dependencies>
@@ -127,75 +152,4 @@
     </dependencies>
   </dependencyManagement>
 
-    <profiles>
-        <profile>
-            <id>unit-core</id>
-            <activation>
-                <!-- this profile is active by default -->
-                <activeByDefault>true</activeByDefault>
-                <!-- activate if system properties 'env=unit-core' -->
-                <property>
-                    <name>env</name>
-                    <value>unit-core</value>
-                </property>
-            </activation>
-            <modules>
-                <module>unit-core</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>unit-aks</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>unit-aks</value>
-                </property>
-            </activation>
-            <modules>
-                <module>provider/unit-azure/unit-aks</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>unit-gae</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>unit-gae</value>
-                </property>
-            </activation>
-            <modules>
-                <module>provider/unit-gcp/unit-gae</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>unit-gke</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>unit-gke</value>
-                </property>
-            </activation>
-            <modules>
-                <module>provider/unit-gcp/unit-gke</module>
-            </modules>
-        </profile>
-    </profiles>
-
-    <repositories>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
-        </repository>
-        <snapshotRepository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

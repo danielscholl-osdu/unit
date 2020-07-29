@@ -5,7 +5,7 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
-import org.opengroup.osdu.unitservice.v2.model.CatalogImpl;
+import org.opengroup.osdu.unitservice.model.CatalogImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -38,6 +38,8 @@ spec:
           env:
             - name: ENTITLEMENT_URL
               value: "{{.Values.service.entitlement.url}}"
+            - name: client-id
+              value: "{{.Values.service.client.url}}"
       initContainers:
       - name: "init-unit-catalog"
         image: "{{ .Values.catalogs.repository }}:{{ .Values.catalogs.tag }}"

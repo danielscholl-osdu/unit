@@ -1,10 +1,16 @@
 FROM openjdk:8-jdk-alpine
 
 ARG ENTITLEMENT_URL
+ARG client-id
+
 ARG APP_NAME=os-unit-service
+
 ENV ENTITLEMENT_URL=$ENTITLEMENT_URL
+ENV client-id=$client-id
+
 ENV SLB_HOME /opt/slb
 ENV APP_HOME $SLB_HOME/$APP_NAME
+
 WORKDIR $APP_HOME
 
 EXPOSE 8080
