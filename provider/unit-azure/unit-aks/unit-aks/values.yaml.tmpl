@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-namespace: osdu-core
+namespace: default
 replicaCount: 1
 
 image:
@@ -30,6 +30,8 @@ service:
     targetPort: 8443
   entitlement:
     url: ENTITLEMENT_URL
+  client:
+    url: client-id
 
 ingress:
   enabled: false

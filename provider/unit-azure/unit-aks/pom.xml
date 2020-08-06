@@ -22,18 +22,12 @@
             <id>${gitlab-server}</id>
             <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
         </repository>
-    </repositories>
-
-    <distributionManagement>
         <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
+            <id>jboss</id>
+            <name>jboss repo</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
-        <snapshotRepository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
-        </snapshotRepository>
-    </distributionManagement>
+    </repositories>
     <properties>
         <app.version>1</app.version>
         <app.id>unit-aks</app.id>    
@@ -45,6 +39,7 @@
         <resteasy.version>3.6.2.Final</resteasy.version>
 
         <objectify.version>5.1.22</objectify.version>
+        <azure.version>2.3.2</azure.version>
         <slf4j.version>1.7.25</slf4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>	    
@@ -94,18 +89,16 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
-      <dependency>
-        <groupId>org.opengroup.osdu</groupId>
-        <artifactId>core-lib-azure</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>azure-active-directory-spring-boot-starter</artifactId>
+            <version>${azure.version}</version>
+        </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
         <artifactId>micrometer-registry-azure-monitor</artifactId>
       </dependency>
-      <dependency>
-        <groupId>com.microsoft.azure</groupId>
-        <artifactId>azure-spring-boot</artifactId>
-      </dependency>
+
     </dependencies>
 
     <build>
