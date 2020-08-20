@@ -22,6 +22,5 @@ include:
     file: "scanners/gitlab-ultimate.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
-    ref: 'osdu-gcp-cloudrun'
     file: 'cloud-providers/osdu-gcp-cloudrun.yml'
 
