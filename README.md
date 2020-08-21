@@ -18,43 +18,17 @@ mvn clean install
 ```
 
 ## Running Azure Unit Service locally
-### Configure Maven Settings
-To obtain maven dependencies from the **Azure DevOps Artifacts** we need to configure the value for variable ${VSTS_FEED_TOKEN} described in `maven\settings.xml`:
-- **Get token:**  
-We can use personal token generated in VSTS on [Personal Access Tokens](https://dev.azure.com/slb-swt/_usersSettings/tokens) > New token > Organization: slb-des-ext-collaboration > Create
-- **Set token in your local home folder:**  
-Open or create `USER_HOME_FOLDER\.m2\settings.xml` and paste your personal token in `<password></password>`section.
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <servers>
-        <server>
-          <id>os-core</id>
-          <username>slb-des-ext-collaboration</username>
-          <password></password>
-        </server>
-  </servers>
-</settings>
-```
 #### Build and run Unit Service locally using bash
 - Set the required environments described in [Build](##Build) and [Release/deployment](##Release/deployment) sections
-- Navigate to the Unit Service's root folder ```os-unit-service``` 
+- Navigate to the Unit Service's root folder ```unit-service``` 
 - Build core and run unit tests in command line:
 ```bash
-mvn clean install -P unit-core
-# To run without tests add -Dmaven.test.skip=true
+mvn clean install # To run without tests add -Dmaven.test.skip=true
 ```
-- Navigate to the Unit Service's Azure 
-- Build services in command line:
-```bash
-mvn clean package -P unit-aks,unit-core
-```
-- Navigate to the Unit Service's root folder ```os-unit-service``` 
+- Navigate to the Unit Service's root folder ```unit-service``` 
 - Run application with command
 ```bash
-java -jar provider/unit-azure/unit-aks/target/unit-aks-1.0.0.jar
+java -Dclient-id=${aad_client_id} -jar provider/unit-azure/unit-aks/target/unit-aks-1.0.0.jar
 ```
 
 #### Running Azure Unit Service using IntelliJ IDEA
@@ -62,7 +36,7 @@ Navigate to the **Create Run/Debug Configuration** tool
 Select **'Add New Configuration'** and select **Application**
 
 Type the next commands into the suggested fields: 
-- Working directory: ```{path_to_the_unit}/os-unit-service``` 
+- Working directory: ```{path_to_the_unit}/unit-service``` 
 - Main class: ```org.opengroup.osdu.unitservice.UomAksApplication``` 
 - Use classpath of module:  ```unit-aks```  
 ***Note: If you don't see "unit-aks" in the dropdown menu - find appropriate pom.xml and click "Add as a Maven project"***
@@ -116,7 +90,7 @@ requires the following environment variables:
 | Variable | Contents |
 |----------|----------|
 | UNIT_CATALOG_BUCKET | Optional, bucket name where unit catalogs are located. |
-| UNIT_CATALOG_FILENAME | Required, file name for the unit catalog to use. Default to UnitCatalog_V2.json |
+| UNIT_CATALOG_FILENAME | Required, file name for the unit catalog to use. Default to /mnt/unit_catalogs/unit_catalog_v2.json |
 
 ## Release/deployment
 VSTS release definition is located at provider\unit-azure\unit-aks\devops, which 
@@ -125,3 +99,4 @@ requires the following environment variables:
 | Variable | Contents |
 |----------|----------|
 | ENTITLEMENT_URL | Required |
+| client-id | Required, Azure AAD client id |
