@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.opengroup.osdu.unitservice.interfaces.MeasurementEssence;
 import org.opengroup.osdu.unitservice.interfaces.UnitEssence;
 import org.opengroup.osdu.unitservice.helper.Utility;
+import org.opengroup.osdu.unitservice.interfaces.MeasurementEssence;
 
 /**
  * A compact class describing the essence of a unit, {@link UnitImpl}.

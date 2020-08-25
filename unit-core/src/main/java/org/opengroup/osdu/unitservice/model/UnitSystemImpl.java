@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.opengroup.osdu.unitservice.interfaces.UnitAssignment;
-import org.opengroup.osdu.unitservice.interfaces.UnitSystem;
 import org.opengroup.osdu.unitservice.helper.Utility;
+import org.opengroup.osdu.unitservice.interfaces.UnitSystem;
 import org.opengroup.osdu.unitservice.model.extended.UnitSystemEssenceImpl;
 
 import java.util.*;

@@ -1,20 +1,20 @@
 package org.opengroup.osdu.unitservice.security;
 
-import org.opengroup.osdu.unitservice.configuration.SecurityConfiguration;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends SecurityConfiguration {
-	
-    public SecurityConfig(@Value("${osdu.entitlement.url}") String entUrl, HandlerExceptionResolver handlerExceptionResolver) {
-		super(entUrl, handlerExceptionResolver);
-	}
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
+
+		
+		//AuthenticationRequestFilter authhenticationFilter = new AuthenticationRequestFilter( "" , handlerExceptionResolver);
+		
         http.csrf().disable()
         //.sessionManagement().sessionCreationPolicy(STATELESS)
         //.and()
