@@ -35,7 +35,7 @@ public class SwaggerConfiguration {
     public Docket api(List<Parameter> globalParameters) {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("org.opengroup.osdu.unitservice.api"))
                 .paths(s -> !startsWithIgnoreCase(s, "/error"))
                 .build()
                 .globalOperationParameters(globalParameters)

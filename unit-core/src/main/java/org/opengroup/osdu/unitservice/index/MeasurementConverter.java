@@ -1,10 +1,10 @@
 package org.opengroup.osdu.unitservice.index;
 
-import org.opengroup.osdu.unitservice.helper.Utility;
-import org.opengroup.osdu.unitservice.model.CatalogImpl;
-import org.opengroup.osdu.unitservice.model.MeasurementImpl;
 import org.opengroup.osdu.unitservice.model.MeasurementDeprecationInfoImpl;
 import org.opengroup.osdu.unitservice.model.MeasurementEssenceImpl;
+import org.opengroup.osdu.unitservice.model.MeasurementImpl;
+import org.opengroup.osdu.unitservice.helper.Utility;
+import org.opengroup.osdu.unitservice.model.CatalogImpl;
 
 import java.util.List;
 
