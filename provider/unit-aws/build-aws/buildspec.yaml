@@ -30,7 +30,7 @@ phases:
       - mkdir -p /root/.m2
       - cp ./provider/unit-aws/maven/settings.xml /root/.m2/settings.xml # copy the AWS-specific settings.xml to the CodeBuild instance's .m2 folder
       - export AWS_ACCOUNT_ID=`aws sts get-caller-identity | grep Account | cut -d':' -f 2 | cut -d'"' -f 2`
-      - export AWS_OSDU_DEV_MAVEN_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain osdu-dev --domain-owner $AWS_ACCOUNT_ID --query authorizationToken --output text`
+      - export AWS_OSDU_DEV_MAVEN_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $AWS_OSDU_DEV_MAVEN_DOMAIN --domain-owner $AWS_ACCOUNT_ID --query authorizationToken --output text`
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
@@ -51,11 +51,12 @@ phases:
       - printenv
 
       - echo "Building primary service assemblies..."
+      - mvn -B package #temp fix for failing build
       - mvn -B test install -pl unit-core,provider/unit-aws -Ddeployment.environment=prod
 
       - echo "SKIPPING integration test build steps, up for review by OSDU now, they are in python an need to be rewritten in Java"
       # - echo "Building integration testing assemblies and gathering artifacts..."
-      # - ./testing/unit_test_aws/build-aws/prepare-dist.sh
+      - ./testing/unit_test_aws/build-aws/prepare-dist.sh
 
       - echo "Building docker image..."
       - docker build -f provider/unit-aws/build-aws/Dockerfile -t ${ECR_IMAGE} .

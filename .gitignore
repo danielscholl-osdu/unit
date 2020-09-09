@@ -43,3 +43,5 @@ testing/*/env/
 **/*.pyc
 
 dist
+
+.DS_STORE

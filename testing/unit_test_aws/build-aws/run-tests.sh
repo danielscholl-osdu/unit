@@ -25,48 +25,45 @@ exit 0
 # echo "$SCRIPT_SOURCE_DIR"
 # (cd "$SCRIPT_SOURCE_DIR"/../bin && ./install-deps.sh)
 
-# #### ADD REQUIRED ENVIRONMENT VARIABLES HERE ###############################################
-# # The following variables are automatically populated from the environment during integration testing
-# # see os-deploy-aws/build-aws/integration-test-env-variables.py for an updated list
+#### ADD REQUIRED ENVIRONMENT VARIABLES HERE ###############################################
+# The following variables are automatically populated from the environment during integration testing
+# see os-deploy-aws/build-aws/integration-test-env-variables.py for an updated list
 
-# # AWS_COGNITO_CLIENT_ID
-# # ELASTIC_HOST
-# # ELASTIC_PORT
-# # FILE_URL
-# # LEGAL_URL
-# # SEARCH_URL
-# # STORAGE_URL
-# export OTHER_RELEVANT_DATA_COUNTRIES=US
-# export DEPLOY_ENV=empty
-# export LEGAL_TAG=opendes-public-usa-dataset-1
-# export TENANT_NAME=int-test-unit
-# export AWS_COGNITO_AUTH_FLOW=USER_PASSWORD_AUTH
-# export AWS_COGNITO_AUTH_PARAMS_PASSWORD=$ADMIN_PASSWORD
-# export AWS_COGNITO_AUTH_PARAMS_USER=$ADMIN_USER
-# export AWS_COGNITO_AUTH_PARAMS_USER_NO_ACCESS=$USER_NO_ACCESS
-# export UNIT_URL=$UNIT_URL
-# export BASE_URL=$UNIT_URL
-# export DOMAIN=testing.com
+# AWS_COGNITO_CLIENT_ID
+# ELASTIC_HOST
+# ELASTIC_PORT
+# FILE_URL
+# LEGAL_URL
+# SEARCH_URL
+# STORAGE_URL
 
-# #### RUN INTEGRATION TEST #########################################################################
 
-# pushd "$SCRIPT_SOURCE_DIR"/../unit_test_aws
+export AWS_COGNITO_AUTH_FLOW=USER_PASSWORD_AUTH
+export AWS_COGNITO_AUTH_PARAMS_PASSWORD=$ADMIN_PASSWORD
+export AWS_COGNITO_AUTH_PARAMS_USER=$ADMIN_USER
+export AWS_COGNITO_AUTH_PARAMS_USER_NO_ACCESS=$USER_NO_ACCESS
+export BASE_URL=$UNIT_URL
 
-# chmod +x run-integration-tests.sh
-# ./run-integration-tests.sh
+#### RUN INTEGRATION TEST #########################################################################
 
-# popd
+pushd "$SCRIPT_SOURCE_DIR"/../unit_test_aws
 
-# TEST_EXIT_CODE=$?
+rm -rf test-reports/
+mkdir test-reports
+chmod +x run-integration-tests.sh
+echo Running Unit Service Integration Tests...
+./run-integration-tests.sh
 
-# #### COPY TEST REPORTS #########################################################################
+popd
 
-# # TODO: Copy Test Reports
+TEST_EXIT_CODE=$?
 
-# # if [ -n "$1" ]
-# #   then
-# #     mkdir -p "$1"
-# #     cp -R "$SCRIPT_SOURCE_DIR"/../target/surefire-reports "$1"
-# # fi
+#### COPY TEST REPORTS #########################################################################
 
-# exit $TEST_EXIT_CODE
+if [ -n "$1" ]
+  then
+    mkdir -p "$1"
+    cp -R "$SCRIPT_SOURCE_DIR"/../test-reports "$1"
+fi
+
+exit $TEST_EXIT_CODE

@@ -17,5 +17,9 @@ sys.path.append("..")
 
 from unit_test_core.test_unit_service_v2 import *
 
+# if __name__ == '__main__':
+#     unittest.main()
+
 if __name__ == '__main__':
-    unittest.main()
+    import xmlrunner
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

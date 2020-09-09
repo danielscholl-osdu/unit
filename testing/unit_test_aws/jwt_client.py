@@ -13,8 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os;
+import boto3;
+import jwt;
+
 def get_id_token():
-        raise Exception("The operation is not implemented")
+    client = boto3.client('cognito-idp')
+
+    userAuth = client.admin_initiate_auth(
+        ClientId= os.environ['AWS_COGNITO_CLIENT_ID'],
+        AuthFlow= os.environ['AWS_COGNITO_AUTH_FLOW'],
+        AuthParameters= {
+            "USERNAME": os.environ['AWS_COGNITO_AUTH_PARAMS_USER'],
+            "PASSWORD": os.environ['AWS_COGNITO_AUTH_PARAMS_PASSWORD']
+        })
+
+    return userAuth['AuthenticationResult']['AccessToken']
 
 def get_invalid_token():
-    return ""
+    #generate a dummy jwt
+    return jwt.encode({'some': 'payload'}, 'secret', algorithm='HS256').decode("utf-8")

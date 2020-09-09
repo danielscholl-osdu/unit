@@ -28,7 +28,7 @@ python3 run_test.py
 
 TEST_STATUS=$?
 
-python3 -m pip freeze > requirements.txt
+# python3 -m pip freeze > requirements.txt
 python3 -m pip uninstall -r requirements.txt -y
 deactivate
 rm -rf env/
