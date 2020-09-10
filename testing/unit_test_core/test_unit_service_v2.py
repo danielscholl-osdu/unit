@@ -687,9 +687,9 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
             self.assertIsNotNone(api_response)
             self.fail('should not be coming here')
         except ApiException as e:
-            body = json.loads(e.body)
-            self.assertTrue(401 == e.status or 400 == e.status)
-            self.assertTrue("Unauthorized" == body['reason'] or "BAD REQUEST" == body['reason'])
+            reason = json.loads(e.body)['error']
+            self.assertTrue(401 == e.status or 403 == e.status)
+            self.assertTrue("Unauthorized" == reason or "Forbidden" == reason)
 
     def test_get_catalog_summary_with_invalid_token(self):
         """Test get_catalog_summary"""
@@ -699,9 +699,9 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
             self.assertIsNotNone(api_response)
             self.fail('should not be coming here')
         except ApiException as e:
-            body = json.loads(e.body)
-            self.assertTrue(401 == e.status or 400 == e.status)
-            self.assertTrue("Unauthorized" == body['reason'] or "BAD REQUEST" == body['reason'])
+            reason = json.loads(e.body)['error']
+            self.assertTrue(401 == e.status or 403 == e.status)
+            self.assertTrue("Unauthorized" == reason or "Forbidden" == reason)
 
     def test_get_map_states_with_invalid_token(self):
         """Test get_map_states"""
@@ -710,8 +710,8 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
             self.assertIsNotNone(api_response)
             self.fail('should not be coming here')
         except ApiException as e:
-            body = json.loads(e.body)
-            self.assertTrue(401 == e.status or 400 == e.status)
-            self.assertTrue("Unauthorized" == body['reason'] or "BAD REQUEST" == body['reason'])
+            reason = json.loads(e.body)['error']
+            self.assertTrue(401 == e.status or 403 == e.status)
+            self.assertTrue("Unauthorized" == reason or "Forbidden" == reason)
 
 

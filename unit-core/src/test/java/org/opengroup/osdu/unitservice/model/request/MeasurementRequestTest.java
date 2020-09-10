@@ -1,6 +1,5 @@
 package org.opengroup.osdu.unitservice.model.request;
 
-import junit.framework.TestCase;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.model.MeasurementEssenceImpl;
 import org.opengroup.osdu.unitservice.request.MeasurementRequest;
@@ -14,7 +13,7 @@ public class MeasurementRequestTest {
     public void emptyTest(){
         MeasurementRequest request = new MeasurementRequest();
         assertNotNull(request);
-        TestCase.assertNull(request.getMeasurementEssence());
+        assertNull(request.getMeasurementEssence());
         assertNull(request.getMeasurementEssenceJson());
     }
 
@@ -44,18 +43,18 @@ public class MeasurementRequestTest {
         MeasurementRequest request = new MeasurementRequest(null, v2_pr);
         assertNotNull(request);
         assertNotNull(request.getMeasurementEssenceJson());
-        TestCase.assertNotNull(request.getMeasurementEssence());
+        assertNotNull(request.getMeasurementEssence());
         v2_pr = v2_pr.replace("UM", "Corrupted");
         request = new MeasurementRequest(null, v2_pr);
         assertNotNull(request);
         assertNotNull(request.getMeasurementEssenceJson());
-        TestCase.assertNull(request.getMeasurementEssence());
+        assertNull(request.getMeasurementEssence());
         v2_pr = v2_pr.replace("Corrupted", "UM");
         v2_pr = v2_pr.replace("ancestry", "test");
         request = new MeasurementRequest(null, v2_pr);
         assertNotNull(request);
         assertNotNull(request.getMeasurementEssenceJson());
-        TestCase.assertNull(request.getMeasurementEssence());
+        assertNull(request.getMeasurementEssence());
     }
 
     @Test
@@ -65,12 +64,12 @@ public class MeasurementRequestTest {
         MeasurementRequest request = new MeasurementRequest(essence, null);
         assertNotNull(request);
         assertNull(request.getMeasurementEssenceJson());
-        TestCase.assertNotNull(request.getMeasurementEssence());
+        assertNotNull(request.getMeasurementEssence());
         v2_pr = "{\"ancestry\":\"Length.Standard_Depth_Index\",\"type\":\"UM\"}";
         request = new MeasurementRequest(essence, v2_pr);
         assertNotNull(request);
         assertNotNull(request.getMeasurementEssenceJson());
-        TestCase.assertNotNull(request.getMeasurementEssence());
-        TestCase.assertEquals("Length.Millimeter", request.getMeasurementEssence().getAncestry());
+        assertNotNull(request.getMeasurementEssence());
+        assertEquals("Length.Millimeter", request.getMeasurementEssence().getAncestry());
     }
 }

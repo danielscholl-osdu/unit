@@ -1,9 +1,9 @@
 package org.opengroup.osdu.unitservice.model.extended;
 
-import org.opengroup.osdu.unitservice.interfaces.ABCD;
 import org.opengroup.osdu.unitservice.interfaces.ConversionResult;
 import org.opengroup.osdu.unitservice.interfaces.ScaleOffset;
 import org.opengroup.osdu.unitservice.interfaces.Unit;
+import org.opengroup.osdu.unitservice.interfaces.ABCD;
 
 /**
  * A class implements {@link ConversionResult}.

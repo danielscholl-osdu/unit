@@ -1,6 +1,5 @@
 package org.opengroup.osdu.unitservice.model;
 
-import junit.framework.TestCase;
 import org.opengroup.osdu.unitservice.interfaces.UnitMapItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +51,7 @@ public class UnitMapImplTest {
     @Test
     public void addUnitMapItem() {
         assertEquals(1, unitMap.getUnitMapItemCount());
-        TestCase.assertEquals(unitMapItem, unitMap.getUnitMapItems().get(0));
+        assertEquals(unitMapItem, unitMap.getUnitMapItems().get(0));
 
         UnitMapItemImpl unitMapItem2 = new UnitMapItemImpl(fromUnit, toUnit, "identical", "note");
         unitMap.addUnitMapItem(unitMapItem2);

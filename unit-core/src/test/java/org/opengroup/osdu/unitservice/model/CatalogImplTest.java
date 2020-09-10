@@ -1,6 +1,5 @@
 package org.opengroup.osdu.unitservice.model;
 
-import junit.framework.TestCase;
 import org.opengroup.osdu.unitservice.interfaces.*;
 import org.opengroup.osdu.unitservice.helper.MapStateHelper;
 import org.opengroup.osdu.unitservice.helper.Utility;
@@ -681,7 +680,7 @@ public class CatalogImplTest {
         assertNotNull(m);
         MeasurementDeprecationInfoImpl deprecationInfo = m.getDeprecationInfo();
         assertNotNull(deprecationInfo);
-        TestCase.assertEquals(MapStateHelper.getUnresolvedMapState().getState(), deprecationInfo.getState());
+        assertEquals(MapStateHelper.getUnresolvedMapState().getState(), deprecationInfo.getState());
     }
 
     @Test(expected=Exception.class)
@@ -960,7 +959,7 @@ public class CatalogImplTest {
         assertNull(unit1.getEssence().getABCD());
         UnitDeprecationInfoImpl deprecationInfo = unit1.getDeprecationInfo();
         assertNotNull(deprecationInfo);
-        TestCase.assertEquals(MapStateHelper.getUnresolvedMapState().getState(), deprecationInfo.getState());
+        assertEquals(MapStateHelper.getUnresolvedMapState().getState(), deprecationInfo.getState());
 
         //A0.0 => A0.1
         String energisticsJsonString = "{\"abcd\":{\"a\":0.1,\"b\":0.3048,\"c\":1.0,\"d\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}";
@@ -972,7 +971,7 @@ public class CatalogImplTest {
         assertNotNull(unit2.getEssence().getABCD());
         deprecationInfo = unit2.getDeprecationInfo();
         assertNotNull(deprecationInfo);
-        TestCase.assertEquals(MapStateHelper.getUnresolvedMapState().getState(), deprecationInfo.getState());
+        assertEquals(MapStateHelper.getUnresolvedMapState().getState(), deprecationInfo.getState());
 
         assertNotSame(unit1, unit2);
     }
