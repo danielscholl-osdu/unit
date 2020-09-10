@@ -227,6 +227,9 @@ The following software have components provided under the terms of this license:
 - Spring AOP (from https://github.com/spring-projects/spring-framework)
 - Spring Beans (from https://github.com/spring-projects/spring-framework)
 - Spring Boot (from http://projects.spring.io/spring-boot/)
+- Spring Boot Actuator (from http://projects.spring.io/spring-boot/)
+- Spring Boot Actuator AutoConfigure (from https://projects.spring.io/spring-boot/#/spring-boot-parent/spring-boot-actuator-autoconfigure)
+- Spring Boot Actuator Starter (from http://projects.spring.io/spring-boot/)
 - Spring Boot AutoConfigure (from http://projects.spring.io/spring-boot/)
 - Spring Boot Jetty Starter (from http://projects.spring.io/spring-boot/)
 - Spring Boot Json Starter (from https://projects.spring.io/spring-boot/#/spring-boot-parent/spring-boot-starters/spring-boot-starter-json)
@@ -626,7 +629,6 @@ Public-Domain
 The following software have components provided under the terms of this license:
 
 - Guava: Google Core Libraries for Java (from https://github.com/google/guava.git)
-- HdrHistogram (from http://hdrhistogram.github.io/HdrHistogram/)
 - JTidy (from http://jtidy.sourceforge.net)
 - LatencyUtils (from http://latencyutils.github.io/LatencyUtils/)
 - Plexus Common Utilities (from http://plexus.codehaus.org/plexus-utils)
@@ -669,7 +671,6 @@ The following software have components provided under the terms of this license:
 
 - Guava: Google Core Libraries for Java (from https://github.com/google/guava.git)
 - HdrHistogram (from http://hdrhistogram.github.io/HdrHistogram/)
-- HdrHistogram (from http://hdrhistogram.github.io/HdrHistogram/)
 - Joda-Time (from http://www.joda.org/joda-time/)
 - LatencyUtils (from http://latencyutils.github.io/LatencyUtils/)
 - Microsoft Application Insights Java SDK Core (from https://github.com/Microsoft/ApplicationInsights-Java)
@@ -695,4 +696,5 @@ The following software have components provided under the terms of this license:
 - org.junit.platform:junit-platform-engine (from http://junit.org/junit5/)
 - org.junit.vintage:junit-vintage-engine (from http://junit.org/junit5/)
 - xml-apis (from )
+
 
