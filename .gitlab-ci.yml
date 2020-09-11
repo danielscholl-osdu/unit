@@ -7,6 +7,7 @@ variables:
   OSDU_GCP_ENV_VARS: ENTITLEMENT_URL=$OSDU_GCP_ENTITLEMENTS_URL,UNIT_CATALOG_BUCKET=$OSDU_GCP_UNIT_CATALOG_BUCKET
   OSDU_GCP_PORT: 8080
   # --- end of osdu-gcp specific variables --- 
+  IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
 
 include:
   - project: "osdu/platform/ci-cd-pipelines"
@@ -23,4 +24,6 @@ include:
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: 'cloud-providers/osdu-gcp-cloudrun.yml'
-
+    
+  - project: "osdu/platform/ci-cd-pipelines"
+    file: "cloud-providers/ibm.yml"
