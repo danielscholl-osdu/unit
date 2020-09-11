@@ -41,6 +41,7 @@ testing/*/env/
 
 #.pyc files in all directories
 **/*.pyc
+dist
 .env
 .DS_Store
 .sts*

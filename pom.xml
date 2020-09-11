@@ -42,6 +42,7 @@
     <module>provider/unit-gcp/unit-gae</module>
     <module>provider/unit-gcp/unit-gke</module>
     <module>provider/unit-azure/unit-aks</module>
+    <module>provider/unit-aws</module>
     <module>provider/unit-ibm/unit-ocp</module>
   </modules>
 
