@@ -8,7 +8,6 @@ variables:
   OSDU_GCP_PORT: 8080
   # --- end of osdu-gcp specific variables --- 
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
-  IBM_INT_TEST_SUBDIR: testing/unit_test_ibm
 
 include:
   - project: "osdu/platform/ci-cd-pipelines"
