@@ -120,31 +120,7 @@
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
             <artifactId>os-core-common</artifactId>
-            <version>0.0.13</version>
-        </dependency>
-        
-	    <!-- Lucene Indexing Dependencies -->
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>${os-core-common.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -204,26 +180,7 @@
                      -->
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.whitesource</groupId>
-                <artifactId>whitesource-maven-plugin</artifactId>
-                <version>18.11.1</version>
-                <configuration>
-                    <orgToken>${orgToken}</orgToken>
-                    <wssUrl>https://app-eu.whitesourcesoftware.com/agent</wssUrl>
-                    <aggregateModules>true</aggregateModules>
-                    <product>DE</product>
-                    <aggregateProjectName>de-unit-service</aggregateProjectName>
-                    <forceCheckAllDependencies>true</forceCheckAllDependencies>
-                    <checkPolicies>false</checkPolicies>
-                    <forceUpdate>true</forceUpdate>
-                    <failOnError>false</failOnError>
-                    <excludes>
-                        <exclude>integration-tests</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+          </plugins>
     </build>
 
 </project>

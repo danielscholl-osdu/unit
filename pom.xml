@@ -14,6 +14,7 @@
     <core-lib-gcp.version>0.1.17</core-lib-gcp.version>
     <azure-spring-boot.version>2.3.2</azure-spring-boot.version>
     <micrometer-registry-azure-monitor.version>1.4.1</micrometer-registry-azure-monitor.version>
+      <os-core-common.version>0.3.6</os-core-common.version>
   </properties>
 
   <licenses>
@@ -65,91 +66,20 @@
   </distributionManagement>
 
   <dependencyManagement>
+
     <dependencies>
       <dependency>
-        <groupId>org.opengroup.osdu</groupId>
-        <artifactId>core-lib-azure</artifactId>
-        <version>${core-lib-azure.version}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.1.7.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>io.micrometer</groupId>
-        <artifactId>micrometer-registry-azure-monitor</artifactId>
-        <version>${micrometer-registry-azure-monitor.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.microsoft.azure</groupId>
-        <artifactId>azure-spring-boot</artifactId>
-        <version>${azure-spring-boot.version}</version>
-      </dependency>
+
       <dependency>
         <groupId>org.opengroup.osdu</groupId>
-        <artifactId>core-lib-gcp</artifactId>
-        <version>${core-lib-gcp.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-core</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-analyzers-common</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-queryparser</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-suggest</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-spatial3d</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-spatial-extras</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-spatial</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-misc</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-memory</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-join</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-highlighter</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-grouping</artifactId>
-        <version>${lucene.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.lucene</groupId>
-        <artifactId>lucene-backward-codecs</artifactId>
-        <version>${lucene.version}</version>
+        <artifactId>os-core-common</artifactId>
+        <version>${os-core-common.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
