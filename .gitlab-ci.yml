@@ -36,3 +36,4 @@ include:
 
   - project: 'osdu/platform/ci-cd-pipelines'
     file: 'cloud-providers/aws.yml'
+    ref: aws-python-int-tests
