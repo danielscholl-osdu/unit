@@ -22,6 +22,7 @@ def get_id_token():
 
     userAuth = client.admin_initiate_auth(
         ClientId= os.environ['AWS_COGNITO_CLIENT_ID'],
+        UserPoolId= os.environ['AWS_COGNITO_USER_POOL_ID'],
         AuthFlow= os.environ['AWS_COGNITO_AUTH_FLOW'],
         AuthParameters= {
             "USERNAME": os.environ['AWS_COGNITO_AUTH_PARAMS_USER'],
