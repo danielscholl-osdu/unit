@@ -20,18 +20,18 @@ import static org.mockito.Mockito.*;
 
 import org.opengroup.osdu.unitservice.helper.Utility;
 
-public class UnitApiTest {
+public class UnitApiV3Test {
  
     final static double delta = 0.0000001;
 
     @Mock
 	private static CatalogImpl	catalogMock;
 	@InjectMocks
-    private static UnitApi unitApi = null;
+    private static UnitApiV3 unitApiV3 = null;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        unitApi = new UnitApi(catalogMock);
+        unitApiV3 = new UnitApiV3(catalogMock);
     }
 
     @Before
@@ -45,17 +45,17 @@ public class UnitApiTest {
     
     @Test
     public void getCatalog() {
-        assertNotNull(unitApi);
-        Catalog catalog = unitApi.getCatalog();
+        assertNotNull(unitApiV3);
+        Catalog catalog = unitApiV3.getCatalog();
         assertNull(catalog);
     }
 
     @Test
     public void getLastModified() {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String lastModified = "2018-08-22T06:37:14.7654645Z";
         when(catalogMock.getLastModified()).thenReturn(lastModified);
-        CatalogLastModified result = unitApi.getLastModified();
+        CatalogLastModified result = unitApiV3.getLastModified();
         assertEquals(lastModified, result.getLastModified());
     }
 
@@ -64,12 +64,12 @@ public class UnitApiTest {
      *********************************************/
     @Test
     public void getMeasurements() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<MeasurementImpl> measurementList = new ArrayList<>();
         measurementList.add(new MeasurementImpl());
         Result<MeasurementImpl> measurementImplResult = new Result<>(measurementList, 0, 1);
         when(catalogMock.getMeasurements(0, -1)).thenReturn(measurementImplResult);
-        QueryResult result = unitApi.getMeasurements(0, -1);
+        QueryResult result = unitApiV3.getMeasurements(0, -1);
         assertNotNull(result);
         assertEquals(1, result.getMeasurements().size());
         assertEquals(measurementList.get(0), result.getMeasurements().get(0));
@@ -79,67 +79,67 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void getMeasurementsWithInvalidOffset() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.getMeasurements(-1, 10)).thenThrow(AppException.class);
-        unitApi.getMeasurements(-1, 10);
+        unitApiV3.getMeasurements(-1, 10);
     }
 
     @Test(expected = AppException.class)
     public void getMeasurementsWithInvalidLimit() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.getMeasurements(0, -2)).thenThrow(AppException.class);
-        unitApi.getMeasurements(0, -2);
+        unitApiV3.getMeasurements(0, -2);
     }
 
 
     @Test(expected = AppException.class)
     public void getMeasurementsWithOutOfRangeOffset() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.getMeasurements(anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.getMeasurements(5, 10);
+        unitApiV3.getMeasurements(5, 10);
     }
 
     @Test
     public void getMeasurement() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String ancestry = "Length.Millimeter";
         MeasurementImpl measurement = new MeasurementImpl();
         when(catalogMock.getMeasurement(ancestry)).thenReturn(measurement);
-        Measurement result = unitApi.getMeasurement(ancestry);
+        Measurement result = unitApiV3.getMeasurement(ancestry);
         assertNotNull(result);
         assertEquals(measurement, result);
     }
 
     @Test
     public void postMeasurement() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String essenceJson = "{\"ancestry\":\"Length.Millimeter\",\"type\":\"UM\"}";
         MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
         MeasurementRequest request = new MeasurementRequest(essence, null);
         MeasurementImpl measurement = new MeasurementImpl();
         when(catalogMock.postMeasurement(essence)).thenReturn(measurement);
-        Measurement result = unitApi.postMeasurement(request);
+        Measurement result = unitApiV3.postMeasurement(request);
         assertNotNull(result);
         assertEquals(measurement, result);
     }
 
     @Test(expected=AppException.class)
     public void postMeasurementWithInvalidEssence() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String essenceJson = "{\"test\":\"Length.Millimeter\",\"type\":\"UM\"}";
         MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
         MeasurementRequest  request = new MeasurementRequest(essence, null);
         when(catalogMock.postMeasurement(essence)).thenThrow(AppException.class);
-        unitApi.postMeasurement(request);
+        unitApiV3.postMeasurement(request);
     }
 
     @Test(expected=AppException.class)
     public void getMeasurementWithInvalidCode() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String ancestry = "abc";
         when(catalogMock.getMeasurement(ancestry)).thenThrow(AppException.class);
-        unitApi.getMeasurement(ancestry);
+        unitApiV3.getMeasurement(ancestry);
     }
 
     /********************************************
@@ -147,12 +147,12 @@ public class UnitApiTest {
      *********************************************/
     @Test
     public void getUnits() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<UnitImpl> unitList = new ArrayList<>();
         unitList.add(new UnitImpl());
         Result<UnitImpl> unitResult = new Result<>(unitList, 0, 1);
         when(catalogMock.getUnits(0, -1)).thenReturn(unitResult);
-        QueryResult result = unitApi.getUnits(0, -1);
+        QueryResult result = unitApiV3.getUnits(0, -1);
         assertNotNull(result);
         assertEquals(1, result.getUnits().size());
         assertEquals(unitList.get(0), result.getUnits().get(0));
@@ -166,28 +166,28 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void getUnitsWithInvalidOffset() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.getUnits(anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.getUnits(-1, 10);
+        unitApiV3.getUnits(-1, 10);
     }
 
     @Test(expected = AppException.class)
     public void getUnitsWithInvalidLimit() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.getUnits(anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.getUnits(0, -2);
+        unitApiV3.getUnits(0, -2);
     }
 
     @Test(expected = AppException.class)
     public void getUnitsWithOutOfRangeOffset() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.getUnits(anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.getUnits(12, 10);
+        unitApiV3.getUnits(12, 10);
     }
 
     @Test
     public void postRP66Unit() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String essenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl essence = Utility.fromJsonString(essenceJson, UnitEssenceImpl.class);
@@ -195,7 +195,7 @@ public class UnitApiTest {
         UnitImpl unit = new UnitImpl();
         unit.setEssence(essence);
         when(catalogMock.postUnit(essence)).thenReturn(unit);
-        Unit result = unitApi.postUnit(request);
+        Unit result = unitApiV3.postUnit(request);
         assertNotNull(result);
         assertEquals(essence, result.getEssence());
         assertNull(result.getDeprecationInfo());
@@ -204,14 +204,14 @@ public class UnitApiTest {
 
     @Test
     public void postEnergisticsUnit() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String essenceJson = "{\"abcd\":{\"a\":0.0,\"b\":0.3048,\"c\":1.0,\"d\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}";
         UnitEssenceImpl essence = Utility.fromJsonString(essenceJson, UnitEssenceImpl.class);
         UnitRequest  request = new UnitRequest(essence, null);
         UnitImpl unit = new UnitImpl();
         unit.setEssence(essence);
         when(catalogMock.postUnit(essence)).thenReturn(unit);
-        Unit result = unitApi.postUnit(request);
+        Unit result = unitApiV3.postUnit(request);
         assertNotNull(result);
         assertEquals(essence, result.getEssence());
         assertNull(result.getDeprecationInfo());
@@ -220,18 +220,18 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void postUnitWithInvalidEssence() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String essenceJson = "{7B\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl essence = Utility.fromJsonString(essenceJson, UnitEssenceImpl.class);
         UnitRequest  request = new UnitRequest(essence, null);
         when(catalogMock.postUnit(essence)).thenThrow(AppException.class);
-        unitApi.postUnit(request);
+        unitApiV3.postUnit(request);
     }
 
     @Test
     public void getUnitsBySymbol() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String essenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl essence = Utility.fromJsonString(essenceJson, UnitEssenceImpl.class);
         UnitImpl unit = new UnitImpl();
@@ -241,7 +241,7 @@ public class UnitApiTest {
         units.add(unit);
         String symbol = "ft";
         when(catalogMock.getUnitsBySymbol(symbol)).thenReturn(unitResult);
-        QueryResult result = unitApi.getUnitsBySymbol(symbol);
+        QueryResult result = unitApiV3.getUnitsBySymbol(symbol);
         assertNotNull(result);
         assertEquals(1, result.getCount());
         assertEquals("ft", result.getUnits().get(0).getEssence().getSymbol());
@@ -249,16 +249,16 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void getUnitsByInvalidSymbol() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String symbol = "abc";
         when(catalogMock.getUnitsBySymbol(symbol)).thenThrow(AppException.class);
-        unitApi.getUnitsBySymbol(symbol);
+        unitApiV3.getUnitsBySymbol(symbol);
     }
 
     @Test
     public void getUnitBySymbol() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String essenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl essence = Utility.fromJsonString(essenceJson, UnitEssenceImpl.class);
         UnitImpl unit = new UnitImpl();
@@ -266,34 +266,34 @@ public class UnitApiTest {
         String namespaces = "LIS,RP66";
         String symbol = "ft";
         when(catalogMock.getUnitBySymbol(namespaces, symbol)).thenReturn(unit);
-        Unit result = unitApi.getUnitBySymbol(namespaces, symbol);
+        Unit result = unitApiV3.getUnitBySymbol(namespaces, symbol);
         assertNotNull(result);
         assertEquals(essence, result.getEssence());
     }
 
     @Test(expected = AppException.class)
     public void getUnitBySymbolWithUnmatchedNamespaces() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String namespaces = "LIS";
         String symbol = "ft";
         when(catalogMock.getUnitBySymbol(namespaces, symbol)).thenThrow(AppException.class);
-        unitApi.getUnitBySymbol(namespaces, symbol);
+        unitApiV3.getUnitBySymbol(namespaces, symbol);
     }
 
     @Test(expected = AppException.class)
     public void getUnitBySymbolWithInvalidSymbol() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String namespaces = "LIS,RP66";
         String symbol = "abc";
         when(catalogMock.getUnitBySymbol(namespaces, symbol)).thenThrow(AppException.class);
-        unitApi.getUnitBySymbol(namespaces, symbol);
+        unitApiV3.getUnitBySymbol(namespaces, symbol);
     }
 
     @Test
     public void getUnitsByMeasurement() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String rp66EssenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl unitEssence = Utility.fromJsonString(rp66EssenceJson, UnitEssenceImpl.class);
         UnitImpl unit = new UnitImpl();
@@ -304,7 +304,7 @@ public class UnitApiTest {
 
         String bmAncestry = "Length";
         when(catalogMock.getUnitsByMeasurement(bmAncestry)).thenReturn(unitResult);
-        QueryResult unitResult1 = unitApi.getUnitsByMeasurement(bmAncestry);
+        QueryResult unitResult1 = unitApiV3.getUnitsByMeasurement(bmAncestry);
         assertNotNull(unitResult1);
         assertEquals(1, unitResult1.getCount());
         assertEquals(unitEssence, unitResult1.getUnits().get(0).getEssence());
@@ -313,7 +313,7 @@ public class UnitApiTest {
         MeasurementEssenceImpl bmEssence = Utility.fromJsonString(bmEssenceJson, MeasurementEssenceImpl.class);
         MeasurementRequest bmRequest = new MeasurementRequest(bmEssence, null);
         when(catalogMock.postUnitsByMeasurement(bmEssence)).thenReturn(unitResult);
-        QueryResult unitResult2 = unitApi.postUnitsByMeasurement(bmRequest);
+        QueryResult unitResult2 = unitApiV3.postUnitsByMeasurement(bmRequest);
         assertNotNull(unitResult2);
         assertTrue(unitResult2.getCount() > 0);
         assertEquals(unitResult1.getCount(), unitResult2.getCount());
@@ -322,7 +322,7 @@ public class UnitApiTest {
 
         String cmAncestry = "Length.Millimeter";
         when(catalogMock.getUnitsByMeasurement(cmAncestry)).thenReturn(unitResult);
-        QueryResult unitResult3 = unitApi.getUnitsByMeasurement(cmAncestry);
+        QueryResult unitResult3 = unitApiV3.getUnitsByMeasurement(cmAncestry);
         assertNotNull(unitResult3);
         assertTrue(unitResult3.getCount() > 0);
 
@@ -330,7 +330,7 @@ public class UnitApiTest {
         MeasurementEssenceImpl cmEssence = Utility.fromJsonString(cmEssenceJson, MeasurementEssenceImpl.class);
         MeasurementRequest cmRequest = new MeasurementRequest(cmEssence, null);
         when(catalogMock.postUnitsByMeasurement(cmEssence)).thenReturn(unitResult);
-        QueryResult unitResult4 = unitApi.postUnitsByMeasurement(cmRequest);
+        QueryResult unitResult4 = unitApiV3.postUnitsByMeasurement(cmRequest);
         assertNotNull(unitResult4);
         assertTrue(unitResult4.getCount() > 0);
         assertEquals(unitResult3.getCount(), unitResult4.getCount());
@@ -340,25 +340,25 @@ public class UnitApiTest {
 
     @Test(expected=AppException.class)
     public void getUnitsByMeasurementWithInvalidMeasurementEssence() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String essenceJson = "{\"ancestry\":\"Length.Millimeter\",\"type\":\"UM\"}";
         MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
         MeasurementRequest request = new MeasurementRequest(essence, null);
         when(catalogMock.postUnitsByMeasurement(essence)).thenThrow(AppException.class);
-        unitApi.postUnitsByMeasurement(request);
+        unitApiV3.postUnitsByMeasurement(request);
     }
 
     @Test(expected=AppException.class)
     public void getUnitsByMeasurementWithInvalidMeasurementCode() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String ancestry = "abc";
         when(catalogMock.getUnitsByMeasurement(ancestry)).thenThrow(AppException.class);
-        unitApi.getUnitsByMeasurement(ancestry);
+        unitApiV3.getUnitsByMeasurement(ancestry);
     }
 
     @Test
     public void getPreferredUnitsByMeasurement() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String rp66EssenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl unitEssence = Utility.fromJsonString(rp66EssenceJson, UnitEssenceImpl.class);
         UnitImpl unit = new UnitImpl();
@@ -369,7 +369,7 @@ public class UnitApiTest {
 
         String bmAncestry = "Pressure_Per_Length";
         when(catalogMock.getPreferredUnitsByMeasurement(bmAncestry)).thenReturn(unitResult);
-        QueryResult unitResult1 = unitApi.getPreferredUnitsByMeasurement(bmAncestry);
+        QueryResult unitResult1 = unitApiV3.getPreferredUnitsByMeasurement(bmAncestry);
         assertNotNull(unitResult1);
         assertEquals(1, unitResult1.getCount());
         assertEquals(unitEssence, unitResult1.getUnits().get(0).getEssence());
@@ -380,7 +380,7 @@ public class UnitApiTest {
         bm.setEssence(bmEssence);
         when(catalogMock.postPreferredUnitsByMeasurement(bmEssence)).thenReturn(unitResult);
         MeasurementRequest bmRequest = new MeasurementRequest(bmEssence, null);
-        QueryResult unitResult2 = unitApi.postPreferredUnitsByMeasurement(bmRequest);
+        QueryResult unitResult2 = unitApiV3.postPreferredUnitsByMeasurement(bmRequest);
         assertNotNull(unitResult2);
         assertTrue(unitResult2.getCount() > 0);
         assertEquals(unitResult1.getCount(), unitResult2.getCount());
@@ -389,7 +389,7 @@ public class UnitApiTest {
 
         String cmAncestry = "Pressure_Per_Length.Membrane_Stiffness";
         when(catalogMock.getPreferredUnitsByMeasurement(cmAncestry)).thenReturn(unitResult);
-        QueryResult unitResult3 = unitApi.getPreferredUnitsByMeasurement(cmAncestry);
+        QueryResult unitResult3 = unitApiV3.getPreferredUnitsByMeasurement(cmAncestry);
         assertNotNull(unitResult3);
         assertTrue(unitResult3.getCount() > 0);
 
@@ -399,7 +399,7 @@ public class UnitApiTest {
         cm.setEssence(cmEssence);
         when(catalogMock.postPreferredUnitsByMeasurement(cmEssence)).thenReturn(unitResult);
         MeasurementRequest cmRequest = new MeasurementRequest(cmEssence, null);
-        QueryResult unitResult4 = unitApi.postPreferredUnitsByMeasurement(cmRequest);
+        QueryResult unitResult4 = unitApiV3.postPreferredUnitsByMeasurement(cmRequest);
         assertNotNull(unitResult4);
         assertTrue(unitResult4.getCount() > 0);
         assertEquals(unitResult3.getCount(), unitResult4.getCount());
@@ -409,27 +409,27 @@ public class UnitApiTest {
 
     @Test(expected=AppException.class)
     public void postPreferredUnitsByMeasurementWithInvalidMeasurementEssence() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String essenceJson = "{\"ancestry\":\"Length.Millimeter\",\"type\":\"UM\"}";
         MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
         when(catalogMock.postPreferredUnitsByMeasurement(essence)).thenThrow(AppException.class);
         MeasurementRequest request = new MeasurementRequest(essence, null);
-        unitApi.postPreferredUnitsByMeasurement(request);
+        unitApiV3.postPreferredUnitsByMeasurement(request);
     }
 
     @Test(expected=AppException.class)
     public void getPreferredUnitsByMeasurementWithInvalidMeasurementCode() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String ancestry = "abc";
         when(catalogMock.getPreferredUnitsByMeasurement(ancestry)).thenThrow(AppException.class);
-        unitApi.getPreferredUnitsByMeasurement(ancestry);
+        unitApiV3.getPreferredUnitsByMeasurement(ancestry);
     }
 
     @Test
     public void getUnitBySystemAndMeasurement() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String rp66EssenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl unitEssence = Utility.fromJsonString(rp66EssenceJson, UnitEssenceImpl.class);
         UnitImpl unit = new UnitImpl();
@@ -438,14 +438,14 @@ public class UnitApiTest {
         String m1 = "Length";
         String english = "English";
         when(catalogMock.getUnitBySystemAndMeasurement(english, m1)).thenReturn(unit);
-        Unit result1 = unitApi.getUnitBySystemAndMeasurement(english, m1);
+        Unit result1 = unitApiV3.getUnitBySystemAndMeasurement(english, m1);
         assertNotNull(result1);
         assertEquals(unit, result1);
 
         String m2 = "Length.Millimeter";
         String metric = "Metric";
         when(catalogMock.getUnitBySystemAndMeasurement(metric, m2)).thenReturn(unit);
-        Unit result2 = unitApi.getUnitBySystemAndMeasurement(metric, m2);
+        Unit result2 = unitApiV3.getUnitBySystemAndMeasurement(metric, m2);
         assertNotNull(result2);
         assertEquals(unit, result2);
     }
@@ -456,7 +456,7 @@ public class UnitApiTest {
      */
     @Test
     public void postUnitBySystemAndMeasurementFromDefaultUnitSystem() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String rp66EssenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl unitEssence = Utility.fromJsonString(rp66EssenceJson, UnitEssenceImpl.class);
         UnitImpl unit = new UnitImpl();
@@ -472,46 +472,46 @@ public class UnitApiTest {
         when(catalogMock.postUnitBySystemAndMeasurement(canonical, essence)).thenReturn(unit);
         when(catalogMock.postUnitBySystemAndMeasurement(english, essence)).thenReturn(unit);
         MeasurementRequest request = new MeasurementRequest(essence, null);
-        Unit unit1 = unitApi.postUnitBySystemAndMeasurement(canonical, request);
-        Unit unit2 = unitApi.postUnitBySystemAndMeasurement(english, request);
+        Unit unit1 = unitApiV3.postUnitBySystemAndMeasurement(canonical, request);
+        Unit unit2 = unitApiV3.postUnitBySystemAndMeasurement(english, request);
         assertEquals(unit1, unit2);
     }
 
     @Test(expected = AppException.class)
     public void postUnitBySystemAndMeasurementWithInvalidUnitSystem() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String measurementEssenceJson = "{\"ancestry\":\"L3/T\",\"type\":\"UM\"}";
         String canonical = "Canonical";
         String english = "abc";
         MeasurementEssenceImpl essence = Utility.fromJsonString(measurementEssenceJson, MeasurementEssenceImpl.class);
         MeasurementRequest request = new MeasurementRequest(essence, null);
         when(catalogMock.postUnitBySystemAndMeasurement(english, essence)).thenThrow(AppException.class);
-        unitApi.postUnitBySystemAndMeasurement(english, request);
+        unitApiV3.postUnitBySystemAndMeasurement(english, request);
     }
 
     @Test(expected = AppException.class)
     public void getUnitBySystemAndMeasurementWithInvalidUnitSystem() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String m = "Length";
         String english = "abc";
         when(catalogMock.getUnitBySystemAndMeasurement(english, m)).thenThrow(AppException.class);
-        unitApi.getUnitBySystemAndMeasurement(english, m);
+        unitApiV3.getUnitBySystemAndMeasurement(english, m);
     }
 
     @Test(expected = AppException.class)
     public void getUnitBySystemAndMeasurementWithInvalidMeasurement() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String m = "abc";
         String english = "English";
         when(catalogMock.getUnitBySystemAndMeasurement(english, m)).thenThrow(AppException.class);
-        unitApi.getUnitBySystemAndMeasurement(english, m);
+        unitApiV3.getUnitBySystemAndMeasurement(english, m);
     }
 
     @Test
     public void postConversionScaleOffset() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         double  scale = 0.3048;
         double  offset = 0.0;
         ScaleOffsetImpl scaleOffset = new ScaleOffsetImpl(scale, offset);
@@ -526,7 +526,7 @@ public class UnitApiTest {
         ConversionResultImpl conversionResult1 = new ConversionResultImpl((ScaleOffset)scaleOffset, (Unit)fromUnit, (Unit)toUnit);
         when(catalogMock.postConversionScaleOffset(fromUnitEssence, toUnitEssence)).thenReturn(conversionResult1);
         ConversionScaleOffsetRequest request1 = new ConversionScaleOffsetRequest(fromUnitEssence, toUnitEssence, null, null);
-        ConversionResult result1 = unitApi.postConversionScaleOffset(request1);
+        ConversionResult result1 = unitApiV3.postConversionScaleOffset(request1);
         ScaleOffset scaleOffset1 = result1.getScaleOffset();
         assertNotNull(scaleOffset1);
         assertEquals(scale, scaleOffset1.getScale(), delta);
@@ -538,7 +538,7 @@ public class UnitApiTest {
         ConversionResultImpl conversionResult2 = new ConversionResultImpl((ScaleOffset)scaleOffset2, (Unit)toUnit, (Unit)fromUnit);
         when(catalogMock.postConversionScaleOffset(toUnitEssence, fromUnitEssence)).thenReturn(conversionResult2);
         ConversionScaleOffsetRequest request2 = new ConversionScaleOffsetRequest(toUnitEssence, fromUnitEssence, null, null);
-        ConversionResult    result2 = unitApi.postConversionScaleOffset(request2);
+        ConversionResult    result2 = unitApiV3.postConversionScaleOffset(request2);
         ScaleOffset inverseScaleOffset = result2.getScaleOffset();
         assertNotNull(inverseScaleOffset);
         assertTrue(Math.abs(scaleOffset2.getScale() - 1/inverseScaleOffset.getScale()) < delta);
@@ -547,16 +547,16 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void postConversionScaleOffsetByEssencesWithInvalidEssence() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         when(catalogMock.postConversionScaleOffset(any(), any())).thenThrow(AppException.class);
         ConversionScaleOffsetRequest request = new ConversionScaleOffsetRequest(null, null, null, null);
-        unitApi.postConversionScaleOffset(request);
+        unitApiV3.postConversionScaleOffset(request);
     }
 
     @Test(expected = AppException.class)
     public void postConversionScaleOffsetWithIncompatibleUnits() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"dB\",\"baseMeasurement\":{\"ancestry\":\"Attenuation\",\"type\":\"UM\"},\"type\":\"USO\"}";
         String toUnitEssenceJson   = "{\"abcd\":{\"a\":0.0,\"b\":1.0E-4,\"c\":1.0,\"d\":0.0},\"symbol\":\"dB/km\",\"baseMeasurement\":{\"ancestry\":\"none\",\"type\":\"UM\"},\"type\":\"UAD\"}";
@@ -564,12 +564,12 @@ public class UnitApiTest {
         UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);       
         when(catalogMock.postConversionScaleOffset(fromUnitEssence, toUnitEssence)).thenThrow(AppException.class);
         ConversionScaleOffsetRequest request = new ConversionScaleOffsetRequest(fromUnitEssence, toUnitEssence, null, null);
-        unitApi.postConversionScaleOffset(request);
+        unitApiV3.postConversionScaleOffset(request);
     }
 
     @Test
     public void postConversionABCD() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         double  a = 0.0;
         double  b = 1.0E-4;
         double  c = 1.0;
@@ -586,7 +586,7 @@ public class UnitApiTest {
         ConversionResultImpl conversionResult1 = new ConversionResultImpl((ABCD)abcd, (Unit)fromUnit, (Unit)toUnit);
         when(catalogMock.postConversionABCD(fromUnitEssence, toUnitEssence)).thenReturn(conversionResult1);
         ConversionABCDRequest request1 = new ConversionABCDRequest(fromUnitEssence, toUnitEssence, null, null);
-        ConversionResult result1 = unitApi.postConversionABCD(request1);
+        ConversionResult result1 = unitApiV3.postConversionABCD(request1);
         ABCD abcd1 = result1.getABCD();
         assertNotNull(abcd1);
         assertEquals(0.0, abcd1.getA(), delta);
@@ -597,7 +597,7 @@ public class UnitApiTest {
         ConversionResultImpl conversionResult2 = new ConversionResultImpl((ABCD)abcd, (Unit)toUnit, (Unit)fromUnit);
         when(catalogMock.postConversionABCD(toUnitEssence, fromUnitEssence)).thenReturn(conversionResult2);
         ConversionABCDRequest request2 = new ConversionABCDRequest(toUnitEssence, fromUnitEssence, null, null);
-        ConversionResult    result2 = unitApi.postConversionABCD(request2);
+        ConversionResult    result2 = unitApiV3.postConversionABCD(request2);
         ABCD inverseAbcd = result2.getABCD();
         assertNotNull(inverseAbcd);
         assertEquals(0.0, inverseAbcd.getA(), delta);
@@ -608,15 +608,15 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void postConversionABCDWithInvalidEssence() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.postConversionABCD(any(), any())).thenThrow(AppException.class);
         ConversionABCDRequest request = new ConversionABCDRequest(null, null, null, null);
-        unitApi.postConversionABCD(request);
+        unitApiV3.postConversionABCD(request);
     }
 
     @Test(expected = AppException.class)
     public void postConversionABCDWithIncompatibleUnits() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
 
         String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"dB\",\"baseMeasurement\":{\"ancestry\":\"Attenuation\",\"type\":\"UM\"},\"type\":\"USO\"}";
         String toUnitEssenceJson   = "{\"abcd\":{\"a\":0.0,\"b\":1.0E-4,\"c\":1.0,\"d\":0.0},\"symbol\":\"dB/km\",\"baseMeasurement\":{\"ancestry\":\"none\",\"type\":\"UM\"},\"type\":\"UAD\"}";
@@ -624,12 +624,12 @@ public class UnitApiTest {
         UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);              
         when(catalogMock.postConversionABCD(fromUnitEssence, toUnitEssence)).thenThrow(AppException.class);
         ConversionABCDRequest request = new ConversionABCDRequest(fromUnitEssence, toUnitEssence, null, null);
-        unitApi.postConversionABCD(request);
+        unitApiV3.postConversionABCD(request);
     }
 
     @Test
     public void getConversionScaleOffsetBySymbols() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         double  scale = 0.3048;
         double  offset = 0.0;
         ScaleOffsetImpl scaleOffset = new ScaleOffsetImpl(scale, offset);
@@ -646,7 +646,7 @@ public class UnitApiTest {
         String fromSymbol = "F";
         String toSymbol = "m";
         when(catalogMock.getConversionScaleOffsetBySymbols(namespaces, fromSymbol, toSymbol)).thenReturn(conversionResult);
-        ConversionResult result = unitApi.getConversionScaleOffsetBySymbols(namespaces, fromSymbol, toSymbol);
+        ConversionResult result = unitApiV3.getConversionScaleOffsetBySymbols(namespaces, fromSymbol, toSymbol);
         ScaleOffset scaleOffset2 = result.getScaleOffset();
         assertEquals(scale, scaleOffset2.getScale(), delta);
         assertEquals(offset, scaleOffset2.getOffset(), delta);
@@ -654,17 +654,17 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void getConversionScaleOffsetBySymbolsWithIncompleteNamespaces() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String namespaces = "ECL,RP66";
         String fromSymbol = "F";
         String toSymbol = "m";
         when(catalogMock.getConversionScaleOffsetBySymbols(namespaces, fromSymbol, toSymbol)).thenThrow(AppException.class);
-        unitApi.getConversionScaleOffsetBySymbols(namespaces, fromSymbol, toSymbol);
+        unitApiV3.getConversionScaleOffsetBySymbols(namespaces, fromSymbol, toSymbol);
     }
 
     @Test
     public void getConversionABCDBySymbols() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         double  a = 0.0;
         double  b = 1.0E-4;
         double  c = 1.0;
@@ -683,7 +683,7 @@ public class UnitApiTest {
         String fromSymbol = "F";
         String toSymbol = "m";
         when(catalogMock.getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol)).thenReturn(conversionResult1);
-        ConversionResult result = unitApi.getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
+        ConversionResult result = unitApiV3.getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
         ABCD abcd2 = result.getABCD();
         assertEquals(0.0, abcd2.getA(), delta);
         assertEquals(1.0E-4, abcd2.getB(), delta);
@@ -693,12 +693,12 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void getConversionABCDBySymbolsWithIncompleteNamespaces() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String namespaces = "ECL,RP66";
         String fromSymbol = "F";
         String toSymbol = "m";
         when(catalogMock.getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol)).thenThrow(AppException.class);
-        unitApi.getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
+        unitApiV3.getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
     }
 
 
@@ -707,14 +707,14 @@ public class UnitApiTest {
      *********************************************/
     @Test
     public void getUnitSystemNames() {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<UnitSystemInfo> unitSystemNames = new ArrayList<>();
         unitSystemNames.add(new UnitSystemInfo("English", "d1", "Metric.English", "pr1"));
         unitSystemNames.add(new UnitSystemInfo("Metric", "d2", "Metric", "pr2"));
         unitSystemNames.add(new UnitSystemInfo("Canonical", "d3","Canonical", "pr3"));
         UnitSystemInfoResponse unitSystemCollection = new UnitSystemInfoResponse(unitSystemNames, 3, 0);
         when(catalogMock.getUnitSystemInfoList(anyInt(), anyInt())).thenReturn(unitSystemCollection);
-        UnitSystemInfoResponse result = unitApi.getUnitSystemInfoList(0, -1);
+        UnitSystemInfoResponse result = unitApiV3.getUnitSystemInfoList(0, -1);
         assertNotNull(result);
         assertNotNull(result.getUnitSystemInfoList());
         assertEquals(3, result.getUnitSystemInfoList().size());
@@ -733,41 +733,41 @@ public class UnitApiTest {
 
     @Test
     public void getUnitSystem() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         UnitSystemImpl unitSystem = new UnitSystemImpl();
         String name = "Metric";
         when(catalogMock.getUnitSystem(name, 0, -1)).thenReturn(unitSystem);
-        UnitSystem result = unitApi.getUnitSystem(name, 0, -1);
+        UnitSystem result = unitApiV3.getUnitSystem(name, 0, -1);
         assertNotNull(result);
         assertEquals(unitSystem, result);
     }
 
     @Test
     public void postUnitSystem() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         UnitSystemImpl unitSystem = new UnitSystemImpl();
         UnitSystemEssenceImpl essence = new UnitSystemEssenceImpl("Metric");
         when(catalogMock.postUnitSystem(essence, 0, -1)).thenReturn(unitSystem);
         UnitSystemRequest request = new UnitSystemRequest(essence);
-        UnitSystem result = unitApi.postUnitSystem(request, 0, -1);
+        UnitSystem result = unitApiV3.postUnitSystem(request, 0, -1);
         assertNotNull(result);
         assertEquals(unitSystem, result);
     }
 
     @Test(expected = AppException.class)
     public void getUnitSystemWithInvalidName() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.getUnitSystem(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.getUnitSystem("abc", 0, -1);
+        unitApiV3.getUnitSystem("abc", 0, -1);
     }
 
     @Test(expected = AppException.class)
     public void postUnitSystemWithInvalidEssence() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.postUnitSystem(any(), anyInt(), anyInt())).thenThrow(AppException.class);
         UnitSystemEssenceImpl essence = new UnitSystemEssenceImpl("abc");
         UnitSystemRequest request = new UnitSystemRequest(essence);
-        unitApi.postUnitSystem(request, 0, -1);
+        unitApiV3.postUnitSystem(request, 0, -1);
     }
 
     /********************************************
@@ -775,7 +775,7 @@ public class UnitApiTest {
      *********************************************/
     @Test
     public void searchUnits() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String unitEssenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitEssenceImpl unitEssence = Utility.fromJsonString(unitEssenceJson, UnitEssenceImpl.class);
         UnitImpl unit = new UnitImpl();
@@ -786,7 +786,7 @@ public class UnitApiTest {
         when(catalogMock.searchUnits(anyString(), anyInt(), anyInt())).thenReturn(unitResults);
         // test symbol with special char '/'
         SearchRequest request = new SearchRequest("mW/degC");
-        QueryResult result = unitApi.postSearchUnits(request, 0, -1);
+        QueryResult result = unitApiV3.postSearchUnits(request, 0, -1);
         assertNotNull(result);
         assertEquals(0, result.getOffset());
         assertEquals(1, result.getCount());
@@ -815,7 +815,7 @@ public class UnitApiTest {
 
     @Test
     public void geUnitMaps() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<UnitMapImpl> unitMapList = new ArrayList<>();
         UnitMapImpl impl = new UnitMapImpl("fromNamespace", "toNamespace");
         for (int i=0; i<10; i++){
@@ -825,7 +825,7 @@ public class UnitApiTest {
         }
         unitMapList.add(impl);
         when(catalogMock.getUnitMaps()).thenReturn(unitMapList);
-        QueryResult result = unitApi.getUnitMaps(0, 5);
+        QueryResult result = unitApiV3.getUnitMaps(0, 5);
         assertNotNull(result.getUnitMapItems());
         assertEquals(5, result.getCount());
         assertEquals(10, result.getTotalCount());
@@ -833,7 +833,7 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void geUnitMapsWithInvalidRange() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<UnitMapImpl> unitMapList = new ArrayList<>();
         UnitMapImpl impl = new UnitMapImpl("fromNamespace", "toNamespace");
         for (int i=0; i<10; i++){
@@ -843,12 +843,12 @@ public class UnitApiTest {
         }
         unitMapList.add(impl);
         when(catalogMock.getUnitMaps()).thenReturn(unitMapList);
-        QueryResult result = unitApi.getUnitMaps(100, 5);
+        QueryResult result = unitApiV3.getUnitMaps(100, 5);
     }
 
     @Test
     public void geMeasurementMaps() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<MeasurementMapImpl> measurementMapsList = new ArrayList<>();
         MeasurementMapImpl impl = new MeasurementMapImpl("fromNamespace", "toNamespace");
         for (int i=0; i<10; i++){
@@ -858,7 +858,7 @@ public class UnitApiTest {
         }
         measurementMapsList.add(impl);
         when(catalogMock.getMeasurementMaps()).thenReturn(measurementMapsList);
-        QueryResult result = unitApi.getMeasurementMaps(0, 5);
+        QueryResult result = unitApiV3.getMeasurementMaps(0, 5);
         assertNotNull(result.getMeasurementMapItems());
         assertEquals(5, result.getCount());
         assertEquals(10, result.getTotalCount());
@@ -866,7 +866,7 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void geMeasurementMapsWithInvalidRange() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<MeasurementMapImpl> measurementMapsList = new ArrayList<>();
         MeasurementMapImpl impl = new MeasurementMapImpl("fromNamespace", "toNamespace");
         for (int i=0; i<10; i++){
@@ -876,16 +876,16 @@ public class UnitApiTest {
         }
         measurementMapsList.add(impl);
         when(catalogMock.getMeasurementMaps()).thenReturn(measurementMapsList);
-        QueryResult result = unitApi.getMeasurementMaps(100, 5);
+        QueryResult result = unitApiV3.getMeasurementMaps(100, 5);
     }
 
     @Test
     public void getMapStates() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<MapStateImpl> mapStates = new ArrayList<>();
         for (int i=0; i<5; i++) mapStates.add(new MapStateImpl("state", "description", "source"));
         when(catalogMock.getWellknownMapStates()).thenReturn(mapStates);
-        QueryResult result = unitApi.getMapStates(0, 2);
+        QueryResult result = unitApiV3.getMapStates(0, 2);
         assertNotNull(result.getMapStates());
         assertEquals(2, result.getCount());
         assertEquals(5, result.getTotalCount());
@@ -893,37 +893,37 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void getMapStatesInvalidOffset() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         List<MapStateImpl> mapStates = new ArrayList<>();
         for (int i=0; i<5; i++) mapStates.add(new MapStateImpl("state", "description", "source"));
         when(catalogMock.getWellknownMapStates()).thenReturn(mapStates);
-        QueryResult result = unitApi.getMapStates(100, 2);
+        QueryResult result = unitApiV3.getMapStates(100, 2);
     }
 
     @Test(expected = AppException.class)
     public void searchUnitsWithBadRequest() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.searchUnits(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.postSearchUnits(new SearchRequest("Invalid"), 0, 200);
+        unitApiV3.postSearchUnits(new SearchRequest("Invalid"), 0, 200);
     }
 
     @Test(expected = AppException.class)
     public void searchUnitsWithInvalidOffset() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.searchUnits(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.postSearchUnits(new SearchRequest(), -1, -1);
+        unitApiV3.postSearchUnits(new SearchRequest(), -1, -1);
     }
 
     @Test(expected = AppException.class)
     public void searchUnitsWithInvalidLimit() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.searchUnits(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.postSearchUnits(new SearchRequest("Namespace:rp66"), 0, -2);
+        unitApiV3.postSearchUnits(new SearchRequest("Namespace:rp66"), 0, -2);
     }
 
     @Test
     public void searchMeasurements() throws Exception {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         String essenceJson = "{\"ancestry\":\"Length.Millimeter\",\"type\":\"UM\"}";
         MeasurementEssenceImpl measurementEssence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
         MeasurementImpl measurement = new MeasurementImpl();
@@ -932,7 +932,7 @@ public class UnitApiTest {
         measurementList.add(measurement);
         Result<MeasurementImpl> measurementResults = new Result<>(measurementList, 0 , 1);
         when(catalogMock.searchMeasurements(anyString(), anyInt(), anyInt())).thenReturn(measurementResults);
-        QueryResult result = unitApi.postSearchMeasurements(new SearchRequest("length"), 0, -1);
+        QueryResult result = unitApiV3.postSearchMeasurements(new SearchRequest("length"), 0, -1);
         assertNotNull(result);
         assertEquals(0, result.getOffset());
         assertEquals(1, result.getCount());
@@ -942,30 +942,30 @@ public class UnitApiTest {
 
     @Test(expected = AppException.class)
     public void searchMeasurementsWithInvalidOffset() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.searchMeasurements(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.postSearchMeasurements(new SearchRequest("length"), -1, -1);
+        unitApiV3.postSearchMeasurements(new SearchRequest("length"), -1, -1);
     }
 
     @Test(expected = AppException.class)
     public void searchMeasurementsWithInvalidLimit() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.searchMeasurements(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.postSearchMeasurements(new SearchRequest("length"), 0, -2);
+        unitApiV3.postSearchMeasurements(new SearchRequest("length"), 0, -2);
     }
 
     @Test(expected = AppException.class)
     public void searchWithInvalidOffset() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.search(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.postSearch(new SearchRequest("State:identical"), -1, -1);
+        unitApiV3.postSearch(new SearchRequest("State:identical"), -1, -1);
     }
 
     @Test(expected = AppException.class)
     public void searchWithInvalidLimit() throws Exception  {
-        assertNotNull(unitApi);
+        assertNotNull(unitApiV3);
         when(catalogMock.searchMeasurements(anyString(), anyInt(), anyInt())).thenThrow(AppException.class);
-        unitApi.postSearch(new SearchRequest("State:identical"), 0, -2);
+        unitApiV3.postSearch(new SearchRequest("State:identical"), 0, -2);
     }
 
 }
