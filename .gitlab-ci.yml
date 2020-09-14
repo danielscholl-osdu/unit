@@ -9,6 +9,12 @@ variables:
   # --- end of osdu-gcp specific variables --- 
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
 
+  AWS_BUILD_SUBDIR: provider/unit-aws/build-aws
+  AWS_TEST_SUBDIR: testing/unit-test-aws
+  AWS_SERVICE: unit
+  AWS_ENVIRONMENT: dev
+  AWS_INT_TEST_TYPE: python
+
 include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "standard-setup.yml"
@@ -27,3 +33,6 @@ include:
     
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/ibm.yml"
+
+  - project: 'osdu/platform/ci-cd-pipelines'
+    file: 'cloud-providers/aws.yml'
