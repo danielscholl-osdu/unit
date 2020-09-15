@@ -22,4 +22,4 @@ from unit_test_core.test_unit_service_v2 import *
 
 if __name__ == '__main__':
     import xmlrunner
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports/v2', outsuffix='aws'))

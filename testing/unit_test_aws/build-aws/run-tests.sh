@@ -20,9 +20,9 @@ echo **** UNIT INTEGRATION TESTS DISABLED ****
 echo skipping...
 exit 0
 
-# SCRIPT_SOURCE_DIR=$(dirname "$0")
-# echo "Script source location"
-# echo "$SCRIPT_SOURCE_DIR"
+SCRIPT_SOURCE_DIR=$(dirname "$0")
+echo "Script source location"
+echo "$SCRIPT_SOURCE_DIR"
 # (cd "$SCRIPT_SOURCE_DIR"/../bin && ./install-deps.sh)
 
 #### ADD REQUIRED ENVIRONMENT VARIABLES HERE ###############################################
@@ -42,11 +42,11 @@ export AWS_COGNITO_AUTH_FLOW=USER_PASSWORD_AUTH
 export AWS_COGNITO_AUTH_PARAMS_PASSWORD=$ADMIN_PASSWORD
 export AWS_COGNITO_AUTH_PARAMS_USER=$ADMIN_USER
 export AWS_COGNITO_AUTH_PARAMS_USER_NO_ACCESS=$USER_NO_ACCESS
-export BASE_URL=$UNIT_URL
+export VIRTUAL_SERVICE_HOST_NAME=$UNIT_HOST
 
 #### RUN INTEGRATION TEST #########################################################################
 
-pushd "$SCRIPT_SOURCE_DIR"/../unit_test_aws
+pushd "$SCRIPT_SOURCE_DIR"/../
 
 rm -rf test-reports/
 mkdir test-reports

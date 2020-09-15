@@ -10,7 +10,6 @@ import org.opengroup.osdu.unitservice.request.*;
 import org.opengroup.osdu.unitservice.util.AppException;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v2")
-public class UnitApi {
+@RequestMapping("/v3")
+public class UnitApiV3 {
     private CatalogImpl catalog;
 
-    public UnitApi(CatalogImpl catalog) {
+    public UnitApiV3(CatalogImpl catalog) {
         this.catalog = catalog;
     }
 
@@ -72,7 +71,7 @@ public class UnitApi {
      * @return a {@link QueryResult} with a collection of {@link Measurement}
      * @throws AppException An exception will be thrown if the startIndex is out of the range
      */
-	@GetMapping("/measurement")
+	@GetMapping("/measurement/list")
     public QueryResult getMeasurements(@RequestParam(value = "offset", defaultValue = "0") int offset,
                                        @RequestParam(value = "limit", defaultValue = "100") int limit) {
         assertRange(offset, limit);
@@ -114,8 +113,8 @@ public class UnitApi {
      * @return a base or child measurement
      * @throws AppException An exception will be thrown if the ancestry is invalid
      */
-	@GetMapping("/measurement/{ancestry}")
-    public Measurement getMeasurement(@PathVariable("ancestry") String ancestry) {
+	@GetMapping("/measurement")
+    public Measurement getMeasurement(@RequestParam("ancestry") String ancestry) {
 
         try {
             return catalog.getMeasurement(ancestry);
@@ -172,8 +171,8 @@ public class UnitApi {
      * @return IQueryResult      The list of the unitEssences
      * @throws AppException An exception will be thrown if the symbol is invalid
      */
-	@GetMapping("/unit/symbol/{symbol}")
-    public QueryResult getUnitsBySymbol(@PathVariable(value = "symbol") String symbol) {
+	@GetMapping("/unit/symbols")
+    public QueryResult getUnitsBySymbol(@RequestParam(value = "symbol") String symbol) {
         try {
             return Utility.createQueryResultForUnits(catalog.getUnitsBySymbol(symbol));
         }
@@ -191,8 +190,8 @@ public class UnitApi {
      * @return a matched unit
      * @throws AppException An exception will be thrown if the symbol is invalid or the symbol does exist in the given namespaces.
      */
-	@GetMapping("/unit/symbol/{namespaces}/{symbol}")
-    public Unit getUnitBySymbol(@PathVariable("namespaces") String namespaces, @PathVariable("symbol") String symbol) {
+	@GetMapping("/unit/symbol")
+    public Unit getUnitBySymbol(@RequestParam("namespaces") String namespaces, @RequestParam("symbol") String symbol) {
         try {
             return catalog.getUnitBySymbol(namespaces, symbol);
         }
@@ -226,8 +225,8 @@ public class UnitApi {
      * @return a list of unitEssences
      * @throws AppException An exception will be thrown if the ancestry of the measurement is invalid
      */
-	@GetMapping("/unit/measurement/{ancestry}")
-    public QueryResult getUnitsByMeasurement(@PathVariable("ancestry") String ancestry) {
+	@GetMapping("/unit/measurement")
+    public QueryResult getUnitsByMeasurement(@RequestParam("ancestry") String ancestry) {
 
         try {
             return Utility.createQueryResultForUnits(catalog.getUnitsByMeasurement(ancestry));
@@ -262,8 +261,8 @@ public class UnitApi {
      * @return IQueryResult   a list of preferred units
      * @throws AppException An exception will be thrown if the ancestry of the measurement is invalid
      */
-	@GetMapping("/unit/measurement/preferred/{ancestry}")
-    public QueryResult getPreferredUnitsByMeasurement(@PathVariable("ancestry") String ancestry) {
+	@GetMapping("/unit/measurement/preferred")
+    public QueryResult getPreferredUnitsByMeasurement(@RequestParam("ancestry") String ancestry) {
 
         try {
             return Utility.createQueryResultForUnits(catalog.getPreferredUnitsByMeasurement(ancestry));
@@ -283,8 +282,8 @@ public class UnitApi {
      *  measurement essence is invalid or there is no unit system for given unit system and measurement.
      * 
      */
-	@PostMapping("/unit/unitsystem/{unitSystemName}")
-    public Unit postUnitBySystemAndMeasurement(@PathVariable("unitSystemName") String unitSystemName,
+	@PostMapping("/unit/unitsystem")
+    public Unit postUnitBySystemAndMeasurement(@RequestParam("unitSystemName") String unitSystemName,
                                                @RequestBody MeasurementRequest request) {
         try {
            MeasurementEssenceImpl essence = request.getMeasurementEssence();
@@ -305,9 +304,9 @@ public class UnitApi {
      * there is no unit system for given unit system and measurement.
      * 
      */
-	@GetMapping("/unit/unitsystem/{unitSystemName}/{ancestry}")
-    public Unit getUnitBySystemAndMeasurement(@PathVariable("unitSystemName") String unitSystemName,
-                                              @PathVariable("ancestry") String ancestry) {
+	@GetMapping("/unit/unitsystem")
+    public Unit getUnitBySystemAndMeasurement(@RequestParam("unitSystemName") String unitSystemName,
+                                              @RequestParam("ancestry") String ancestry) {
 
         try {
             return catalog.getUnitBySystemAndMeasurement(unitSystemName, ancestry);
@@ -377,10 +376,10 @@ public class UnitApi {
      *     <li>fromUnit and toUnit are not convertible.</li>
      * </ul>
      */
-	@GetMapping("/conversion/scale/{namespaces}/{fromSymbol}/{toSymbol}")
-    public ConversionResult getConversionScaleOffsetBySymbols(@PathVariable("namespaces") String namespaces,
-                                                              @PathVariable("fromSymbol") String fromSymbol,
-                                                              @PathVariable("toSymbol") String toSymbol) {
+	@GetMapping("/conversion/scale")
+    public ConversionResult getConversionScaleOffsetBySymbols(@RequestParam("namespaces") String namespaces,
+                                                              @RequestParam("fromSymbol") String fromSymbol,
+                                                              @RequestParam("toSymbol") String toSymbol) {
 
         try {
             return catalog.getConversionScaleOffsetBySymbols(namespaces, fromSymbol, toSymbol);
@@ -404,10 +403,10 @@ public class UnitApi {
      *     <li>fromUnit and toUnit are not convertible.</li>
      * </ul>
      */
-	@GetMapping("/conversion/abcd/{namespaces}/{fromSymbol}/{toSymbol}")
-    public ConversionResult getConversionABCDBySymbols(@PathVariable("namespaces") String namespaces,
-                                                       @PathVariable("fromSymbol") String fromSymbol,
-                                                       @PathVariable("toSymbol") String toSymbol) {
+	@GetMapping("/conversion/abcd")
+    public ConversionResult getConversionABCDBySymbols(@RequestParam("namespaces") String namespaces,
+                                                       @RequestParam("fromSymbol") String fromSymbol,
+                                                       @RequestParam("toSymbol") String toSymbol) {
 
         try {
             return catalog.getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
@@ -460,8 +459,8 @@ public class UnitApi {
      * @return     a unit system
      * @throws AppException An exception will be thrown if the name of the unit system is invalid
      */
-	@GetMapping("/unitsystem/{name}")
-    public UnitSystem getUnitSystem(@PathVariable("name") String name,
+	@GetMapping("/unitsystem")
+    public UnitSystem getUnitSystem(@RequestParam("name") String name,
                                     @RequestParam(value = "offset", defaultValue = "0") int offset,
                                     @RequestParam(value = "limit", defaultValue = "100") int limit) {
 

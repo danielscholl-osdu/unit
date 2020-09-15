@@ -41,9 +41,9 @@ class TestEnvironment(object):
         configuration.api_key['Authorization'] = 'Bearer ' + bearer
         configuration.access_token = bearer
         if 'localhost' in self.root_url:
-            url = 'http://' + self.root_url + self.base_url
+            url = 'http://' + self.root_url + self.base_url + '/v2'
         else:
-            url = 'https://' + self.root_url + self.base_url
+            url = 'https://' + self.root_url + self.base_url + '/v2'
         configuration.host = url
         configuration.verify_ssl = False # Configure SSL certificate verification
         client = ApiClient(host=url) # configuration=configuration) # next version of Swagger generator

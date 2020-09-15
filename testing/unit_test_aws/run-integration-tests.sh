@@ -24,9 +24,16 @@ python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 
 # Run tests
-python3 run_test.py
-
+echo ***RUNNING UNIT API V2 TESTS***
+python3 run_test_api_v2.py
+echo ***FINISHED UNIT API V2 TESTS***
+echo 
+echo ***RUNNING UNIT API V3 TESTS***
+python3 run_test_api_v3.py
 TEST_STATUS=$?
+echo ***FINISHED UNIT API V3 TESTS***
+
+
 
 # python3 -m pip freeze > requirements.txt
 python3 -m pip uninstall -r requirements.txt -y
