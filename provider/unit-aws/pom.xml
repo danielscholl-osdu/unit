@@ -27,7 +27,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>unit-aws</artifactId>
     <packaging>jar</packaging>
-    <version>${version.number}</version>
+    <version>1.0.0</version>
     <name>unit-aws</name>
     <description>Unit service AWS deployment</description>
 
