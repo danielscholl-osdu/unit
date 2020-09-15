@@ -65,7 +65,7 @@
       </snapshotRepository>
   </distributionManagement>
 
-  <dependencyManagement>
+  <!-- <dependencyManagement>
 
     <dependencies>
       <dependency>
@@ -82,5 +82,5 @@
         <version>${os-core-common.version}</version>
       </dependency>
     </dependencies>
-  </dependencyManagement>
+  </dependencyManagement> -->
 </project>
