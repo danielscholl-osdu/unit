@@ -15,7 +15,7 @@
 #!/usr/bin/env bash
 
 # Install venv for python3
-which apt-get && sudo apt-get install python3 python3-pip python3-venv || echo "Not Ubuntu, skipping"
+which apt-get && sudo apt-get install -y python3 python3-pip python3-venv || echo "Not Ubuntu, skipping"
 
 python3 -m venv env
 # sed -i 's/$1/${1:-}/' env/bin/activate # Fix deactivation bug '$1 unbound variable'
