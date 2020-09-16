@@ -616,6 +616,13 @@ The following software have components provided under the terms of this license:
 - Javassist (from http://www.javassist.org/)
 
 ========================================================================
+MS-RL
+========================================================================
+The following software have components provided under the terms of this license:
+
+- Microsoft Application Insights Java SDK Core (from https://github.com/Microsoft/ApplicationInsights-Java)
+
+========================================================================
 PHP-3.01
 ========================================================================
 The following software have components provided under the terms of this license:
