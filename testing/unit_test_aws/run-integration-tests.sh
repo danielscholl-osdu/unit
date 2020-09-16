@@ -27,11 +27,12 @@ python3 -m pip install -r requirements.txt
 # Run tests
 echo ***RUNNING UNIT API V2 TESTS***
 python3 run_test_api_v2.py
+V2_TEST_STATUS=$?
 echo ***FINISHED UNIT API V2 TESTS***
 echo 
 echo ***RUNNING UNIT API V3 TESTS***
 python3 run_test_api_v3.py
-TEST_STATUS=$?
+V3_TEST_STATUS=$?
 echo ***FINISHED UNIT API V3 TESTS***
 
 
@@ -41,7 +42,7 @@ python3 -m pip uninstall -r requirements.txt -y
 deactivate
 rm -rf env/
 
-if [ $TEST_STATUS -ne 0 ]
+if [ $V2_TEST_STATUS -ne 0 ] || [ $V3_TEST_STATUS -ne 0 ]
 then
     exit 1
 fi
