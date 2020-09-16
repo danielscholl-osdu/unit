@@ -7,6 +7,16 @@
 1. Python integration and health tests in the ```testing``` folder. 
 See also the test's [README.md](testing/README.md)
 
+## Note on API Versions
+
+The Unit Service supports 2 APIs.  These APIs are V2 and V3.
+**Note: The V2 API is depcrecated**
+
+The V2 and V3 APIs have the same functionality, however the V3 API uses query params vs inline route path params to set variables.
+This allows for better handling of special characters and support for future extensibility of the Unit Service's routes.
+
+Both APIs are available in Swagger at https://[Unit_Service_Host]/api/unit/swagger-ui.html
+
 ## Prerequisites
 1. The project builds with [maven](https://maven.apache.org/). Make sure maven is installed locally.
 1. The project requires the [Lombok](https://projectlombok.org/) plug-in installed for your IDE.
