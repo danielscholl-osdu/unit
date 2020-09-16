@@ -691,7 +691,7 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
             self.assertIsNotNone(api_response)
             self.fail('should not be coming here')
         except ApiException as e:
-            reason = json.loads(e.body)['error']
+            reason = json.loads(e.body)['reason']
             self.assertTrue(401 == e.status or 403 == e.status)
             self.assertTrue("Unauthorized" == reason or "Forbidden" == reason)
 
@@ -703,7 +703,7 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
             self.assertIsNotNone(api_response)
             self.fail('should not be coming here')
         except ApiException as e:
-            reason = json.loads(e.body)['error']
+            reason = json.loads(e.body)['reason']
             self.assertTrue(401 == e.status or 403 == e.status)
             self.assertTrue("Unauthorized" == reason or "Forbidden" == reason)
 
@@ -714,7 +714,7 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
             self.assertIsNotNone(api_response)
             self.fail('should not be coming here')
         except ApiException as e:
-            reason = json.loads(e.body)['error']
+            reason = json.loads(e.body)['reason']
             self.assertTrue(401 == e.status or 403 == e.status)
             self.assertTrue("Unauthorized" == reason or "Forbidden" == reason)
 
