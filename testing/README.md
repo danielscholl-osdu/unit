@@ -37,7 +37,7 @@ The following parameters are expected as environment variables:
 ## Tests core (unit_test_core/constants.py)
 | Variable | Contents |
 |----------|----------|
-| BASE_URL | e.g. /api/unit/v2 |
+| BASE_URL | e.g. /api/unit |
 | VIRTUAL_SERVICE_HOST_NAME | e.g. az-osdu1.evd.csp.slb.com |
 | MY_TENANT | e.g. opendes |
 

@@ -33,7 +33,7 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
     </properties>
 
     <prerequisites>
@@ -102,6 +102,10 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.5</version>
@@ -116,31 +120,7 @@
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
             <artifactId>os-core-common</artifactId>
-            <version>0.0.13</version>
-        </dependency>
-        
-	    <!-- Lucene Indexing Dependencies -->
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>${os-core-common.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -181,20 +161,6 @@
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>display-dependency-updates</goal>
-                            <goal>display-plugin-updates</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                <groupId>org.apache.maven.plugins</groupId>
                 <version>3.7.0</version>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -214,26 +180,7 @@
                      -->
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.whitesource</groupId>
-                <artifactId>whitesource-maven-plugin</artifactId>
-                <version>18.11.1</version>
-                <configuration>
-                    <orgToken>${orgToken}</orgToken>
-                    <wssUrl>https://app-eu.whitesourcesoftware.com/agent</wssUrl>
-                    <aggregateModules>true</aggregateModules>
-                    <product>DE</product>
-                    <aggregateProjectName>de-unit-service</aggregateProjectName>
-                    <forceCheckAllDependencies>true</forceCheckAllDependencies>
-                    <checkPolicies>false</checkPolicies>
-                    <forceUpdate>true</forceUpdate>
-                    <failOnError>false</failOnError>
-                    <excludes>
-                        <exclude>integration-tests</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+          </plugins>
     </build>
 
 </project>

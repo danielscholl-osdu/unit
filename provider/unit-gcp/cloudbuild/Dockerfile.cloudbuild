@@ -1,0 +1,10 @@
+# Use the official AdoptOpenJDK for a base image.
+# https://hub.docker.com/_/openjdk
+FROM openjdk:8-slim
+WORKDIR /app
+ARG PORT
+ENV PORT $PORT
+# Copy the jar to the production image from the builder stage.
+COPY provider/unit-gcp/unit-gae/target/unit-gae-*.jar unit.jar
+# Run the web service on container startup.
+CMD java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${PORT} -jar /app/unit.jar
