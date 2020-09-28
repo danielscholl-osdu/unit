@@ -1,5 +1,7 @@
 # Units of Measure Service
 
+The Unit Service is a Maven multi-module project with each cloud implemention placed in its submodule.
+
 ## This repository contains 
 1. The Java implementation of the Units of Measure catalog and conversion service (aka dps-unit-service). The Java code is located in the ```src``` folder. To open the Java project, open ```pom.xml```.
 1. Tests are located in ```src/test/java/org/opengroup/osdu/unitservice/...```
@@ -27,7 +29,8 @@ Both APIs are available in Swagger at https://[Unit_Service_Host]/api/unit/swagg
 mvn clean install
 ```
 
-## Running Azure Unit Service locally
+## Running Unit Service locally
+### Azure
 #### Build and run Unit Service locally using bash
 - Set the required environments described in [Build](##Build) and [Release/deployment](##Release/deployment) sections
 - Navigate to the Unit Service's root folder ```unit-service``` 
@@ -92,8 +95,11 @@ Headers for Postman:
 ```docker run -t --rm -p 8080:8080 unit```
 1. Use Postman or curl to try out the endpoints
 
+### GCP
+Instructions for running the GCP unit-service locally can be found [here](./provider/unit-gcp/unit-gae/README.md)
 
 ## Build
+### Azure
 VSTS build definition is located at build definitions/dps/unit-service, which 
 requires the following environment variables:
 
@@ -102,7 +108,11 @@ requires the following environment variables:
 | UNIT_CATALOG_BUCKET | Optional, bucket name where unit catalogs are located. |
 | UNIT_CATALOG_FILENAME | Required, file name for the unit catalog to use. Default to /mnt/unit_catalogs/unit_catalog_v2.json |
 
+### GCP
+Instructions for build the GCP unit-service can be found [here](./provider/unit-gcp/unit-gae/README.md)
+
 ## Release/deployment
+### Azure
 VSTS release definition is located at provider\unit-azure\unit-aks\devops, which 
 requires the following environment variables:
 
@@ -110,3 +120,8 @@ requires the following environment variables:
 |----------|----------|
 | ENTITLEMENT_URL | Required |
 | client-id | Required, Azure AAD client id |
+
+### GCP
+Instructions for deployment the GCP unit-service to App Engine can be found [here](./provider/unit-gcp/unit-gae/README.md)
+
+Instructions for deployment the GCP unit-service to GKE can be found [here](./provider/unit-gcp/unit-gke/README.md)
