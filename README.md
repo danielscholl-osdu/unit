@@ -38,7 +38,7 @@ mvn clean install # To run without tests add -Dmaven.test.skip=true
 - Navigate to the Unit Service's root folder ```unit-service``` 
 - Run application with command
 ```bash
-java -Dclient-id=${aad_client_id} -jar provider/unit-azure/unit-aks/target/unit-aks-1.0.0.jar
+java -jar provider/unit-azure/unit-aks/target/unit-aks-1.0.0.jar
 ```
 
 #### Running Azure Unit Service using IntelliJ IDEA
@@ -62,7 +62,7 @@ Similarly, when not using Postman but client code, set the configuration  ```ver
 Run application using debug mode and use [Postman](https://www.getpostman.com/)
 to send a GET request to obtaining the Swagger API documentation:
 ```
-http://localhost:8080/api/unit/v2/swagger.json
+http://localhost:8080/api/unit/v2/api-docs
 ```
 or send a POST request to the service:
 ```
@@ -99,14 +99,11 @@ requires the following environment variables:
 
 | Variable | Contents |
 |----------|----------|
-| UNIT_CATALOG_BUCKET | Optional, bucket name where unit catalogs are located. |
 | UNIT_CATALOG_FILENAME | Required, file name for the unit catalog to use. Default to /mnt/unit_catalogs/unit_catalog_v2.json |
 
 ## Release/deployment
-VSTS release definition is located at provider\unit-azure\unit-aks\devops, which 
-requires the following environment variables:
+VSTS release/deployment requires the following environment variables:
 
 | Variable | Contents |
 |----------|----------|
 | ENTITLEMENT_URL | Required |
-| client-id | Required, Azure AAD client id |
