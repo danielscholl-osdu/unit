@@ -51,7 +51,6 @@ phases:
       - printenv
 
       - echo "Building primary service assemblies..."
-      - mvn -B package #temp fix for failing build
       - mvn -B test install -pl unit-core,provider/unit-aws -Ddeployment.environment=prod
 
       - echo "Building integration testing assemblies and gathering artifacts..."
