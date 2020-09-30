@@ -16,10 +16,6 @@
 # To call this script from the service working directory
 # ./dist/testing/integration/build-aws/run-tests.sh "./reports/"
 
-echo **** UNIT INTEGRATION TESTS DISABLED ****
-echo skipping...
-exit 0
-
 SCRIPT_SOURCE_DIR=$(dirname "$0")
 echo "Script source location"
 echo "$SCRIPT_SOURCE_DIR"
@@ -43,6 +39,7 @@ export AWS_COGNITO_AUTH_PARAMS_PASSWORD=$ADMIN_PASSWORD
 export AWS_COGNITO_AUTH_PARAMS_USER=$ADMIN_USER
 export AWS_COGNITO_AUTH_PARAMS_USER_NO_ACCESS=$USER_NO_ACCESS
 export VIRTUAL_SERVICE_HOST_NAME=$UNIT_HOST
+export MY_TENANT=opendes
 
 #### RUN INTEGRATION TEST #########################################################################
 
