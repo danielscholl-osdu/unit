@@ -1,0 +1,18 @@
+global:
+  replicaCount: 1
+
+image:
+  imagePullSecrets: acr
+
+app:
+  repository: community.opengroup.org:5555/osdu/platform/ref-and-helper/unit-app
+  branch: master
+  tag: latest
+  pullPolicy: Always
+
+catalog:
+  repository: community.opengroup.org:5555/osdu/platform/ref-and-helper/unit-catalogs
+  tag: v2
+  pullPolicy: IfNotPresent
+
+
