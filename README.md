@@ -1,5 +1,7 @@
 # Units of Measure Service
 
+The Unit Service is a Maven multi-module project with each cloud implemention placed in its submodule.
+
 ## This repository contains 
 1. The Java implementation of the Units of Measure catalog and conversion service (aka dps-unit-service). The Java code is located in the ```src``` folder. To open the Java project, open ```pom.xml```.
 1. Tests are located in ```src/test/java/org/opengroup/osdu/unitservice/...```
@@ -101,9 +103,15 @@ requires the following environment variables:
 |----------|----------|
 | UNIT_CATALOG_FILENAME | Required, file name for the unit catalog to use. Default to /mnt/unit_catalogs/unit_catalog_v2.json |
 
+
 ## Release/deployment
 VSTS release/deployment requires the following environment variables:
 
 | Variable | Contents |
 |----------|----------|
 | ENTITLEMENT_URL | Required |
+
+### GCP
+Instructions for deployment the GCP unit-service to App Engine can be found [here](./provider/unit-gcp/unit-gae/README.md)
+
+Instructions for deployment the GCP unit-service to GKE can be found [here](./provider/unit-gcp/unit-gke/README.md)
