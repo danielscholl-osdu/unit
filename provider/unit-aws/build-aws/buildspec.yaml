@@ -51,11 +51,9 @@ phases:
       - printenv
 
       - echo "Building primary service assemblies..."
-      - mvn -B package #temp fix for failing build
       - mvn -B test install -pl unit-core,provider/unit-aws -Ddeployment.environment=prod
 
-      - echo "SKIPPING integration test build steps, up for review by OSDU now, they are in python an need to be rewritten in Java"
-      # - echo "Building integration testing assemblies and gathering artifacts..."
+      - echo "Building integration testing assemblies and gathering artifacts..."
       - ./testing/unit_test_aws/build-aws/prepare-dist.sh
 
       - echo "Building docker image..."
