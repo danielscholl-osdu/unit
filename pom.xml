@@ -3,19 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-  <properties>
-    <java.version>1.8</java.version>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <docker.image.prefix>org.opengroup.osdu</docker.image.prefix>
-    <powermock.version>2.0.6</powermock.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <core-lib-azure.version>0.0.9</core-lib-azure.version>
-    <core-lib-gcp.version>0.1.17</core-lib-gcp.version>
-    <azure-spring-boot.version>2.3.2</azure-spring-boot.version>
-    <micrometer-registry-azure-monitor.version>1.4.1</micrometer-registry-azure-monitor.version>
-      <os-core-common.version>0.3.6</os-core-common.version>
-  </properties>
+    <properties>
+      <java.version>1.8</java.version>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <docker.image.prefix>org.opengroup.osdu</docker.image.prefix>
+      <powermock.version>2.0.6</powermock.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <os-core-common.version>0.3.8</os-core-common.version>
+      <snakeyaml.version>1.26</snakeyaml.version>
+    </properties>
 
   <licenses>
   	<license>
@@ -64,4 +61,18 @@
 	<url>${publish.snapshots.url}</url>
     </snapshotRepository>
   </distributionManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opengroup.osdu</groupId>
+        <artifactId>os-core-common</artifactId>
+        <version>${os-core-common.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

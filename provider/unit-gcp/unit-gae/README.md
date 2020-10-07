@@ -77,11 +77,16 @@ gcloud config set project <YOUR-PROJECT-ID>
 gcloud auth application-default login
 ```
 
+<<<<<<< HEAD
 * Navigate to search service's root folder and run:
 
 ```bash
 mvn jetty:run
 ## Testing
+=======
+## Testing
+
+>>>>>>> epam_master
 * Navigate to unit service's root folder and run:
  
 ```bash
@@ -97,11 +102,17 @@ mvn clean install -DskipTests
 After configuring your environment as specified above, you can follow these steps to build and run the application. These steps should be invoked from the *repository root.*
 
 ```bash
+<<<<<<< HEAD
 cd provider/unit-gcp/ && mvn spring-boot:run
 ```
 
 ## Testing
 
+=======
+cd provider/unit-gcp/unit-gae && mvn spring-boot:run
+```
+
+>>>>>>> epam_master
 ### Running E2E Tests
 
 #### Folder structure

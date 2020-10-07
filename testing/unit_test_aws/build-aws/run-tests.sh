@@ -50,10 +50,10 @@ mkdir test-reports
 chmod +x run-integration-tests.sh
 echo Running Unit Service Integration Tests...
 ./run-integration-tests.sh
-
+TEST_EXIT_CODE=$?
 popd
 
-TEST_EXIT_CODE=$?
+
 
 #### COPY TEST REPORTS #########################################################################
 
