@@ -2,17 +2,13 @@ global:
   replicaCount: 1
 
 image:
-  imagePullSecrets: acr
-
-app:
-  repository: community.opengroup.org:5555/osdu/platform/ref-and-helper/unit-app
-  branch: master
+  repository: ${CONTAINER_REGISTRY_NAME}.azurecr.io/unit-service
   tag: latest
   pullPolicy: Always
 
 catalog:
-  repository: community.opengroup.org:5555/osdu/platform/ref-and-helper/unit-catalogs
+  repository: ${CONTAINER_REGISTRY_NAME}.azurecr.io/unit-catalog-data
   tag: v2
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 
