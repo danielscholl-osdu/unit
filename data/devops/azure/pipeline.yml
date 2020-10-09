@@ -19,7 +19,7 @@ trigger:
       - /testing
 
 variables:
-  - group: 'R3MVP - Azure - OSDU'
+  - group: 'Azure - OSDU'
 
 stages:
   - template: stages.yml

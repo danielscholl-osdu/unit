@@ -6,9 +6,9 @@ stages:
     - stage: 'Build_${{ environment.name }}'
 
       variables:
-      - group: 'R3MVP - Infrastructure Pipeline Variables - ${{environment.name}}'
-      - group: 'R3MVP - Azure Target Env Secrets - ${{environment.name}}'
-      - group: 'R3MVP - Azure Target Env - ${{environment.name}}' 
+      - group: 'Infrastructure Pipeline Variables - ${{environment.name}}'
+      - group: 'Azure Target Env Secrets - ${{environment.name}}'
+      - group: 'Azure Target Env - ${{environment.name}}' 
 
       jobs:
         - job: MavenPackageAndPublishArtifacts

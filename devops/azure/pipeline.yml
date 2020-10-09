@@ -15,15 +15,15 @@ resources:
   repositories:
   - repository: FluxRepo
     type: git
-    name: r3-gitops-manifests
+    name: gitops-manifests
   - repository: TemplateRepo
     type: git
-    name: r3-infra-azure-provisioning
+    name: infra-azure-provisioning
 
 
 variables:
-  - group: 'R3MVP - Azure - OSDU'
-  - group: 'R3MVP - Azure - OSDU Secrets'
+  - group: 'Azure - OSDU'
+  - group: 'Azure - OSDU Secrets'
 
   - name: serviceName
     value: "unit-service"
