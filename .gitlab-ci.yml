@@ -17,6 +17,10 @@ variables:
   AWS_ENVIRONMENT: dev
   AWS_INT_TEST_TYPE: python
 
+  AZURE_SERVICE: unit
+  AZURE_BUILD_SUBDIR: provider/unit-azure/unit-aks
+  AZURE_TEST_SUBDIR: testing/unit_test_azure
+
 include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "standard-setup.yml"
@@ -38,6 +42,9 @@ include:
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/aws.yml"
+
+  - project: "osdu/platform/ci-cd-pipelines"
+    file: "cloud-providers/azure.yml"
 
 osdu-gcp-test:
   extends:
