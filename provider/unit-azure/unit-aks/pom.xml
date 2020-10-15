@@ -9,6 +9,7 @@
     <groupId>org.opengroup.osdu.unit-service</groupId>
     <artifactId>unit-service</artifactId>
     <version>1.0.0</version>
+    <relativePath>../../../pom.xml</relativePath>
   </parent>
 
     <packaging>jar</packaging>
@@ -101,6 +102,16 @@
           <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                    <configuration>
+                        <classifier>spring-boot</classifier>
+                    </configuration>
+                </execution>
+            </executions>
           </plugin>
            <plugin>
                <groupId>org.apache.maven.plugins</groupId>

@@ -8,6 +8,7 @@
         <groupId>org.opengroup.osdu.unit-service</groupId>
         <artifactId>unit-service</artifactId>
         <version>1.0.0</version>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <artifactId>unit-gke</artifactId>
