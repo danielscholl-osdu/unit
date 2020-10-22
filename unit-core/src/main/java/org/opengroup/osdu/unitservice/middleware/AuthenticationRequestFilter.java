@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
@@ -33,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.util.Collections.emptyList;
 
+@Component
 public class AuthenticationRequestFilter extends OncePerRequestFilter {
 
     private static Logger logger = Logger.getLogger(AuthenticationRequestFilter.class.getName());
