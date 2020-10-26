@@ -16,19 +16,6 @@
     <name>unit-gke</name>
     <description>Unit service Google Kubernetes Engine deployment</description>
 
-    <repositories>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
-            <releases>
-              <enabled>true</enabled>
-            </releases>
-            <snapshots>
-              <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <properties>
         <app.version>1</app.version>
         <app.id>unit-gke</app.id>    
