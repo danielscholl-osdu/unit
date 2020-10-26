@@ -6,6 +6,7 @@ variables:
   OSDU_GCP_UNIT_CATALOG_BUCKET: nice-etching-277309-unit-catalog-bucket
   OSDU_GCP_ENV_VARS: ENTITLEMENT_URL=$OSDU_GCP_ENTITLEMENTS_URL,UNIT_CATALOG_BUCKET=$OSDU_GCP_UNIT_CATALOG_BUCKET
   OSDU_GCP_PORT: 8080
+  OSDU_GCP_INT_TEST_TYPE: python
   # --- end of osdu-gcp specific variables --- 
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
   IBM_INT_TEST_PY_SUBDIR: testing/unit_test_ibm
@@ -45,23 +46,3 @@ include:
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/azure.yml"
-
-osdu-gcp-test:
-  extends:
-    - .osdu-gcp-variables
-  variables:
-    INTEGRATION_TESTER: $OSDU_GCP_INTEGRATION_TESTER
-    BASE_URL: /api/unit
-    VIRTUAL_SERVICE_HOST_NAME: os-unit-attcrcktoa-uc.a.run.app
-    MY_TENANT: osdu
-  stage: integration
-  image: python:3.7
-  needs: ["osdu-gcp-deploy"]
-  allow_failure: false
-  script:
-    - cd testing/unit_test_gcp
-    - python3 -m pip install -r requirements.txt
-    - python3 run_test.py
-  only:
-    variables:
-      - $OSDU_GCP == 'true'
