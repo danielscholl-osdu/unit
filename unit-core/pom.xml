@@ -40,19 +40,6 @@
         <maven>3.1.0</maven>
     </prerequisites>
 
-    <repositories>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
-            <releases>
-              <enabled>true</enabled>
-            </releases>
-            <snapshots>
-              <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <!-- Compile/runtime dependencies -->
         <dependency>
