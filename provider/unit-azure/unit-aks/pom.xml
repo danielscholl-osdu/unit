@@ -18,12 +18,6 @@
     <name>unit-aks</name>
     <description>Unit service Azure Kubernetes Deployment</description>
 
-    <repositories>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
-        </repository>
-     </repositories>
     <properties>
         <app.version>1</app.version>
         <app.id>unit-aks</app.id>    
