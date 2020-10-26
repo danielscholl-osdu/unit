@@ -63,6 +63,9 @@ stages:
       testCoreMavenOptions: ''
       skipDeploy: ${{ variables.SKIP_DEPLOY }}
       skipTest: 'true'
+      runPythonTest: 'true'
+      testPythonFilePath: 'testing/unit_test_azure'
+      testPythonFile: 'run-integration-tests.sh'
       providers:
         -  name: Azure
            environments: ['dev']
