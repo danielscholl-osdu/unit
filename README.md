@@ -29,7 +29,8 @@ Both APIs are available in Swagger at https://[Unit_Service_Host]/api/unit/swagg
 mvn clean install
 ```
 
-## Running Azure Unit Service locally
+## Running Unit Service locally
+### Azure
 #### Build and run Unit Service locally using bash
 - Set the required environments described in [Build](##Build) and [Release/deployment](##Release/deployment) sections
 - Navigate to the Unit Service's root folder ```unit-service``` 
@@ -94,14 +95,17 @@ Headers for Postman:
 ```docker run -t --rm -p 8080:8080 unit```
 1. Use Postman or curl to try out the endpoints
 
-
 ## Build
+### Azure
 VSTS build definition is located at build definitions/dps/unit-service, which 
 requires the following environment variables:
 
 | Variable | Contents |
 |----------|----------|
 | UNIT_CATALOG_FILENAME | Required, file name for the unit catalog to use. Default to /mnt/unit_catalogs/unit_catalog_v2.json |
+
+### GCP
+Instructions for build the GCP unit-service can be found [here](./provider/unit-gcp/unit-gae/README.md)
 
 
 ## Release/deployment

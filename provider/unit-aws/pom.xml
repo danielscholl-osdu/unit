@@ -139,19 +139,8 @@
 
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
-        </repository>
-    </repositories>
-
-
-
-
     <build>
         <!-- for hot reload of the web application-->
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

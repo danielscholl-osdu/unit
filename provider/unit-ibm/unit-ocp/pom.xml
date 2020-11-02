@@ -9,6 +9,7 @@
 		<groupId>org.opengroup.osdu.unit-service</groupId>
 		<artifactId>unit-service</artifactId>
 		<version>1.0.0</version>
+		<relativePath>../../../pom.xml</relativePath>
 	</parent>
 
 	<packaging>jar</packaging>
@@ -16,23 +17,6 @@
 	<name>unit-ocp</name>
 	<description>Unit service IBM OpenShift Deployment</description>
 
-	<repositories>
-		<repository>
-			<id>${gitlab-server}</id>
-			<url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>${gitlab-server}</id>
-			<url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
-		</repository>
-		<snapshotRepository>
-			<id>${gitlab-server}</id>
-			<url>https://community.opengroup.org/api/v4/projects/5/packages/maven</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<properties>
 		<app.version>1</app.version>
 		<app.id>unit-ocp</app.id>

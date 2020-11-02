@@ -17,19 +17,6 @@
     <name>unit-gae</name>
     <description>Unit service Google App Engine deployment</description>
 
-    <repositories>
-        <repository>
-            <id>${gitlab-server}</id>
-            <url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</url>
-            <releases>
-              <enabled>true</enabled>
-            </releases>
-            <snapshots>
-              <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    
     <properties>
         <appengine.app.version>1</appengine.app.version>
         <app.version>1</app.version>
