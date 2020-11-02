@@ -78,7 +78,6 @@ gcloud auth application-default login
 ```
 
 ## Testing
-
 * Navigate to unit service's root folder and run:
  
 ```bash
@@ -96,6 +95,8 @@ After configuring your environment as specified above, you can follow these step
 ```bash
 cd provider/unit-gcp/unit-gae && mvn spring-boot:run
 ```
+
+## Testing
 
 ### Running E2E Tests
 

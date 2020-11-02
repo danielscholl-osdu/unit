@@ -77,10 +77,8 @@ gcloud config set project <YOUR-PROJECT-ID>
 gcloud auth application-default login
 ```
 
-## Testing
-
 * Navigate to Unit service's root folder and run:
- 
+
 ```bash
 mvn clean install   
 ```
@@ -97,6 +95,7 @@ After configuring your environment as specified above, you can follow these step
 cd provider/unit-gcp/unit-gke && mvn spring-boot:run
 ```
 
+## Testing
 ### Running E2E Tests
 
 #### Folder structure
