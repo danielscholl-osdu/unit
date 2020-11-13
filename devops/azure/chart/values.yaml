@@ -2,13 +2,6 @@ global:
   replicaCount: 1
 
 image:
-  repository: ${CONTAINER_REGISTRY_NAME}.azurecr.io/unit-service
+  repository: community.opengroup.org:5555/osdu/platform/system/reference/unit-service
   tag: latest
   pullPolicy: Always
-
-catalog:
-  repository: ${CONTAINER_REGISTRY_NAME}.azurecr.io/unit-catalog-data
-  tag: v2
-  pullPolicy: Always
-
-

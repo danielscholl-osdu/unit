@@ -12,8 +12,3 @@ image:
   repository: #{container-registry}#.azurecr.io
   branch: #{ENVIRONMENT_NAME}#
   tag: #{Build.SourceVersion}#
-
-catalog:
-  repository: #{container-registry}#.azurecr.io/unit-catalog-data
-  tag: v2
-  pullPolicy: Always
