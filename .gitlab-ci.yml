@@ -3,11 +3,11 @@ variables:
   OSDU_GCP_SERVICE: unit
   OSDU_GCP_VENDOR: gcp
   OSDU_GCP_APPLICATION_NAME: os-unit
-  OSDU_GCP_UNIT_CATALOG_BUCKET: nice-etching-277309-unit-catalog-bucket
   OSDU_GCP_ENV_VARS: ENTITLEMENT_URL=$OSDU_GCP_ENTITLEMENTS_URL,UNIT_CATALOG_BUCKET=$OSDU_GCP_UNIT_CATALOG_BUCKET
-  OSDU_GCP_PORT: 8080
   OSDU_GCP_INT_TEST_TYPE: python
-  # --- end of osdu-gcp specific variables --- 
+  OSDU_GCP_PYTHON_INT_TEST_SUBDIR: testing/unit_test_gcp
+  # --- end of osdu-gcp specific variables ---
+
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
   IBM_INT_TEST_PY_SUBDIR: testing/unit_test_ibm
   IBM_INT_TEST_PY_FILE: run_test.py

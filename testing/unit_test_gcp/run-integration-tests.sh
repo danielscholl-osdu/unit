@@ -19,6 +19,9 @@
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 
+# Define VIRTUAL_SERVICE_HOST_NAME var for unit service
+export VIRTUAL_SERVICE_HOST_NAME=$OSDU_GCP_UNIT_HOSTNAME
+
 # Run tests
 export API_VER="v2"
 echo ***RUNNING UNIT API $API_VER TESTS***
