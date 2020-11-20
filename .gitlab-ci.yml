@@ -48,3 +48,7 @@ include:
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/azure.yml"
+
+osdu-gcp-test-python:
+  variables:
+    VIRTUAL_SERVICE_HOST_NAME: $OSDU_GCP_UNIT_HOSTNAME
