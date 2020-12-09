@@ -1,4 +1,3 @@
-
 trigger:
   batch: true
   branches:
@@ -68,4 +67,4 @@ stages:
       testPythonFile: 'run-integration-tests.sh'
       providers:
         -  name: Azure
-           environments: ['demo']
+           environments: ['dev']
