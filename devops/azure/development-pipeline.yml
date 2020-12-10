@@ -14,7 +14,7 @@ resources:
   repositories:
   - repository: FluxRepo
     type: git
-    name: gitops-manifests
+    name: k8-gitops-manifests
   - repository: TemplateRepo
     type: git
     name: infra-azure-provisioning
@@ -40,15 +40,16 @@ stages:
     parameters:
       mavenGoal: 'package'
       mavenPublishJUnitResults: true
-      serviceCoreMavenOptions: ''
-      mavenOptions: ''
+      serviceCoreMavenOptions: '-P unit-core --settings .mvn/community-maven.settings.xml'
+      mavenOptions: '-P unit-azure --settings .mvn/community-maven.settings.xml'
       copyFileContents: |
         pom.xml
-        maven/settings.xml
+        provider/unit-azure/unit-aks/maven/settings.xml
         provider/unit-azure/unit-aks/pom.xml
-        provider/unit-azure/unit-aks/target/unit-aks-*.jar
+        provider/unit-azure/unit-aks/target/*-spring-boot.jar
+        .mvn/community-maven.settings.xml
       copyFileContentsToFlatten: ''
-      mavenSettingsFile: './maven/settings.xml'
+      mavenSettingsFile: '.mvn/community-maven.settings.xml'
       serviceBase: ${{ variables.serviceName }}
       testingRootFolder: 'testing'
       chartPath: ${{ variables.chartPath }}
