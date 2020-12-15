@@ -15,7 +15,7 @@ resources:
   repositories:
   - repository: FluxRepo
     type: git
-    name: gitops-manifests
+    name: k8-gitops-manifests
   - repository: TemplateRepo
     type: git
     name: infra-azure-provisioning
@@ -34,8 +34,6 @@ variables:
     value: $[ resources.repositories['FluxRepo'].name ]
   - name: 'MAVEN_CACHE_FOLDER'
     value: $(Pipeline.Workspace)/.m2/repository
-  - name: SKIP_TESTS
-    value: 'true'
 
 stages:
 
