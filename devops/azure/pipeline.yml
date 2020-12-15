@@ -15,7 +15,7 @@ resources:
   repositories:
   - repository: FluxRepo
     type: git
-    name: gitops-manifests
+    name: k8-gitops-manifests
   - repository: TemplateRepo
     type: git
     name: infra-azure-provisioning
