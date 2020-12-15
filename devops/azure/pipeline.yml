@@ -1,4 +1,3 @@
-
 trigger:
   batch: true
   branches:
@@ -9,7 +8,8 @@ trigger:
       - /**/*.md
       - .gitignore
       - /provider/unit-gcp
-
+      - /provider/unit-aws
+      - /provider/unit-ibm
 
 resources:
   repositories:
@@ -19,7 +19,6 @@ resources:
   - repository: TemplateRepo
     type: git
     name: infra-azure-provisioning
-
 
 variables:
   - group: 'Azure - OSDU'
@@ -33,7 +32,8 @@ variables:
     value: "devops/azure/chart/helm-config.yaml"
   - name: 'MANIFEST_REPO'
     value: $[ resources.repositories['FluxRepo'].name ]
-
+  - name: 'MAVEN_CACHE_FOLDER'
+    value: $(Pipeline.Workspace)/.m2/repository
 
 stages:
 
@@ -41,8 +41,8 @@ stages:
     parameters:
       mavenGoal: 'package'
       mavenPublishJUnitResults: true
-      serviceCoreMavenOptions: ''
-      mavenOptions: ''
+      serviceCoreMavenOptions: '-P unit-core --settings .mvn/community-maven.settings.xml -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+      mavenOptions: '-P unit-azure --settings .mvn/community-maven.settings.xml -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
       copyFileContents: |
         pom.xml
         maven/settings.xml
