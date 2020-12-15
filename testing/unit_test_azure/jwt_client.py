@@ -1,6 +1,7 @@
-
 import os
 import msal
+import logging
+logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 
 
 def get_id_token():

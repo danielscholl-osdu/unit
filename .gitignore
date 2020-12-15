@@ -45,3 +45,7 @@ dist
 .env
 .DS_Store
 .sts*
+
+# Environment configuration
+*.env
+.envrc
