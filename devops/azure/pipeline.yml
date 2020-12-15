@@ -34,6 +34,8 @@ variables:
     value: $[ resources.repositories['FluxRepo'].name ]
   - name: 'MAVEN_CACHE_FOLDER'
     value: $(Pipeline.Workspace)/.m2/repository
+  - name: SKIP_TESTS
+    value: 'true'
 
 stages:
 
