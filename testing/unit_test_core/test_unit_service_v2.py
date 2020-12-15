@@ -1,5 +1,6 @@
 # coding: utf-8
 """Integration unit tests for unit-service v2"""
+import os
 import unittest
 import json
 
@@ -14,7 +15,9 @@ import unit_test_core.constants as constants
 import jwt_client
 
 import urllib3
-urllib3.disable_warnings()
+import warnings
+import logging
+logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 
 def is_close(a, b, rel_tol=1e-09, abs_tol=0.0):
     """Compare a double
@@ -76,6 +79,9 @@ class TestConversions(unittest.TestCase):
     """Test the conversion end-points"""
     @classmethod
     def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<socket.socket.*>")
+        urllib3.disable_warnings()
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
@@ -181,6 +187,9 @@ class TestUnits(unittest.TestCase):
     """Test the Units end-points"""
     @classmethod
     def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<socket.socket.*>")
+        urllib3.disable_warnings()
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
@@ -395,6 +404,9 @@ class TestMeasurements(unittest.TestCase):
     """Test the Measurement end-points"""
     @classmethod
     def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<socket.socket.*>")
+        urllib3.disable_warnings()
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
@@ -497,6 +509,9 @@ class TestUnitSystems(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<socket.socket.*>")
+        urllib3.disable_warnings()
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
@@ -592,6 +607,9 @@ class TestUoMCatalog(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<socket.socket.*>")
+        urllib3.disable_warnings()
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
@@ -659,6 +677,9 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<socket.socket.*>")
+        urllib3.disable_warnings()
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
