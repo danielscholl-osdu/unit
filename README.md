@@ -104,10 +104,6 @@ requires the following environment variables:
 |----------|----------|
 | UNIT_CATALOG_FILENAME | Required, file name for the unit catalog to use. Default to /mnt/unit_catalogs/unit_catalog_v2.json |
 
-### GCP
-Instructions for build the GCP unit-service can be found [here](./provider/unit-gcp/unit-gae/README.md)
-
-
 ## Release/deployment
 VSTS release/deployment requires the following environment variables:
 

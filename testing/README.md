@@ -32,7 +32,7 @@ The following parameters are expected as environment variables:
 ## GCP auth provider (catalog_test_gcp/jwt_client.py)
 | Variable | Contents |
 |----------|----------|
-| TESTER_USER_KEY | go to the google IAM & admin console, navigate to Service accounts to create a key and download the account info file. |
+| INTEGRATION_TESTER | go to the google IAM & admin console, navigate to Service accounts to create a key and download the account info file. |
 
 ## Tests core (unit_test_core/constants.py)
 | Variable | Contents |
