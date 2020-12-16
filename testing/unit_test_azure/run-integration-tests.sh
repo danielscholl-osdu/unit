@@ -31,7 +31,7 @@ echo "-------------------------------"
 
 # Uninstall Environment if not on ADO Pipelines
 if [ -z ${AGENT_POOL+x}  ]; then
-  python3 -m pip freeze > requirements.txt
+  # python3 -m pip freeze > requirements.txt
   python3 -m pip uninstall -r requirements.txt -y
   deactivate
   rm -rf env/

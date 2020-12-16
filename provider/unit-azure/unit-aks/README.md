@@ -51,7 +51,7 @@ az keyvault secret show --vault-name $KEY_VAULT_NAME --name $KEY_VAULT_SECRET_NA
 | `VIRTUAL_SERVICE_HOST_NAME` | `localhost:8080` | Hostname of Service | no | -- |
 | `INTEGRATION_TESTER` | `********` | System identity to assume for API calls. Note: this user must have entitlements configured already | no | -- |
 | `AZURE_TESTER_SERVICEPRINCIPAL_SECRET` | `********` | Secret for `$INTEGRATION_TESTER` | yes | -- |
-| `AZURE_AD_TENANT_ID` | `********` | AD tenant to authenticate users from | yes | -- |
+| `AZURE_TENANT_ID` | `********` | AD tenant to authenticate users from | yes | -- |
 | `AZURE_AD_APP_RESOURCE_ID` | `********` | AAD client application ID | yes | output of infrastructure deployment |
 | `BASE_URL` | `/api/unit` | URI Context Path | no | -- |
 | `MY_TENANT` | ex `opendes` | OSDU tenant used for testing | no | -- |
