@@ -22,7 +22,7 @@ variables:
   AZURE_BUILD_SUBDIR: provider/unit-azure/unit-aks
   AZURE_TEST_SUBDIR: testing/unit_test_azure
   AZURE_TEST_TYPE: python
-  AZURE_SHARE_NAME: unit
+  SHARE_NAME: unit
 
 include:
   - project: "osdu/platform/ci-cd-pipelines"
