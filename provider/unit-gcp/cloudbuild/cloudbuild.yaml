@@ -18,12 +18,13 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
             'build',
+            '--build-arg', 'PROVIDER_NAME=${_PROVIDER_NAME}',
             '--build-arg', 'PORT=${_PORT}',
-            '-t', 'gcr.io/$PROJECT_ID/os-unit/unit-${_PROVIDER_NAME}:${_SHORT_SHA}',
-            '-t', 'gcr.io/$PROJECT_ID/os-unit/unit-${_PROVIDER_NAME}:latest',
+            '-t', 'gcr.io/$PROJECT_ID/${_APPLICATION_NAME}/${_GCP_SERVICE}-${_PROVIDER_NAME}:${_SHORT_SHA}',
+            '-t', 'gcr.io/$PROJECT_ID/${_APPLICATION_NAME}/${_GCP_SERVICE}-${_PROVIDER_NAME}:latest',
             '-f', 'provider/unit-${_PROVIDER_NAME}/cloudbuild/Dockerfile.cloudbuild',
             '.'
     ]
 
 images:
-  - 'gcr.io/$PROJECT_ID/os-unit/unit-${_PROVIDER_NAME}'
+  - 'gcr.io/$PROJECT_ID/${_APPLICATION_NAME}/${_GCP_SERVICE}-${_PROVIDER_NAME}'
