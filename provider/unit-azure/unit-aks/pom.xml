@@ -35,6 +35,7 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>	    
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <osdu.corelibazure.version>0.0.42</osdu.corelibazure.version>
     </properties>
 
     <prerequisites>
@@ -46,6 +47,11 @@
             <groupId>org.opengroup.osdu.unit-service</groupId>
             <artifactId>unit-core</artifactId>
             <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.opengroup.osdu</groupId>
+            <artifactId>core-lib-azure</artifactId>
+            <version>${osdu.corelibazure.version}</version>
         </dependency>
         <!-- Compile/runtime dependencies -->
         <dependency>
@@ -75,14 +81,15 @@
             <version>${slf4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <dependency>
             <groupId>com.microsoft.azure</groupId>
             <artifactId>azure-active-directory-spring-boot-starter</artifactId>
             <version>${azure.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
