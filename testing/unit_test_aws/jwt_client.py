@@ -18,7 +18,10 @@ import boto3;
 import jwt;
 
 def get_id_token():
-    client = boto3.client('cognito-idp', region_name=os.environ["AWS_REGION"])
+    if os.environ["AWS_COGNITO_REGION"]:
+        client = boto3.client('cognito-idp', region_name=os.environ["AWS_COGNITO_REGION"])
+    else:
+        client = boto3.client('cognito-idp', region_name=os.environ["AWS_REGION"])
 
     userAuth = client.initiate_auth(
         ClientId= os.environ['AWS_COGNITO_CLIENT_ID'],
