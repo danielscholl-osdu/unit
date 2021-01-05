@@ -18,8 +18,9 @@ import boto3;
 import jwt;
 
 def get_id_token():
-    if os.environ["AWS_COGNITO_REGION"]:
-        client = boto3.client('cognito-idp', region_name=os.environ["AWS_COGNITO_REGION"])
+    region = os.getenv("AWS_COGNITO_REGION")
+    if region:
+        client = boto3.client('cognito-idp', region_name=region)
     else:
         client = boto3.client('cognito-idp', region_name=os.environ["AWS_REGION"])
 
