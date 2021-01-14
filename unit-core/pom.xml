@@ -8,11 +8,11 @@
     <parent>
         <groupId>org.opengroup.osdu.unit-service</groupId>
         <artifactId>unit-service</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>unit-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>unit-core</name>
     <description>Unit service core</description>
 
