@@ -21,7 +21,7 @@
     <parent>
         <artifactId>unit-service</artifactId>
         <groupId>org.opengroup.osdu.unit-service</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>org.opengroup.osdu.unit-service</groupId>
             <artifactId>unit-core</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <!-- AWS-managed packages -->
