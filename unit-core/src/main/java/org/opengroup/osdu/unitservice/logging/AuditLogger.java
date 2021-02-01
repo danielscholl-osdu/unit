@@ -18,7 +18,6 @@
 package org.opengroup.osdu.unitservice.logging;
 
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
 import org.opengroup.osdu.core.common.logging.audit.AuditPayload;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
@@ -26,13 +25,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
 @Component
-@RequiredArgsConstructor
 @RequestScope
 public class AuditLogger {
 
   private JaxRsDpsLog logger;
   private DpsHeaders dpsHeaders;
   private AuditEvents events = null;
+
+  public AuditLogger(JaxRsDpsLog logger, DpsHeaders dpsHeaders) {
+    this.logger = logger;
+    this.dpsHeaders = dpsHeaders;
+  }
 
   private AuditEvents getAuditEvents() {
     if (this.events == null) {
