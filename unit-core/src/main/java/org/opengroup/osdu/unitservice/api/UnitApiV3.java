@@ -26,7 +26,6 @@ import org.opengroup.osdu.unitservice.model.MeasurementMapImpl;
 import org.opengroup.osdu.unitservice.model.UnitEssenceImpl;
 import org.opengroup.osdu.unitservice.model.UnitMapImpl;
 import org.opengroup.osdu.unitservice.model.extended.CatalogResponse;
-import org.opengroup.osdu.unitservice.model.extended.ConversionResultImpl;
 import org.opengroup.osdu.unitservice.model.extended.QueryResultImpl;
 import org.opengroup.osdu.unitservice.model.extended.UnitSystemEssenceImpl;
 import org.opengroup.osdu.unitservice.model.extended.UnitSystemInfoResponse;
@@ -37,8 +36,6 @@ import org.opengroup.osdu.unitservice.request.SearchRequest;
 import org.opengroup.osdu.unitservice.request.UnitRequest;
 import org.opengroup.osdu.unitservice.request.UnitSystemRequest;
 import org.opengroup.osdu.unitservice.util.AppException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,7 +47,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v3")
 public class UnitApiV3 {
 
-  private static final Logger LOG = LoggerFactory.getLogger(UnitApiV3.class);
   private CatalogImpl catalog;
   private AuditLogger auditLogger;
 
@@ -673,7 +669,6 @@ public class UnitApiV3 {
       result.setMapStates(Utility.getRange(catalog.getWellknownMapStates(), offset, limit));
       result.setTotalCount(catalog.getWellknownMapStates().size());
       result.setOffset(offset);
-      LOG.error("AAAAAAAAA "+result.toString());
 
       auditLogger.getMapStatesSuccess(Collections.singletonList(result.toString()));
       return result;
