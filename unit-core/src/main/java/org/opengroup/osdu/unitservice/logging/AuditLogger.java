@@ -18,9 +18,13 @@
 package org.opengroup.osdu.unitservice.logging;
 
 import java.util.List;
+import java.util.Objects;
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
 import org.opengroup.osdu.core.common.logging.audit.AuditPayload;
+import org.opengroup.osdu.core.common.model.entitlements.Groups;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -39,7 +43,13 @@ public class AuditLogger {
 
   private AuditEvents getAuditEvents() {
     if (this.events == null) {
-      this.events = new AuditEvents(this.dpsHeaders.getUserEmail());
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      if (Objects.nonNull(authentication) && authentication.getPrincipal() instanceof Groups) {
+        Groups groups = (Groups) authentication.getPrincipal();
+        this.events = new AuditEvents(groups.getMemberEmail());
+      } else {
+        this.events = new AuditEvents(this.dpsHeaders.getUserEmail());
+      }
     }
     return this.events;
   }
