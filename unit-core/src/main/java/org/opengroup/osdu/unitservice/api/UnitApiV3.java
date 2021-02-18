@@ -428,7 +428,7 @@ public class UnitApiV3 {
     public UnitSystemInfoResponse getUnitSystemInfoList(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
-
+        assertRange(offset, limit);
         return catalog.getUnitSystemInfoList(offset, limit);
     }
 
@@ -443,6 +443,7 @@ public class UnitApiV3 {
     public UnitSystem postUnitSystem(@RequestBody UnitSystemRequest request,
                                      @RequestParam(value = "offset", defaultValue = "0") int offset,
                                      @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
         try {
             UnitSystemEssenceImpl essence = request.getUnitSystemEssence();
             return catalog.postUnitSystem(essence, offset, limit);
@@ -463,7 +464,7 @@ public class UnitApiV3 {
     public UnitSystem getUnitSystem(@RequestParam("name") String name,
                                     @RequestParam(value = "offset", defaultValue = "0") int offset,
                                     @RequestParam(value = "limit", defaultValue = "100") int limit) {
-
+        assertRange(offset, limit);
         try {
             return catalog.getUnitSystem(name, offset, limit);
         }
@@ -542,6 +543,7 @@ public class UnitApiV3 {
     public QueryResult getUnitMaps(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
         try {
             List<UnitMapItem> allItems = new ArrayList<>();
             for (UnitMapImpl unitMap : catalog.getUnitMaps()) {
@@ -564,6 +566,7 @@ public class UnitApiV3 {
     public QueryResult getMeasurementMaps(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
         try {
             List<MeasurementMapItem> allItems = new ArrayList<>();
             for (MeasurementMapImpl measurementMap : catalog.getMeasurementMaps()) {
@@ -586,6 +589,7 @@ public class UnitApiV3 {
     public QueryResult getMapStates(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
         try {
             QueryResultImpl result = new QueryResultImpl();
             result.setMapStates(Utility.getRange(catalog.getWellknownMapStates(), offset, limit));
