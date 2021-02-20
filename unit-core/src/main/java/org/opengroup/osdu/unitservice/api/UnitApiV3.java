@@ -449,89 +449,62 @@ public class UnitApiV3 {
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
     }
-  }
 
-  /**
-   * Gets the conversion coefficient in ABCD from the fromUnit and toUnit where are selected based
-   * the ordered namespaces.
-   *
-   * @param namespaces namespace list in order
-   * @param fromSymbol symbol of the fromUnit
-   * @param toSymbol   symbol of the toUnit
-   * @return a conversion result that contains result in {@link ABCD} format
-   * @throws AppException An exception will be thrown if
-   *                      <ul>
-   *                          <li>neither fromSymbol nor toSymbol exists in the given namespaces or;</li>
-   *                          <li>fromUnit and toUnit are not convertible.</li>
-   *                      </ul>
-   */
-  @GetMapping("/conversion/abcd")
-  public ConversionResult getConversionABCDBySymbols(@RequestParam("namespaces") String namespaces,
-      @RequestParam("fromSymbol") String fromSymbol,
-      @RequestParam("toSymbol") String toSymbol) {
-    try {
-      ConversionResult conversionABCDBySymbols = catalog
-          .getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
-      auditLogger.readConversionABCDBySymbolsSuccess(
-          Collections.singletonList(conversionABCDBySymbols.toString()));
-      return conversionABCDBySymbols;
-    } catch (Exception ex) {
-      throw AppException.createBadRequest(ex.getMessage());
+    /********************************************
+     UnitSystem related API
+     *********************************************/
+    /**
+     * Gets a list of {@link UnitSystemInfoResponse}
+     *
+     * @return A list of unit system infos {@link UnitSystemInfoResponse}
+     */
+	@GetMapping("/unitsystem/list")
+    public UnitSystemInfoResponse getUnitSystemInfoList(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
+        return catalog.getUnitSystemInfoList(offset, limit);
     }
-  }
 
-  /********************************************
-   UnitSystem related API
-   *********************************************/
-  /**
-   * Gets a list of {@link UnitSystemInfoResponse}
-   *
-   * @return A list of unit system infos {@link UnitSystemInfoResponse}
-   */
-  @GetMapping("/unitsystem/list")
-  public UnitSystemInfoResponse getUnitSystemInfoList(
-      @RequestParam(value = "offset", defaultValue = "0") int offset,
-      @RequestParam(value = "limit", defaultValue = "100") int limit) {
-    UnitSystemInfoResponse unitSystemInfoList = catalog.getUnitSystemInfoList(offset, limit);
-    auditLogger.readUnitSystemSuccess(Collections.singletonList(unitSystemInfoList.toString()));
-    return catalog.getUnitSystemInfoList(offset, limit);
-  }
-
-  /**
-   * Gets a unit system by posting the given unit system essence Json string
-   *
-   * @param request UnitSystemRequest
-   * @return a unit system
-   * @throws AppException An exception will be thrown if the essence of the unit system is invalid
-   */
-  @PostMapping("/unitsystem")
-  public UnitSystem postUnitSystem(@RequestBody UnitSystemRequest request,
-      @RequestParam(value = "offset", defaultValue = "0") int offset,
-      @RequestParam(value = "limit", defaultValue = "100") int limit) {
-    try {
-      UnitSystemEssenceImpl essence = request.getUnitSystemEssence();
-      return catalog.postUnitSystem(essence, offset, limit);
-    } catch (Exception ex) {
-      throw AppException.createBadRequest(ex.getMessage());
+    /**
+     * Gets a unit system by posting the given unit system essence Json string
+     *
+     * @param request UnitSystemRequest
+     * @return     a unit system
+     * @throws AppException An exception will be thrown if the essence of the unit system is invalid
+     */
+	@PostMapping("/unitsystem")
+    public UnitSystem postUnitSystem(@RequestBody UnitSystemRequest request,
+                                     @RequestParam(value = "offset", defaultValue = "0") int offset,
+                                     @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
+        try {
+            UnitSystemEssenceImpl essence = request.getUnitSystemEssence();
+            return catalog.postUnitSystem(essence, offset, limit);
+        }
+        catch(Exception ex) {
+            throw AppException.createBadRequest(ex.getMessage());
+        }
     }
-  }
 
-  /**
-   * Gets a unit system from the given unit system name
-   *
-   * @param name a unit system name
-   * @return a unit system
-   * @throws AppException An exception will be thrown if the name of the unit system is invalid
-   */
-  @GetMapping("/unitsystem")
-  public UnitSystem getUnitSystem(@RequestParam("name") String name,
-      @RequestParam(value = "offset", defaultValue = "0") int offset,
-      @RequestParam(value = "limit", defaultValue = "100") int limit) {
-
-    try {
-      return catalog.getUnitSystem(name, offset, limit);
-    } catch (Exception ex) {
-      throw AppException.createBadRequest(ex.getMessage());
+    /**
+     * Gets a unit system from the given unit system name
+     *
+     * @param name a unit system name
+     * @return     a unit system
+     * @throws AppException An exception will be thrown if the name of the unit system is invalid
+     */
+	@GetMapping("/unitsystem")
+    public UnitSystem getUnitSystem(@RequestParam("name") String name,
+                                    @RequestParam(value = "offset", defaultValue = "0") int offset,
+                                    @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
+        try {
+            return catalog.getUnitSystem(name, offset, limit);
+        }
+        catch(Exception ex) {
+            throw AppException.createBadRequest(ex.getMessage());
+        }
     }
   }
 
@@ -610,70 +583,67 @@ public class UnitApiV3 {
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
     }
-  }
 
-  @GetMapping("/unit/maps")
-  public QueryResult getUnitMaps(
-      @RequestParam(value = "offset", defaultValue = "0") int offset,
-      @RequestParam(value = "limit", defaultValue = "100") int limit) {
-    try {
-      List<UnitMapItem> allItems = new ArrayList<>();
-      for (UnitMapImpl unitMap : catalog.getUnitMaps()) {
-        allItems.addAll(unitMap.getUnitMapItems());
-      }
-      QueryResultImpl result = new QueryResultImpl();
-      List<UnitMapItem> items = Utility.getRange(allItems, offset, limit);
-      for (UnitMapItem item : items) {
-        result.addUnitMapItem(item);
-      }
-      result.setTotalCount(allItems.size());
-      result.setOffset(offset);
-
-      auditLogger.getUnitMapsSuccess(Collections.singletonList(result.toString()));
-      return result;
-    } catch (IndexOutOfBoundsException ex) {
-      throw AppException.createBadRequest(ex.getMessage());
+    @GetMapping("/unit/maps")
+    public QueryResult getUnitMaps(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
+        try {
+            List<UnitMapItem> allItems = new ArrayList<>();
+            for (UnitMapImpl unitMap : catalog.getUnitMaps()) {
+                allItems.addAll(unitMap.getUnitMapItems());
+            }
+            QueryResultImpl result = new QueryResultImpl();
+            List<UnitMapItem> items = Utility.getRange(allItems, offset, limit);
+            for (UnitMapItem item : items) {
+                result.addUnitMapItem(item);
+            }
+            result.setTotalCount(allItems.size());
+            result.setOffset(offset);
+            return result;
+        } catch (IndexOutOfBoundsException ex) {
+            throw AppException.createBadRequest(ex.getMessage());
+        }
     }
-  }
 
-  @GetMapping("/measurement/maps")
-  public QueryResult getMeasurementMaps(
-      @RequestParam(value = "offset", defaultValue = "0") int offset,
-      @RequestParam(value = "limit", defaultValue = "100") int limit) {
-    try {
-      List<MeasurementMapItem> allItems = new ArrayList<>();
-      for (MeasurementMapImpl measurementMap : catalog.getMeasurementMaps()) {
-        allItems.addAll(measurementMap.getMeasurementMapItems());
-      }
-      QueryResultImpl result = new QueryResultImpl();
-      List<MeasurementMapItem> items = Utility.getRange(allItems, offset, limit);
-      for (MeasurementMapItem item : items) {
-        result.addMeasurementMapItem(item);
-      }
-      result.setTotalCount(allItems.size());
-      result.setOffset(offset);
-
-      auditLogger.getMeasurementMapsSuccess(Collections.singletonList(result.toString()));
-      return result;
-    } catch (IndexOutOfBoundsException ex) {
-      throw AppException.createBadRequest(ex.getMessage());
+    @GetMapping("/measurement/maps")
+    public QueryResult getMeasurementMaps(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
+        try {
+            List<MeasurementMapItem> allItems = new ArrayList<>();
+            for (MeasurementMapImpl measurementMap : catalog.getMeasurementMaps()) {
+                allItems.addAll(measurementMap.getMeasurementMapItems());
+            }
+            QueryResultImpl result = new QueryResultImpl();
+            List<MeasurementMapItem> items = Utility.getRange(allItems, offset, limit);
+            for (MeasurementMapItem item : items) {
+                result.addMeasurementMapItem(item);
+            }
+            result.setTotalCount(allItems.size());
+            result.setOffset(offset);
+            return result;
+        } catch (IndexOutOfBoundsException ex) {
+            throw AppException.createBadRequest(ex.getMessage());
+        }
     }
-  }
 
-  @GetMapping("/catalog/mapstates")
-  public QueryResult getMapStates(
-      @RequestParam(value = "offset", defaultValue = "0") int offset,
-      @RequestParam(value = "limit", defaultValue = "100") int limit) {
-    try {
-      QueryResultImpl result = new QueryResultImpl();
-      result.setMapStates(Utility.getRange(catalog.getWellknownMapStates(), offset, limit));
-      result.setTotalCount(catalog.getWellknownMapStates().size());
-      result.setOffset(offset);
-
-      auditLogger.getMapStatesSuccess(Collections.singletonList(result.toString()));
-      return result;
-    } catch (IndexOutOfBoundsException ex) {
-      throw AppException.createBadRequest(ex.getMessage());
+    @GetMapping("/catalog/mapstates")
+    public QueryResult getMapStates(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        assertRange(offset, limit);
+        try {
+            QueryResultImpl result = new QueryResultImpl();
+            result.setMapStates(Utility.getRange(catalog.getWellknownMapStates(), offset, limit));
+            result.setTotalCount(catalog.getWellknownMapStates().size());
+            result.setOffset(offset);
+            return result;
+        } catch (IndexOutOfBoundsException ex) {
+            throw AppException.createBadRequest(ex.getMessage());
+        }
     }
   }
 }
