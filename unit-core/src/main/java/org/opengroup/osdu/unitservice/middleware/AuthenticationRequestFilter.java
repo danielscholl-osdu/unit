@@ -99,10 +99,8 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
     }
 
     protected IEntitlementsFactory getEntitlementsFactory() {
-        return new EntitlementsFactory(EntitlementsAPIConfig
-                .builder()
-                .rootUrl(entitlementsUrl)
-                .apiKey("")
-                .build(), httpResponseBodyMapper);
+        return new EntitlementsFactory(EntitlementsAPIConfig.builder().rootUrl(entitlementsUrl).build()
+        , httpResponseBodyMapper
+        );
     }
 }
