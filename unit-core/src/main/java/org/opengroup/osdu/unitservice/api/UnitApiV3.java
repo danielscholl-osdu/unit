@@ -449,6 +449,36 @@ public class UnitApiV3 {
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
     }
+  }
+
+  /**
+   * Gets the conversion coefficient in ABCD from the fromUnit and toUnit where are selected based
+   * the ordered namespaces.
+   *
+   * @param namespaces namespace list in order
+   * @param fromSymbol symbol of the fromUnit
+   * @param toSymbol   symbol of the toUnit
+   * @return a conversion result that contains result in {@link ABCD} format
+   * @throws AppException An exception will be thrown if
+   *                      <ul>
+   *                          <li>neither fromSymbol nor toSymbol exists in the given namespaces or;</li>
+   *                          <li>fromUnit and toUnit are not convertible.</li>
+   *                      </ul>
+   */
+  @GetMapping("/conversion/abcd")
+  public ConversionResult getConversionABCDBySymbols(@RequestParam("namespaces") String namespaces,
+      @RequestParam("fromSymbol") String fromSymbol,
+      @RequestParam("toSymbol") String toSymbol) {
+    try {
+      ConversionResult conversionABCDBySymbols = catalog
+          .getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
+      auditLogger.readConversionABCDBySymbolsSuccess(
+          Collections.singletonList(conversionABCDBySymbols.toString()));
+      return conversionABCDBySymbols;
+    } catch (Exception ex) {
+      throw AppException.createBadRequest(ex.getMessage());
+    }
+  }
 
     /********************************************
      UnitSystem related API
@@ -463,6 +493,8 @@ public class UnitApiV3 {
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
         assertRange(offset, limit);
+        UnitSystemInfoResponse unitSystemInfoList = catalog.getUnitSystemInfoList(offset, limit);
+        auditLogger.readUnitSystemSuccess(Collections.singletonList(unitSystemInfoList.toString()));
         return catalog.getUnitSystemInfoList(offset, limit);
     }
 
@@ -481,8 +513,7 @@ public class UnitApiV3 {
         try {
             UnitSystemEssenceImpl essence = request.getUnitSystemEssence();
             return catalog.postUnitSystem(essence, offset, limit);
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             throw AppException.createBadRequest(ex.getMessage());
         }
     }
@@ -501,12 +532,10 @@ public class UnitApiV3 {
         assertRange(offset, limit);
         try {
             return catalog.getUnitSystem(name, offset, limit);
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             throw AppException.createBadRequest(ex.getMessage());
         }
     }
-  }
 
   /********************************************
    Search related API
@@ -583,6 +612,7 @@ public class UnitApiV3 {
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
     }
+  }
 
     @GetMapping("/unit/maps")
     public QueryResult getUnitMaps(
@@ -601,6 +631,8 @@ public class UnitApiV3 {
             }
             result.setTotalCount(allItems.size());
             result.setOffset(offset);
+
+            auditLogger.getUnitMapsSuccess(Collections.singletonList(result.toString()));
             return result;
         } catch (IndexOutOfBoundsException ex) {
             throw AppException.createBadRequest(ex.getMessage());
@@ -624,6 +656,8 @@ public class UnitApiV3 {
             }
             result.setTotalCount(allItems.size());
             result.setOffset(offset);
+
+            auditLogger.getMeasurementMapsSuccess(Collections.singletonList(result.toString()));
             return result;
         } catch (IndexOutOfBoundsException ex) {
             throw AppException.createBadRequest(ex.getMessage());
@@ -640,10 +674,11 @@ public class UnitApiV3 {
             result.setMapStates(Utility.getRange(catalog.getWellknownMapStates(), offset, limit));
             result.setTotalCount(catalog.getWellknownMapStates().size());
             result.setOffset(offset);
+
+            auditLogger.getMapStatesSuccess(Collections.singletonList(result.toString()));
             return result;
         } catch (IndexOutOfBoundsException ex) {
             throw AppException.createBadRequest(ex.getMessage());
         }
     }
-  }
 }
