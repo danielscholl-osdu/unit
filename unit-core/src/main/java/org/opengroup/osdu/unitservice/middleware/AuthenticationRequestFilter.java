@@ -1,10 +1,12 @@
 package org.opengroup.osdu.unitservice.middleware;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.opengroup.osdu.core.common.entitlements.EntitlementsAPIConfig;
 import org.opengroup.osdu.core.common.entitlements.EntitlementsFactory;
 import org.opengroup.osdu.core.common.entitlements.IEntitlementsFactory;
 import org.opengroup.osdu.core.common.entitlements.IEntitlementsService;
+import org.opengroup.osdu.core.common.http.json.HttpResponseBodyMapper;
 import org.opengroup.osdu.core.common.model.entitlements.EntitlementsException;
 import org.opengroup.osdu.core.common.model.entitlements.Groups;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
@@ -25,6 +27,7 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +41,13 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
 
     private final String entitlementsUrl;
     private final HandlerExceptionResolver handlerExceptionResolver;
+    private HttpResponseBodyMapper httpResponseBodyMapper;
 
     public AuthenticationRequestFilter(String entitlementsUrl,
                                        HandlerExceptionResolver handlerExceptionResolver) {
         this.entitlementsUrl = entitlementsUrl;
         this.handlerExceptionResolver = handlerExceptionResolver;
+        httpResponseBodyMapper = new HttpResponseBodyMapper(new ObjectMapper());
     }
 
     @Override
@@ -94,7 +99,9 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
                 ));
     }
 
-    private IEntitlementsFactory getEntitlementsFactory() {
-        return new EntitlementsFactory(EntitlementsAPIConfig.builder().rootUrl(entitlementsUrl).build());
+    protected IEntitlementsFactory getEntitlementsFactory() {
+        return new EntitlementsFactory(EntitlementsAPIConfig.builder().rootUrl(entitlementsUrl).build()
+        , httpResponseBodyMapper
+        );
     }
 }

@@ -21,7 +21,7 @@ public class GlobalExceptionMapper extends ResponseEntityExceptionHandler {
     protected ResponseEntity<AppError> handleGeneralException(Exception e) {
         return this.getErrorResponse(
                 new AppException(INTERNAL_SERVER_ERROR.value(), "Server error.",
-                        "An unknown error has occurred."));
+                        "An unknown error has occurred.", e));
     }
 
     private ResponseEntity<AppError> getErrorResponse(AppException e) {
