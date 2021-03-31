@@ -64,6 +64,7 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
             String message = String.format("User authenticated | User: %s", groups.getMemberEmail());
             authenticate(groups);
             logger.info(message);
+			httpServletResponse.addHeader(DpsHeaders.CORRELATION_ID, dpsHeaders.getCorrelationId());
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } catch (EntitlementsException e) {
             String message = String.format("User not authenticated. Response: %s", e.getHttpResponse());
