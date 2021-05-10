@@ -50,7 +50,7 @@ spec:
         - name: ACCEPT_HTTP  # TEMPORARY UNTIL HTTPS
           value: "true"
         - name: unit_service_spring_logging_level
-          value: info
+          value: INFO
         - name: KEYVAULT_URI
           valueFrom:
             configMapKeyRef:
