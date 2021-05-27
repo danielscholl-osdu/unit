@@ -27,7 +27,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>unit-aws</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.0-SNAPSHOT</version>
     <name>unit-aws</name>
     <description>Unit service AWS deployment</description>
 
@@ -37,16 +36,11 @@
         <version.number>1.0.0</version.number>
         <app.version>1</app.version>
         <app.id>unit-aws</app.id>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <lucene.version>8.0.0</lucene.version>
-
         <resteasy.version>3.6.2.Final</resteasy.version>
-
         <objectify.version>5.1.22</objectify.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -79,12 +73,11 @@
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
             <artifactId>os-core-common</artifactId>
-            <version>0.3.28</version>
         </dependency>
         <dependency>
             <groupId>org.opengroup.osdu.unit-service</groupId>
             <artifactId>unit-core</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- AWS-managed packages -->
@@ -173,9 +166,6 @@
                 <version>2.21.0</version>
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    <!--
-                    <testFailureIgnore>true</testFailureIgnore>
-                     -->
                 </configuration>
             </plugin>
         </plugins>
