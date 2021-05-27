@@ -11,23 +11,12 @@
     </parent>
 
     <artifactId>unit-core</artifactId>
-    <version>0.9.0-SNAPSHOT</version>
     <name>unit-core</name>
     <description>Unit service core</description>
 
     <properties>
         <app.version>1</app.version>
         <app.id>unit-core</app.id>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <lucene.version>8.0.0</lucene.version>
-
-        <resteasy.version>3.6.2.Final</resteasy.version>
-
-        <objectify.version>5.1.22</objectify.version>
-        <slf4j.version>1.7.25</slf4j.version>
-        <spring.version>5.2.4.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -41,11 +30,6 @@
 
     <dependencies>
         <!-- Compile/runtime dependencies -->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>jwks-rsa</artifactId>
-            <version>0.11.0</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
@@ -77,6 +61,15 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${springfox-swagger2.version}</version>
+            <exclusions>
+                <exclusion>
+                    <!--
+                    Excluding com.google.guava:guava:jar:18.0, because it has security vulnerability
+                    -->
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
@@ -106,7 +99,6 @@
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
             <artifactId>os-core-common</artifactId>
-            <version>${os-core-common.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -161,12 +153,8 @@
                 <version>2.21.0</version>
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    <!--
-                    <testFailureIgnore>true</testFailureIgnore>
-                     -->
                 </configuration>
             </plugin>
           </plugins>
     </build>
-
 </project>

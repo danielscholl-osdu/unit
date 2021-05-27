@@ -11,20 +11,15 @@
     </parent>
 
     <artifactId>unit-gke</artifactId>
-    <version>0.9.0-SNAPSHOT</version>
     <name>unit-gke</name>
     <description>Unit service Google Kubernetes Engine deployment</description>
 
     <properties>
         <app.version>1</app.version>
-        <app.id>unit-gke</app.id>    
-
+        <app.id>unit-gke</app.id>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
 	    <lucene.version>8.0.0</lucene.version>
-
         <resteasy.version>3.6.2.Final</resteasy.version>
-
         <objectify.version>5.1.22</objectify.version>
         <slf4j.version>1.7.25</slf4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,7 +36,7 @@
         <dependency>
             <groupId>org.opengroup.osdu.unit-service</groupId>
             <artifactId>unit-core</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <!-- Compile/runtime dependencies -->
         <dependency>
@@ -124,9 +119,6 @@
                 <version>2.21.0</version>
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    <!--
-                    <testFailureIgnore>true</testFailureIgnore>
-                     -->
                 </configuration>
             </plugin>
 
