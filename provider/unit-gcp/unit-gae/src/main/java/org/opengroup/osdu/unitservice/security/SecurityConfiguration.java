@@ -20,6 +20,7 @@ package org.opengroup.osdu.unitservice.security;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
+import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -54,18 +55,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       "/api/unit/csrf" // Required to prevent errors in logs while Swagger is trying to discover a valid csrf token. Should be deleted after the issue on the Swagger's side https://github.com/springfox/springfox/issues/2578 is resolved
   };
 
-  private final String entUrl;
-  private final HandlerExceptionResolver handlerExceptionResolver;
+  private final AuthenticationService authenticationService;
 
-  public SecurityConfiguration(@Value("${osdu.entitlement.url}") String entUrl,
-      HandlerExceptionResolver handlerExceptionResolver) {
-    this.entUrl = entUrl;
-    this.handlerExceptionResolver = handlerExceptionResolver;
+  public SecurityConfiguration(AuthenticationService authenticationService) {
+    this.authenticationService = authenticationService;
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    AuthenticationRequestFilter authhenticationFilter = new AuthenticationRequestFilter(entUrl, handlerExceptionResolver);
+    AuthenticationRequestFilter authhenticationFilter = new AuthenticationRequestFilter(authenticationService);
     http.csrf().disable()
         .sessionManagement().sessionCreationPolicy(STATELESS)
         .and()

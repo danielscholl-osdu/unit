@@ -6,14 +6,12 @@ import org.opengroup.osdu.unitservice.interfaces.MeasurementDeprecationInfo;
 import org.opengroup.osdu.unitservice.helper.Utility;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * A class declaring the owner/container as deprecated.
  * The properties provide additional information about the status and potential recommended {@link MeasurementImpl}s.
  */
 public class MeasurementDeprecationInfoImpl implements MeasurementDeprecationInfo {
-    private static final Logger log = Logger.getLogger( MeasurementDeprecationInfoImpl.class.getName() );
 
     @Expose @SerializedName("state")
     private String state;

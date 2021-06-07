@@ -5,13 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import org.opengroup.osdu.unitservice.interfaces.UnitAssignment;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * A {@link UnitAssignmentImpl} assigns a {@link UnitImpl} to a {@link MeasurementImpl} for a given {@link UnitSystemImpl}
  */
 public class UnitAssignmentImpl implements UnitAssignment {
-    private static final Logger log = Logger.getLogger( UnitAssignmentImpl.class.getName() );
 
     @Expose @SerializedName("measurementID")
     private String measurementId;

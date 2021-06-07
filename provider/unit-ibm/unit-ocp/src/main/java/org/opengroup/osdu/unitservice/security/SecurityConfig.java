@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
+import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
 import org.opengroup.osdu.unitservice.util.AppError;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -20,7 +20,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -56,8 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Acce
         .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
     }
 	
-	public SecurityConfig(@Value("${osdu.entitlement.url}") String entitlementsUrl, HandlerExceptionResolver handlerExceptionResolver) {
-        authFilter = new AuthenticationRequestFilter(entitlementsUrl, handlerExceptionResolver);
+	public SecurityConfig(AuthenticationService authenticationService) {
+        authFilter = new AuthenticationRequestFilter(authenticationService);
     }
 
 	@Override

@@ -1,9 +1,11 @@
 package org.opengroup.osdu.unitservice.middleware;
 
 import org.apache.http.HttpStatus;
+import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
 import org.opengroup.osdu.core.common.model.entitlements.EntitlementsException;
 import org.opengroup.osdu.unitservice.util.AppError;
 import org.opengroup.osdu.unitservice.util.AppException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +19,9 @@ import static org.springframework.http.HttpStatus.resolve;
 
 @RestControllerAdvice
 public class GlobalExceptionMapper extends ResponseEntityExceptionHandler {
+
+    @Autowired
+    private JaxRsDpsLog jaxRsDpsLog;
 
     @ExceptionHandler(IOException.class)
     protected ResponseEntity<AppError> handleIOException(IOException e) {
@@ -43,7 +48,7 @@ public class GlobalExceptionMapper extends ResponseEntityExceptionHandler {
     }
 
     private ResponseEntity<AppError> getErrorResponse(AppException e) {
-        logger.error(e);
+        jaxRsDpsLog.error(e.getError().getMessage(), e);
         AppError appError = e.getError();
         return new ResponseEntity<>(appError, resolve(appError.getCode()));
     }
