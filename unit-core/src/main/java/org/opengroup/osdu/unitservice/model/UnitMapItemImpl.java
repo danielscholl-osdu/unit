@@ -5,13 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import org.opengroup.osdu.unitservice.interfaces.UnitMapItem;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * A class defines the mapping state between two {@link UnitImpl}s
  */
 public class UnitMapItemImpl implements UnitMapItem {
-    private static final Logger log = Logger.getLogger( UnitMapItemImpl.class.getName() );
 
     @Expose @SerializedName("fromUnitID")
     private String fromUnitId;

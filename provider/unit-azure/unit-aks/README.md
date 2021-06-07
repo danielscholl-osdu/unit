@@ -42,7 +42,16 @@ az keyvault secret show --vault-name $KEY_VAULT_NAME --name $KEY_VAULT_SECRET_NA
 | `KEYVAULT_URI` | ex `https://foo-keyvault.vault.azure.net/` | URI of KeyVault that holds application secrets | no | output of infrastructure deployment |
 | `ENTITLEMENT_URL` | ex `https://foo-entitlements.azurewebsites.net` | Entitlements API endpoint | no | output of infrastructure deployment |
 | `appinsights_key` | `********` | API Key for App Insights | yes | output of infrastructure deployment |
-| `osdu_unit_catalog_filename` | `data/unit_catalog_v2.json` | Flag to Disable AAD auth | no | -- |
+| `UNIT_CATALOG_FILENAME` | `data/unit_catalog_v2.json` | location of unit_catalog_v2.json | no | -- |
+| `azure_istioauth_enabled` | `true` | Flag to Disable AAD auth | no | -- |
+| `AZURE_CLIENT_ID` | `********` | Identity to run the service locally. This enables access to Azure resources. You only need this if running locally | yes | keyvault secret: `$KEYVAULT_URI/secrets/app-dev-sp-username` |
+| `AZURE_TENANT_ID` | `********` | AD tenant to authenticate users from | yes | keyvault secret: `$KEYVAULT_URI/secrets/app-dev-sp-tenant-id` |
+| `AZURE_CLIENT_SECRET` | `********` | Secret for `$AZURE_CLIENT_ID` | yes | keyvault secret: `$KEYVAULT_URI/secrets/app-dev-sp-password` |
+| `server.servlet.contextPath` | `/api/unit/` | Servlet context path | no | - |
+| `aad_client_id` | `********` | AAD client application ID | yes | output of infrastructure deployment |
+| `server_port` | ex `8080` | Port of the server | no | -- |
+| `spring_application_name` | `unit-service` | Name of application. Needed by App Insights | no | -- |
+| `ACCEPT_HTTP` | `true` | TEMPORARY UNTIL HTTPS | no | -- |
 
 **Required to run integration tests**
 

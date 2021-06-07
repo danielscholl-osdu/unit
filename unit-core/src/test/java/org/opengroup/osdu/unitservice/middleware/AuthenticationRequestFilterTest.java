@@ -1,76 +1,50 @@
 package org.opengroup.osdu.unitservice.middleware;
 
-import org.opengroup.osdu.unitservice.util.AppException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.*;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.annotation.security.RolesAllowed;
-import java.lang.reflect.Method;
-import java.util.Collections;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-import static org.mockito.Matchers.any;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(AuthenticationRequestFilter.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AuthenticationRequestFilterTest {
-    private static final String ROLE1 = "role1";
-    private static final String ROLE2 = "role2";
 
-    // @Mock
-    // private EntitlementsException entitlementsException;
-    // @Mock
-    // private IEntitlementsService service;
-    // @Mock
-    // private IEntitlementsFactory entitlementsFactory;
-    // @Mock
-    // private JaxRsDpsLog logger;
-    // @Mock
-    // private Groups groups;
     @InjectMocks
-    @Spy
-    private AuthenticationRequestFilter sut = new AuthenticationRequestFilter("", null);
+    private AuthenticationRequestFilter authenticationRequestFilter;
 
-    @Before
-    public void setUp() throws Exception {
-        // MultivaluedMap<String, String> headers = new MultivaluedHashMap<>();
-        // headers.put(DpsHeaders.AUTHORIZATION, Collections.singletonList("Bearer geer.fereferv.cefe="));
-        // headers.put(DpsHeaders.CONTENT_TYPE, Collections.singletonList("application/json"));
-        // when(requestContext.getHeaders()).thenReturn(headers);
-        // UriInfo url = mock(UriInfo.class);
-        // when(url.getPath()).thenReturn("");
+    @Mock
+    private AuthenticationService authenticationService;
 
-        // when(requestContext.getUriInfo()).thenReturn(url);
-        // when(requestContext.getMethod()).thenReturn("POST");
+    @Test
+    public void shouldContinueFilteringWhenAuthenticated() throws ServletException, IOException {
+        HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
+        HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
+        FilterChain filterChain = Mockito.mock(FilterChain.class);
+        Mockito.when(authenticationService.isAuthorized(httpServletRequest, httpServletResponse)).thenReturn(true);
 
-        // Method method = this.getClass().getMethod("rolesAllowedTestMethod");
-        // Mockito.when(this.resourceInfo.getResourceMethod()).thenReturn(method);
-        // PowerMockito.doReturn(entitlementsFactory).when(sut, "getEntitlementsFactory");
-        // PowerMockito.doReturn(logger).when(sut, "getJaxLogger", any());
-        // when(entitlementsFactory.create(Matchers.any())).thenReturn(service);
+        authenticationRequestFilter.doFilterInternal(httpServletRequest, httpServletResponse, filterChain);
+
+        Mockito.verify(authenticationService).isAuthorized(httpServletRequest, httpServletResponse);
+        Mockito.verify(filterChain).doFilter(httpServletRequest, httpServletResponse);
     }
 
     @Test
-    public void should_authorize_user_if_correct_token_passed() throws Exception {
-        // Mockito.when(service.getGroups()).thenReturn(groups);
-        // when(groups.getMemberEmail()).thenReturn("abcd@xyz.com");
-        // sut.filter(requestContext);
-    }
+    public void shouldStopFilteringWhenNotAuthenticated() throws ServletException, IOException {
+        HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
+        HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
+        FilterChain filterChain = Mockito.mock(FilterChain.class);
+        Mockito.when(authenticationService.isAuthorized(httpServletRequest, httpServletResponse)).thenReturn(false);
 
-    // @Test(expected = AppException.class)
-    // public void should_throw_exception_user_if_invalid_token_passed() throws Exception {
-    //     Mockito.when(service.getGroups()).thenThrow(entitlementsException);
-    //     sut.filter(requestContext);
-    // }
+        authenticationRequestFilter.doFilterInternal(httpServletRequest, httpServletResponse, filterChain);
 
-    @RolesAllowed({ROLE1, ROLE2})
-    public void rolesAllowedTestMethod() {
-        // do nothing
+        Mockito.verify(authenticationService).isAuthorized(httpServletRequest, httpServletResponse);
+        Mockito.verifyNoMoreInteractions(filterChain);
     }
 }

@@ -10,18 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpHeaders;
+import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.Ordered;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Component
-@Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class LogAndConvertRequestRejectedExceptionToNotFoundFilter extends GenericFilterBean {
+
+    @Autowired
+    private JaxRsDpsLog log;
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -30,10 +32,8 @@ public class LogAndConvertRequestRejectedExceptionToNotFoundFilter extends Gener
         } catch (RequestRejectedException e) {
             HttpServletRequest request = (HttpServletRequest) req;
             HttpServletResponse response = (HttpServletResponse) res;
-
-            log.warn("request_rejected: remote={}, user_agent={}, request_url={}",
-                request.getRemoteHost(), request.getHeader(HttpHeaders.USER_AGENT), request.getRequestURL(), e);
-
+            log.error(String.format("request_rejected: remote=%s, user_agent=%s, request_url=%s",
+                request.getRemoteHost(), request.getHeader(HttpHeaders.USER_AGENT), request.getRequestURL()), e);
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }

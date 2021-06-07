@@ -12,6 +12,11 @@ import java.util.logging.Logger;
 public class UnitAksConfiguration {
     private static Logger logger = Logger.getLogger(UnitAksConfiguration.class.getName());
 
+    @Bean(name = "KEY_VAULT_URL")
+    public String keyVaultURL(@Value("${azure.keyvault.url}") String keyVaultURL) {
+        return keyVaultURL;
+    }
+
     @Bean
     public CatalogImpl catalogImpl(@Value("${osdu.unit.catalog.filename}") String location) throws Exception {
         logger.info("osdu.unit.catalog.filename=" + location);
