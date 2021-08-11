@@ -10,6 +10,9 @@
   "basePath": "BASE_URL",
   "tags": [
     {
+      "name": "Info Api"
+    },
+    {
       "name": "UoM Catalog"
     },
     {
@@ -43,6 +46,53 @@
     "application/json"
   ],
   "paths": {
+    "/info": {
+      "get": {
+        "tags": [
+          "Info Api"
+        ],
+        "summary": "info",
+        "operationId": "infoUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "data-partition-id",
+            "in": "header",
+            "description": "tenant",
+            "required": true,
+            "type": "string",
+            "default": "opendes"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VersionInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer Authorization": []
+          }
+        ]
+      }
+    },
     "/catalog": {
       "get": {
         "tags": [
@@ -2511,6 +2561,38 @@
             "$ref": "#/definitions/UnitMapItem"
           }
         }
+      }
+    },
+    "VersionInfo": {
+      "type": "object",
+      "properties": {
+          "artifactId": {
+              "type": "string"
+          },
+          "branch": {
+              "type": "string"
+          },
+          "buildTime": {
+              "type": "string"
+          },
+          "commitId": {
+              "type": "string"
+          },
+          "commitMessage": {
+              "type": "string"
+          },
+          "connectedOuterServices": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/ConnectedOuterService"
+              }
+          },
+          "groupId": {
+              "type": "string"
+          },
+          "version": {
+              "type": "string"
+          }
       }
     }
   }

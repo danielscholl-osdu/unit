@@ -6,11 +6,11 @@ import json
 
 from unit_test_core.v2.swagger_client.rest import ApiException
 from unit_test_core.v2.swagger_client import Configuration, \
-    ApiClient, ConversionsApi, UnitsApi, MeasurementsApi, UnitSystemsApi, UoMCatalogApi
+    ApiClient, ConversionsApi, UnitsApi, MeasurementsApi, UnitSystemsApi, UoMCatalogApi, InfoApiApi
 from unit_test_core.v2.swagger_client.models import CatalogLastModified, Catalog, QueryResult, SearchRequest, UnitSystemInfoList, \
     UnitSystem, UnitSystemRequest, UnitSystemEssence, Unit, MeasurementRequest, MeasurementEssence, Measurement, \
     SearchMeasurementRequest, UnitEssence, UnitRequest, UnitMapItem, ScaleOffset, Abcd, SearchUnitRequest, \
-    ConversionAbcdRequest, ConversionScaleOffsetRequest, ConversionResult
+    ConversionAbcdRequest, ConversionScaleOffsetRequest, ConversionResult, VersionInfo
 import unit_test_core.constants as constants
 import jwt_client
 
@@ -36,7 +36,7 @@ class TestEnvironment(object):
     def is_ok(self):
         return self.data_partition_id is not None and self.root_url is not None
 
-    def client(self):
+    def client(self, ignore_version_in_path=False):
         # Configure API key authorization: api_key
         configuration = Configuration()
         # Set the bearer token; use a service account to do this
@@ -47,6 +47,8 @@ class TestEnvironment(object):
             url = 'http://' + self.root_url + self.base_url + '/v2'
         else:
             url = 'https://' + self.root_url + self.base_url + '/v2'
+        if ignore_version_in_path:
+            url = url[:-3] # remove /v2 from path
         configuration.host = url
         configuration.verify_ssl = False # Configure SSL certificate verification
         client = ApiClient(host=url) # configuration=configuration) # next version of Swagger generator
@@ -73,6 +75,29 @@ class TestEnvironment(object):
         for key in e_d.keys():
             d[essence.attribute_map[key]] = e_d[key]
         return json.dumps(d)
+
+class TestInfo(unittest.TestCase):
+    """Test the info end-points"""
+    @classmethod
+    def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        urllib3.disable_warnings()
+        cls.env = TestEnvironment()
+        if not cls.env.is_ok():
+            raise Exception(
+                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+        """Common set up for environment"""
+        cls.api_instance = InfoApiApi(cls.env.client(ignore_version_in_path=True))
+
+    def test_info_using_get(self):
+        """test info_using_get"""
+        try:
+            api_response = self.api_instance.info_using_get(data_partition_id=self.env.data_partition_id)
+
+            self.assertIsNotNone(api_response)
+            self.assertIsInstance(api_response, VersionInfo)
+        except ApiException as e:
+            self.fail(str(e))
 
 
 class TestConversions(unittest.TestCase):

@@ -21,14 +21,12 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -39,6 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       "/v2/api-docs",
       "/swagger-resources/**",
       "/swagger-ui.html",
+      "/info",
       "/webjars/**",
       "/_ah/**",
       "/error",

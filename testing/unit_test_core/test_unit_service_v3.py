@@ -6,12 +6,12 @@ import json
 
 
 from unit_test_core.v3.swagger_client.rest import ApiException
-from unit_test_core.v3.swagger_client import Unitapiv3Api, Configuration, ApiClient
+from unit_test_core.v3.swagger_client import Unitapiv3Api, Configuration, ApiClient, InfoapiApi
 from unit_test_core.v3.swagger_client.models import CatalogLastModified, Catalog, QueryResult, SearchRequest, \
     UnitSystem, UnitSystemRequest, Unit, MeasurementRequest, MeasurementEssenceImpl, Measurement, \
     UnitEssenceImpl, UnitRequest, UnitMapItem, ScaleOffsetImpl, UnitSystemInfoResponse, \
     ConversionScaleOffsetRequest, ConversionResult, ABCDImpl, ConversionABCDRequest, \
-    UnitSystemEssenceImpl
+    UnitSystemEssenceImpl, VersionInfo
 import unit_test_core.constants as constants
 import jwt_client
 
@@ -75,6 +75,29 @@ class TestEnvironment(object):
             d[essence.attribute_map[key]] = e_d[key]
         return json.dumps(d)
 
+
+class TestInfo(unittest.TestCase):
+    """Test the info end-points"""
+    @classmethod
+    def setUpClass(cls):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
+        urllib3.disable_warnings()
+        cls.env = TestEnvironment()
+        if not cls.env.is_ok():
+            raise Exception(
+                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+        """Common set up for environment"""
+        cls.api_instance = InfoapiApi(cls.env.client())
+
+    def test_info_using_get(self):
+        """test info_using_get"""
+        try:
+            api_response = self.api_instance.info_using_get(data_partition_id=self.env.data_partition_id)
+
+            self.assertIsNotNone(api_response)
+            self.assertIsInstance(api_response, VersionInfo)
+        except ApiException as e:
+            self.fail(str(e))
 
 class TestConversions(unittest.TestCase):
     """Test the conversion end-points"""
