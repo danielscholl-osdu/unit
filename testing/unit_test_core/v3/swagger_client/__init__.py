@@ -47,9 +47,11 @@ from .models.unit_system_essence_impl import UnitSystemEssenceImpl
 from .models.unit_system_info import UnitSystemInfo
 from .models.unit_system_info_response import UnitSystemInfoResponse
 from .models.unit_system_request import UnitSystemRequest
+from .models.version_info import VersionInfo
 
 # import apis into sdk package
 from .apis.healthcheck_api import HealthcheckApi
+from .apis.infoapi_api import InfoapiApi
 from .apis.unitapiv3_api import Unitapiv3Api
 
 # import ApiClient

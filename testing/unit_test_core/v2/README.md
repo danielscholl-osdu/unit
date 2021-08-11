@@ -57,7 +57,6 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 # Configure OAuth2 access token for authorization: google_id_token
 swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
 # create an instance of the API class
 api_instance = swagger_client.ConversionsApi()
 body = swagger_client.ConversionAbcdRequest() # ConversionAbcdRequest |  (optional)
@@ -82,6 +81,7 @@ Class | Method | HTTP request | Description
 *ConversionsApi* | [**get_conversion_as_abcd_by_namespace_and_symbols**](docs/ConversionsApi.md#get_conversion_as_abcd_by_namespace_and_symbols) | **GET** /conversion/abcd/{namespaces}/{fromSymbol}/{toSymbol} | Get Abcd Unit conversion parameters given two Unit specifications
 *ConversionsApi* | [**get_conversion_as_scale_offset**](docs/ConversionsApi.md#get_conversion_as_scale_offset) | **POST** /conversion/scale | Get ScaleOffset Unit conversion parameters given two Units
 *ConversionsApi* | [**get_conversion_as_scale_offset_by_namespace_and_symbols**](docs/ConversionsApi.md#get_conversion_as_scale_offset_by_namespace_and_symbols) | **GET** /conversion/scale/{namespaces}/{fromSymbol}/{toSymbol} | Get ScaleOffset Unit conversion parameters given two unit specifications
+*InfoApiApi* | [**info_using_get**](docs/InfoApiApi.md#info_using_get) | **GET** /info | info
 *MeasurementsApi* | [**get_measurement**](docs/MeasurementsApi.md#get_measurement) | **POST** /measurement | Get a specific Measurement
 *MeasurementsApi* | [**get_measurement_by_ancestry**](docs/MeasurementsApi.md#get_measurement_by_ancestry) | **GET** /measurement/{ancestry} | Get a specific Measurement by ancestry
 *MeasurementsApi* | [**get_measurement_map_items**](docs/MeasurementsApi.md#get_measurement_map_items) | **GET** /measurement/maps | Get the Measurement maps between namespaces
@@ -141,6 +141,7 @@ Class | Method | HTTP request | Description
  - [UnitSystemInfo](docs/UnitSystemInfo.md)
  - [UnitSystemInfoList](docs/UnitSystemInfoList.md)
  - [UnitSystemRequest](docs/UnitSystemRequest.md)
+ - [VersionInfo](docs/VersionInfo.md)
 
 
 ## Documentation For Authorization
