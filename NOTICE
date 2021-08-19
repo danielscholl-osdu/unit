@@ -677,7 +677,8 @@ The following software have components provided under the terms of this license:
 - Hamcrest (from http://hamcrest.org/JavaHamcrest/)
 - Hamcrest Core (from http://hamcrest.org/)
 - HdrHistogram (from http://hdrhistogram.github.io/HdrHistogram/)
-- JavaBeans Activation Framework API jar (from )
+- Jakarta Activation API (from https://github.com/eclipse-ee4j/jaf)
+- Jakarta XML Binding API (from https://repo1.maven.org/maven2/jakarta/xml/bind/jakarta.xml.bind-api)
 - Lucene Common Analyzers (from https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-common)
 - Lucene Core (from https://repo1.maven.org/maven2/org/apache/lucene/lucene-core)
 - Lucene Suggest (from https://repo1.maven.org/maven2/org/apache/lucene/lucene-suggest)
@@ -696,7 +697,6 @@ The following software have components provided under the terms of this license:
 - Spring Core (from https://github.com/spring-projects/spring-framework)
 - ThreeTen backport (from https://www.threeten.org/threetenbp)
 - classworlds (from http://classworlds.codehaus.org/)
-- jakarta.xml.bind-api (from )
 - jaxen (from http://jaxen.codehaus.org/)
 - jsch (from https://repo1.maven.org/maven2/com/jcraft/jsch)
 
@@ -1012,8 +1012,8 @@ PHP-3.01
 ========================================================================
 The following software have components provided under the terms of this license:
 
-- JavaBeans Activation Framework API jar (from )
-- jakarta.xml.bind-api (from )
+- Jakarta Activation API (from https://github.com/eclipse-ee4j/jaf)
+- Jakarta XML Binding API (from https://repo1.maven.org/maven2/jakarta/xml/bind/jakarta.xml.bind-api)
 
 ========================================================================
 Public-Domain
@@ -1115,10 +1115,10 @@ The following software have components provided under the terms of this license:
 - JUnit Jupiter Params (from https://junit.org/junit5/)
 - JUnit Platform Commons (from https://junit.org/junit5/)
 - JUnit Platform Engine API (from https://junit.org/junit5/)
-- JavaBeans Activation Framework API jar (from )
+- Jakarta Activation API (from https://github.com/eclipse-ee4j/jaf)
+- Jakarta XML Binding API (from https://repo1.maven.org/maven2/jakarta/xml/bind/jakarta.xml.bind-api)
 - Spongy Castle (from http://rtyley.github.io/spongycastle/)
 - appengine-api-1.0-sdk (from https://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk)
-- jakarta.xml.bind-api (from )
 - xml-apis (from )
 
 
