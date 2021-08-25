@@ -45,9 +45,11 @@ from .models.unit_system_essence import UnitSystemEssence
 from .models.unit_system_info import UnitSystemInfo
 from .models.unit_system_info_list import UnitSystemInfoList
 from .models.unit_system_request import UnitSystemRequest
+from .models.version_info import VersionInfo
 
 # import apis into sdk package
 from .apis.conversions_api import ConversionsApi
+from .apis.info_api_api import InfoApiApi
 from .apis.measurements_api import MeasurementsApi
 from .apis.unit_systems_api import UnitSystemsApi
 from .apis.units_api import UnitsApi

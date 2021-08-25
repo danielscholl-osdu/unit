@@ -8,9 +8,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
 import org.springframework.security.web.firewall.RequestRejectedException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,14 +22,13 @@ public class LogAndConvertRequestRejectedExceptionToNotFoundFilterTest {
     private JaxRsDpsLog jaxRsDpsLog;
 
     @Test
-    public void shouldConvertRequestRejectedExceptionToNotFound() throws IOException, ServletException {
+    public void shouldConvertRequestRejectedExceptionToNotFound() throws IOException{
         HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
-        FilterChain filterChain = Mockito.mock(FilterChain.class);
         RequestRejectedException exception = new RequestRejectedException("error");
-        Mockito.doThrow(exception).when(filterChain).doFilter(httpServletRequest, httpServletResponse);
 
-        filter.doFilter(httpServletRequest, httpServletResponse, filterChain);
+
+        filter.handle(httpServletRequest, httpServletResponse, exception);
 
         Mockito.verify(jaxRsDpsLog).error("request_rejected: remote=null, user_agent=null, request_url=null", exception);
         Mockito.verify(httpServletResponse).sendError(HttpServletResponse.SC_NOT_FOUND);

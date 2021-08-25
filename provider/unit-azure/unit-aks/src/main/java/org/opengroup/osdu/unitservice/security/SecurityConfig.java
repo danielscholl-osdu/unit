@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  implements Acc
         "/v2/api-docs",
         "/swagger-resources/**",
         "/swagger-ui.html",
+        "/info",
         "/webjars/**",
         "/_ah/**",
         "/error",

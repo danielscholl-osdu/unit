@@ -47,3 +47,4 @@ from .unit_system_essence_impl import UnitSystemEssenceImpl
 from .unit_system_info import UnitSystemInfo
 from .unit_system_info_response import UnitSystemInfoResponse
 from .unit_system_request import UnitSystemRequest
+from .version_info import VersionInfo

@@ -45,3 +45,4 @@ from .unit_system_essence import UnitSystemEssence
 from .unit_system_info import UnitSystemInfo
 from .unit_system_info_list import UnitSystemInfoList
 from .unit_system_request import UnitSystemRequest
+from .version_info import VersionInfo

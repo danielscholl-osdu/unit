@@ -1,0 +1,14 @@
+# Default values for unit-configmap.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+data:
+  log_level: "INFO"
+  entitlement_url: "http://entitlements/api/entitlements/v2/"
+  unit_catalog_bucket: ""
+  partition_api: "http://partition/api/partition/v1/"
+  google_audiences: ""
+
+conf:
+  configmap: "unit-config"
+  app_name: "unit"
