@@ -24,9 +24,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Run Locally
 
-| `PARTITION_API` | ex `http://localhost:8081/api/partition/v1` | Partition service endpoint | no | - |
-| `GOOGLE_APPLICATION_CREDENTIALS` | ex `/path/to/directory/service-key.json` | Service account credentials, you only need this if running locally | yes | https://console.cloud.google.com/iam-admin/serviceaccounts |
-
+| `UNIT_CATALOG_FILENAME` | ex `/mnt/unit_catalogs/unit_catalog_v2.json` | File location of the unit catalog | no | - |
 
 Check that maven is installed:
 
