@@ -120,13 +120,6 @@ testing/unit_test_aws/build-aws/prepare-dist.sh
 dist/testing/integration/bin/unit_test_aws/build-aws/run-tests.sh 
 ```
 
-### Run Tests using mvn
-Set required env vars and execute the following:
-```
-mvn clean package -f testing/pom.xml -pl unit-test-core -DskipTests
-mvn verify -f testing/unit-test-core/pom.xml -Dcucumber.options="--plugin junit:target/junit-report.xml --tags @UnitService"
-```
-
 ## License
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
