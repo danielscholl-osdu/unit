@@ -31,7 +31,7 @@ In order to run the service locally or remotely, you will need to have the follo
 | `SSM_ENABLED` | `true` | yes | Set to 'true' to use SSM to resolve config properties, otherwise use env vars | no |
 | `SSL_ENABLED` | `false` | no | Set to 'false' to disable SSL for local development | no |
 | `ENTITLEMENTS_BASE_URL` | `http://localhost:8081` or `https://some-hosted-url` | yes | Specify the base url for an entitlements service instance. Can be run locally or remote | no |
-
+| `UNIT_CATALOG_FILENAME` | `data/unit_catalog_v2.json` | no | Provides a reference to the unit catalog | no |
 
 ### Run Locally
 Check that maven is installed:
