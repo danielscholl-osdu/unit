@@ -36,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  implements Acc
     private static final String[] AUTH_WHITELIST = {
         "/",
         "/v2/api-docs",
+        "/v3/api-docs",
+        "/swagger",
+        "/swagger-ui/**",
         "/swagger-resources/**",
         "/swagger-ui.html",
         "/info",

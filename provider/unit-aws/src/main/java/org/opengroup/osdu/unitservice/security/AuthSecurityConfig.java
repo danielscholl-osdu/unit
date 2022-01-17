@@ -51,6 +51,8 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter implements 
     private static final String[] AUTH_WHITELIST = {
             "/",
             "/v2/api-docs",
+            "/v3/api-docs",
+            "/swagger",
             "/swagger-resources/**",
             "/swagger-ui.html",
             "/info",
@@ -62,6 +64,7 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter implements 
             "/csrf",
             "/api/unit",
             "/api/unit/v2/api-docs",
+            "/api/unit/v3/api-docs",
             "/api/unit/swagger-resources/**",
             "/api/unit/swagger-ui.html",
             "/api/unit/webjars/**",
