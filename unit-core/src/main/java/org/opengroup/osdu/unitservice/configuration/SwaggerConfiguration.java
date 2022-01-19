@@ -4,89 +4,87 @@ import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.ParameterBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.schema.ModelRef;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.Parameter;
-import springfox.documentation.service.SecurityReference;
+import springfox.documentation.builders.*;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import static java.util.Collections.singletonList;
 import static org.apache.commons.lang3.StringUtils.startsWithIgnoreCase;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Configuration
-@EnableSwagger2
+@EnableOpenApi
 public class SwaggerConfiguration {
 
-    private static final String BEARER_AUTH_KEY_NAME = "Bearer Authorization";
-    public static final String PASS_AS_HEADER = "header";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String DEFAULT_INCLUDE_PATTERN = "/.*";
 
     @Bean
-    public Docket apiV2(List<Parameter> globalParameters) {
-        return new Docket(DocumentationType.SWAGGER_2)
+    public Docket apiV2() {
+        RequestParameterBuilder builder = new RequestParameterBuilder();
+        List<RequestParameter> parameters = new ArrayList<>();
+        builder.name(DpsHeaders.DATA_PARTITION_ID)
+                .description("tenant")
+                .in(ParameterType.HEADER)
+                .required(true)
+                .build();
+        parameters.add(builder.build());
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(new ApiInfoBuilder().version("2.0").title("Unit API V2 - DEPRECATED").build())
                 .groupName("~v2")
+                .globalRequestParameters(parameters)
                 .select()                
                 .apis(RequestHandlerSelectors.basePackage("org.opengroup.osdu.unitservice.api"))
-                .paths(s -> (startsWithIgnoreCase(s, "/v2") || startsWithIgnoreCase(s, "/_ah") || startsWithIgnoreCase(s, "/info")) && !startsWithIgnoreCase(s, "/error"))
+                .paths(s -> (startsWithIgnoreCase(s, "/api/unit/v2")|| startsWithIgnoreCase(s, "/api/unit/_ah") || startsWithIgnoreCase(s, "/api/unit/info")) && !startsWithIgnoreCase(s, "/api/unit/error"))
                 .build()
-                .globalOperationParameters(globalParameters)
-                .securitySchemes(singletonList(bearerAuth()))
-                .securityContexts(singletonList(securityContext()));
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(apiKey()));
     }
 
     @Bean
-    public Docket apiV3(List<Parameter> globalParameters) {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfoBuilder().version("3.0").title("Unit API V3").build())        
-                .groupName("v3")
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("org.opengroup.osdu.unitservice.api"))                
-                .paths(s -> (startsWithIgnoreCase(s, "/v3") || startsWithIgnoreCase(s, "/_ah") || startsWithIgnoreCase(s, "/info")) && !startsWithIgnoreCase(s, "/error"))
-                .build()
-                .globalOperationParameters(globalParameters)
-                .securitySchemes(singletonList(bearerAuth()))
-                .securityContexts(singletonList(securityContext()));
-    }
-
-    @Bean
-    public Parameter dataPartitionIdParameter() {
-        ParameterBuilder builder = new ParameterBuilder();
+    public Docket apiV3() {
+        RequestParameterBuilder builder = new RequestParameterBuilder();
+        List<RequestParameter> parameters = new ArrayList<>();
         builder.name(DpsHeaders.DATA_PARTITION_ID)
-               .description("tenant")
-               .defaultValue("opendes")
-               .modelRef(new ModelRef("string"))
-               .parameterType(PASS_AS_HEADER)
-               .required(true)
-               .build();
-        return builder.build();
+                .description("tenant")
+                .in(ParameterType.HEADER)
+                .required(true)
+                .build();
+        parameters.add(builder.build());
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(new ApiInfoBuilder().version("3.0").title("Unit API V3").build())
+                .groupName("v3")
+                .globalRequestParameters(parameters)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("org.opengroup.osdu.unitservice.api"))
+                .paths(s -> (startsWithIgnoreCase(s, "/api/unit/v3") || startsWithIgnoreCase(s, "/api/unit/_ah") || startsWithIgnoreCase(s, "/api/unit/info")) && !startsWithIgnoreCase(s, "/api/unit/error"))
+                .build()
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(apiKey()));
     }
 
-    private ApiKey bearerAuth() {
-        return new ApiKey(BEARER_AUTH_KEY_NAME, AUTHORIZATION, PASS_AS_HEADER);
+    private ApiKey apiKey() {
+        return new ApiKey(AUTHORIZATION_HEADER, AUTHORIZATION_HEADER, "header");
     }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder()
-                              .securityReferences(defaultAuth())
-                              .forPaths(PathSelectors.any())
-                              .build();
+                .securityReferences(defaultAuth())
+                .operationSelector(o -> PathSelectors.regex(DEFAULT_INCLUDE_PATTERN).test(o.requestMappingPattern()))
+                .build();
     }
 
     private List<SecurityReference> defaultAuth() {
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[0];
-        return singletonList(
-                new SecurityReference(BEARER_AUTH_KEY_NAME, authorizationScopes)
-        );
+        AuthorizationScope authorizationScope
+                = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes =
+                new AuthorizationScope[]{authorizationScope};
+        return Collections.singletonList(
+                new SecurityReference(AUTHORIZATION_HEADER, authorizationScopes));
     }
 }

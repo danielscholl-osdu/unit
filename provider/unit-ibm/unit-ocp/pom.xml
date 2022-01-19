@@ -19,14 +19,14 @@
 		<app.version>1</app.version>
 		<app.id>unit-ocp</app.id>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<lucene.version>8.0.0</lucene.version>
+		<lucene.version>8.10.0</lucene.version>
 		<resteasy.version>3.6.2.Final</resteasy.version>
 		<objectify.version>5.1.22</objectify.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<os-core-lib-ibm.version>0.13.0-rc5</os-core-lib-ibm.version>
+		<os-core-lib-ibm.version>0.13.0-rc6</os-core-lib-ibm.version>
 	</properties>
 
 	<prerequisites>
@@ -38,6 +38,17 @@
 			<groupId>org.opengroup.osdu.unit-service</groupId>
 			<artifactId>unit-core</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.lucene</groupId>
+					<artifactId>lucene-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene.version}</version>
 		</dependency>
 		<!-- Compile/runtime dependencies -->
 		<dependency>

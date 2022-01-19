@@ -35,6 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private static final String[] ALLOWED_URLS = {
       "/",
       "/v2/api-docs",
+      "/v3/api-docs",
+      "/swagger",
       "/swagger-resources/**",
       "/swagger-ui.html",
       "/info",
@@ -45,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       "/csrf",
       "/api/unit",
       "/api/unit/v2/api-docs",
+      "/api/unit/v3/api-docs",
       "/api/unit/swagger-resources/**",
       "/api/unit/swagger-ui.html",
       "/api/unit/webjars/**",
