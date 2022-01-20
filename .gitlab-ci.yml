@@ -6,6 +6,7 @@ variables:
   OSDU_GCP_INT_TEST_TYPE: python
   OSDU_GCP_PYTHON_INT_TEST_SUBDIR: testing/unit_test_gcp
   OSDU_GCP_HELM_CONFIG_SERVICE_VARS: "--set data.google_audiences=$GOOGLE_AUDIENCE --set data.unit_catalog_bucket=$OSDU_GCP_UNIT_CATALOG_BUCKET"
+  OSDU_GCP_HELM_CONFIG_SERVICE_VARS_DEV2: "--set data.google_audiences=$GOOGLE_AUDIENCE --set data.unit_catalog_bucket=$OSDU_GCP_UNIT_CATALOG_BUCKET"
   OSDU_GCP_HELM_DEPLOYMENT_SERVICE_VARS: "--set data.image=$CI_REGISTRY_IMAGE/osdu-gcp:$CI_COMMIT_SHORT_SHA --set data.serviceAccountName=$OSDU_GCP_SERVICE-k8s"
   OSDU_GCP_HELM_CONFIG_SERVICE: unit-config
   OSDU_GCP_HELM_DEPLOYMENT_SERVICE: unit-deploy
@@ -58,5 +59,9 @@ include:
     file: "cloud-providers/azure.yml"
 
 osdu-gcp-test-python:
+  variables:
+    VIRTUAL_SERVICE_HOST_NAME: $OSDU_GCP_UNIT_HOSTNAME
+
+osdu-gcp-dev2-test-python:
   variables:
     VIRTUAL_SERVICE_HOST_NAME: $OSDU_GCP_UNIT_HOSTNAME
