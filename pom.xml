@@ -11,6 +11,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <os-core-common.version>0.13.0-rc7</os-core-common.version>
         <snakeyaml.version>1.26</snakeyaml.version>
+        <lucene.version>8.0.0</lucene.version>
     </properties>
 
     <licenses>
