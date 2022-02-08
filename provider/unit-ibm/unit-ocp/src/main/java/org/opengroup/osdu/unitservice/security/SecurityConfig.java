@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -61,6 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Acce
 	public SecurityConfig(AuthenticationService authenticationService) {
         authFilter = new AuthenticationRequestFilter(authenticationService);
     }
+	
+	@Override
+	public void configure(WebSecurity web) {
+		web.ignoring().antMatchers(AUTH_WHITELIST);
+	}
 
 	@Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException {
