@@ -5,9 +5,6 @@
 data:
   log_level: "INFO"
   entitlement_url: "http://entitlements/api/entitlements/v2/"
-  unit_catalog_bucket: ""
-  partition_api: "http://partition/api/partition/v1/"
-  google_audiences: ""
 
 conf:
   configmap: "unit-config"

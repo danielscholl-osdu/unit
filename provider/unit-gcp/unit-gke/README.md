@@ -25,6 +25,9 @@ These instructions will get you a copy of the project up and running on your loc
 ### Run Locally
 
 | `UNIT_CATALOG_FILENAME` | ex `/mnt/unit_catalogs/unit_catalog_v2.json` | File location of the unit catalog | no | - |
+| `LOG_PREFIX` | `service` | Logging prefix | no | - |
+| `SERVER_SERVLET_CONTEXPATH` | `/api/unit/` | CRS conversion service context path | no | - |
+| `ENTITLEMENT_URL` | ex `https://entitlements.com/entitlements/v1` | Entitlements API endpoint | no | output of infrastructure deployment |
 
 Check that maven is installed:
 
