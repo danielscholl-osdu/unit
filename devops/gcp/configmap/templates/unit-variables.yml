@@ -8,6 +8,3 @@ metadata:
 data:
   LOG_LEVEL: "{{ .Values.data.log_level }}"
   ENTITLEMENT_URL: "{{ .Values.data.entitlement_url }}"
-  UNIT_CATALOG_BUCKET: "{{ .Values.data.unit_catalog_bucket}}"
-  PARTITION_API: "{{ .Values.data.partition_api}}"
-  GOOGLE_AUDIENCES: "{{ .Values.data.google_audiences }}"
