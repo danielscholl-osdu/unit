@@ -40,7 +40,7 @@ public class SwaggerConfiguration {
                 .globalRequestParameters(parameters)
                 .select()                
                 .apis(RequestHandlerSelectors.basePackage("org.opengroup.osdu.unitservice.api"))
-                .paths(s -> (startsWithIgnoreCase(s, "/api/unit/v2")|| startsWithIgnoreCase(s, "/api/unit/_ah") || startsWithIgnoreCase(s, "/api/unit/info")) && !startsWithIgnoreCase(s, "/api/unit/error"))
+                .paths(s -> (startsWithIgnoreCase(s, "/api/unit/v2")|| startsWithIgnoreCase(s, "/api/unit/_ah")) && !startsWithIgnoreCase(s, "/api/unit/error"))
                 .build()
                 .securityContexts(Collections.singletonList(securityContext()))
                 .securitySchemes(Collections.singletonList(apiKey()));
@@ -62,7 +62,7 @@ public class SwaggerConfiguration {
                 .globalRequestParameters(parameters)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("org.opengroup.osdu.unitservice.api"))
-                .paths(s -> (startsWithIgnoreCase(s, "/api/unit/v3") || startsWithIgnoreCase(s, "/api/unit/_ah") || startsWithIgnoreCase(s, "/api/unit/info")) && !startsWithIgnoreCase(s, "/api/unit/error"))
+                .paths(s -> (startsWithIgnoreCase(s, "/api/unit/v3") || startsWithIgnoreCase(s, "/api/unit/_ah") || startsWithIgnoreCase(s, "/api/unit/v3/info")) && !startsWithIgnoreCase(s, "/api/unit/error"))
                 .build()
                 .securityContexts(Collections.singletonList(securityContext()))
                 .securitySchemes(Collections.singletonList(apiKey()));

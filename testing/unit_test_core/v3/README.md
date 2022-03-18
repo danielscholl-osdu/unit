@@ -76,7 +76,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *HealthcheckApi* | [**liveness_check_using_get**](docs/HealthcheckApi.md#liveness_check_using_get) | **GET** /_ah/liveness_check | livenessCheck
 *HealthcheckApi* | [**readiness_check_using_get**](docs/HealthcheckApi.md#readiness_check_using_get) | **GET** /_ah/readiness_check | readinessCheck
-*InfoapiApi* | [**info_using_get**](docs/InfoapiApi.md#info_using_get) | **GET** /info | info
+*InfoapiApi* | [**info_using_get**](docs/InfoapiApi.md#info_using_get) | **GET** /v3/info | info
 *Unitapiv3Api* | [**get_catalog_using_get**](docs/Unitapiv3Api.md#get_catalog_using_get) | **GET** /v3/catalog | getCatalog
 *Unitapiv3Api* | [**get_conversion_abcd_by_symbols_using_get**](docs/Unitapiv3Api.md#get_conversion_abcd_by_symbols_using_get) | **GET** /v3/conversion/abcd | getConversionABCDBySymbols
 *Unitapiv3Api* | [**get_conversion_scale_offset_by_symbols_using_get**](docs/Unitapiv3Api.md#get_conversion_scale_offset_by_symbols_using_get) | **GET** /v3/conversion/scale | getConversionScaleOffsetBySymbols
@@ -113,6 +113,7 @@ Class | Method | HTTP request | Description
  - [ABCDImpl](docs/ABCDImpl.md)
  - [Catalog](docs/Catalog.md)
  - [CatalogLastModified](docs/CatalogLastModified.md)
+ - [ConnectedOuterService](docs/ConnectedOuterService.md)
  - [ConversionABCDRequest](docs/ConversionABCDRequest.md)
  - [ConversionResult](docs/ConversionResult.md)
  - [ConversionScaleOffsetRequest](docs/ConversionScaleOffsetRequest.md)

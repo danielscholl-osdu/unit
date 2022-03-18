@@ -64,9 +64,6 @@ class Configuration(object):
         # access token for OAuth
         self.access_token = ""
 
-        # access token for OAuth
-        self.access_token = ""
-
         # Logging Settings
         self.logger = {}
         self.logger["package_logger"] = logging.getLogger("swagger_client")
@@ -227,7 +224,8 @@ class Configuration(object):
                     'in': 'header',
                     'key': 'Authorization',
                     'value': 'Bearer ' + self.access_token
-                }
+                },
+
         }
 
     def to_debug_report(self):

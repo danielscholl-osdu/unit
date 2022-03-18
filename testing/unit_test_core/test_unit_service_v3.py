@@ -7,7 +7,8 @@ import json
 
 from unit_test_core.v3.swagger_client.rest import ApiException
 from unit_test_core.v3.swagger_client import Unitapiv3Api, Configuration, ApiClient, InfoapiApi
-from unit_test_core.v3.swagger_client.models import CatalogLastModified, Catalog, QueryResult, SearchRequest, \
+from unit_test_core.v3.swagger_client.models import CatalogLastModified, Catalog, ConnectedOuterService, \
+    QueryResult, SearchRequest, \
     UnitSystem, UnitSystemRequest, Unit, MeasurementRequest, MeasurementEssenceImpl, Measurement, \
     UnitEssenceImpl, UnitRequest, UnitMapItem, ScaleOffsetImpl, UnitSystemInfoResponse, \
     ConversionScaleOffsetRequest, ConversionResult, ABCDImpl, ConversionABCDRequest, \
