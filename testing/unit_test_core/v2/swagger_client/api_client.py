@@ -143,7 +143,6 @@ class ApiClient(object):
 
         # request url
         url = self.host + resource_path
-        print('Request URL: ' + url)
 
         # perform request and return response
         response_data = self.request(method, url,

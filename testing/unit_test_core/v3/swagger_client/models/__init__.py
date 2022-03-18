@@ -18,6 +18,7 @@ from .abcd import ABCD
 from .abcd_impl import ABCDImpl
 from .catalog import Catalog
 from .catalog_last_modified import CatalogLastModified
+from .connected_outer_service import ConnectedOuterService
 from .conversion_abcd_request import ConversionABCDRequest
 from .conversion_result import ConversionResult
 from .conversion_scale_offset_request import ConversionScaleOffsetRequest

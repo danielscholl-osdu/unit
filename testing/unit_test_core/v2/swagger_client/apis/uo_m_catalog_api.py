@@ -113,7 +113,6 @@ class UoMCatalogApi(object):
         if 'data_partition_id' in params:
             header_params['data-partition-id'] = params['data_partition_id']
 
-
         form_params = []
         local_var_files = {}
 
@@ -216,7 +215,6 @@ class UoMCatalogApi(object):
         header_params = {}
         if 'data_partition_id' in params:
             header_params['data-partition-id'] = params['data_partition_id']
-
 
         form_params = []
         local_var_files = {}
@@ -437,7 +435,6 @@ class UoMCatalogApi(object):
         header_params = {}
         if 'data_partition_id' in params:
             header_params['data-partition-id'] = params['data_partition_id']
-
 
         form_params = []
         local_var_files = {}

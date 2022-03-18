@@ -23,7 +23,8 @@ These instructions will get you a copy of the project up and running on your loc
 - Add a configuration for build project in Eclipse(or other IDE)
 
 ### Run Locally
-
+| name | value | description | sensitive? | source |
+| ---  | ---   | ---         | ---        | ---    |
 | `UNIT_CATALOG_FILENAME` | ex `/mnt/unit_catalogs/unit_catalog_v2.json` | File location of the unit catalog | no | - |
 | `LOG_PREFIX` | `service` | Logging prefix | no | - |
 | `SERVER_SERVLET_CONTEXPATH` | `/api/unit/` | CRS conversion service context path | no | - |

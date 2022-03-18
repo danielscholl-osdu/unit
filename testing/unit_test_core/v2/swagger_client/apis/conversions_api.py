@@ -314,7 +314,6 @@ class ConversionsApi(object):
             for asynchronous request. (optional)
         :param ConversionScaleOffsetRequest body:
         :param str data_partition_id:
-
         :return: ConversionResult
                  If the method is called asynchronously,
                  returns the request thread.

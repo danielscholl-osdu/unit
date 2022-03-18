@@ -56,7 +56,6 @@ class UnitsApi(object):
             for asynchronous request. (optional)
         :param MeasurementRequest body: The request to get a specific measurement given a persistable reference string or measurement essence structure.
         :param str data_partition_id:
-
         :return: QueryResult
                  If the method is called asynchronously,
                  returns the request thread.
@@ -84,7 +83,6 @@ class UnitsApi(object):
             for asynchronous request. (optional)
         :param MeasurementRequest body: The request to get a specific measurement given a persistable reference string or measurement essence structure.
         :param str data_partition_id:
-
         :return: QueryResult
                  If the method is called asynchronously,
                  returns the request thread.
@@ -116,7 +114,6 @@ class UnitsApi(object):
         header_params = {}
         if 'data_partition_id' in params:
             header_params['data-partition-id'] = params['data_partition_id']
-
 
         form_params = []
         local_var_files = {}
@@ -166,7 +163,6 @@ class UnitsApi(object):
             for asynchronous request. (optional)
         :param str ancestry: The measurement's ancestry, example: 'Time_Per_Length.Acoustic_Slowness' (required)
         :param str data_partition_id:
-
         :return: QueryResult
                  If the method is called asynchronously,
                  returns the request thread.
@@ -194,7 +190,6 @@ class UnitsApi(object):
             for asynchronous request. (optional)
         :param str ancestry: The measurement's ancestry, example: 'Time_Per_Length.Acoustic_Slowness' (required)
         :param str data_partition_id:
-
         :return: QueryResult
                  If the method is called asynchronously,
                  returns the request thread.
@@ -231,7 +226,6 @@ class UnitsApi(object):
         header_params = {}
         if 'data_partition_id' in params:
             header_params['data-partition-id'] = params['data_partition_id']
-
 
         form_params = []
         local_var_files = {}
