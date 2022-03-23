@@ -14,3 +14,4 @@ data:
 conf:
   configmap: "unit-config"
   app_name: "unit"
+  on_prem_enabled: false
