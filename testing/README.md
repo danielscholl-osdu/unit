@@ -34,6 +34,9 @@ The following parameters are expected as environment variables:
 |----------|----------|
 | INTEGRATION_TESTER | go to the google IAM & admin console, navigate to Service accounts to create a key and download the account info file. |
 
+# Anthos auth provider (catalog_test_anthos/jwt_client.py)
+
+
 ## Tests core (unit_test_core/constants.py)
 | Variable | Contents |
 |----------|----------|
