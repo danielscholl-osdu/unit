@@ -17,6 +17,14 @@ variables:
   OSDU_GCP_HELM_CONFIG_DIR: "devops/gcp/configmap"
   # --- end of osdu-gcp specific variables ---
 
+  # --- osdu-anthos specific variables ---
+  OSDU_ANTHOS_SERVICE: unit
+  OSDU_ANTHOS_VENDOR: anthos
+  OSDU_ANTHOS_APPLICATION_NAME: os-unit
+  OSDU_ANTHOS_INT_TEST_TYPE: python
+  OSDU_ANTHOS_PYTHON_INT_TEST_SUBDIR: testing/unit_test_anthos
+  # --- end of osdu-gcp specific variables ---
+
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
   IBM_INT_TEST_PY_SUBDIR: testing/unit_test_ibm
   IBM_INT_TEST_PY_FILE: run_test.py
@@ -70,3 +78,7 @@ osdu-gcp-test-python:
 osdu-gcp-dev2-test-python:
   variables:
     VIRTUAL_SERVICE_HOST_NAME: $OSDU_GCP_UNIT_HOSTNAME
+
+osdu-gcp-anthos-test-python:
+  variables:
+    VIRTUAL_SERVICE_HOST_NAME: $OSDU_ANTHOS_UNIT_HOSTNAME
