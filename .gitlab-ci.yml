@@ -1,30 +1,4 @@
 variables:
-  # --- osdu-gcp specific variables ---
-  OSDU_GCP_SERVICE: unit
-  OSDU_GCP_VENDOR: gcp
-  OSDU_GCP_APPLICATION_NAME: os-unit
-  OSDU_GCP_INT_TEST_TYPE: python
-  OSDU_GCP_PYTHON_INT_TEST_SUBDIR: testing/unit_test_gcp
-  OSDU_GCP_HELM_CONFIG_SERVICE_VARS: "--set data.google_audiences=$GOOGLE_AUDIENCE"
-  OSDU_GCP_HELM_CONFIG_SERVICE_VARS_DEV2: "--set data.google_audiences=$GOOGLE_AUDIENCE"
-  OSDU_GCP_HELM_DEPLOYMENT_SERVICE_VARS: >
-    --set data.image=$CI_REGISTRY_IMAGE/osdu-gcp-$OSDU_GCP_SERVICE:$CI_COMMIT_SHORT_SHA 
-    --set data.serviceAccountName=$OSDU_GCP_SERVICE-k8s
-  OSDU_GCP_HELM_CONFIG_SERVICE: unit-config
-  OSDU_GCP_HELM_DEPLOYMENT_SERVICE: unit-deploy
-  OSDU_GCP_HELM_PACKAGE_CHARTS: "devops/gcp/deploy devops/gcp/configmap"
-  OSDU_GCP_HELM_DEPLOYMENT_DIR: "devops/gcp/deploy"
-  OSDU_GCP_HELM_CONFIG_DIR: "devops/gcp/configmap"
-  # --- end of osdu-gcp specific variables ---
-
-  # --- osdu-anthos specific variables ---
-  OSDU_ANTHOS_SERVICE: unit
-  OSDU_ANTHOS_VENDOR: anthos
-  OSDU_ANTHOS_APPLICATION_NAME: os-unit
-  OSDU_ANTHOS_INT_TEST_TYPE: python
-  OSDU_ANTHOS_PYTHON_INT_TEST_SUBDIR: testing/unit_test_anthos
-  # --- end of osdu-gcp specific variables ---
-
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
   IBM_INT_TEST_PY_SUBDIR: testing/unit_test_ibm
   IBM_INT_TEST_PY_FILE: run_test.py
@@ -71,14 +45,4 @@ include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/azure.yml"
 
-osdu-gcp-test-python:
-  variables:
-    VIRTUAL_SERVICE_HOST_NAME: $OSDU_GCP_UNIT_HOSTNAME
-
-osdu-gcp-dev2-test-python:
-  variables:
-    VIRTUAL_SERVICE_HOST_NAME: $OSDU_GCP_UNIT_HOSTNAME
-
-osdu-gcp-anthos-test-python:
-  variables:
-    VIRTUAL_SERVICE_HOST_NAME: $OSDU_ANTHOS_UNIT_HOSTNAME
+  - local: "devops/gcp/pipeline/override-stages.yml"
