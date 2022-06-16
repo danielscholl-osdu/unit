@@ -3,8 +3,6 @@ variables:
   OSDU_GCP_VENDOR: gcp
   OSDU_GCP_INT_TEST_TYPE: python
   OSDU_GCP_PYTHON_INT_TEST_SUBDIR: testing/unit_test_gcp
-  # FIXME unused value
-  OSDU_GCP_HELM_CONFIG_SERVICE_VARS_DEV2: "--set data.google_audiences=$GOOGLE_AUDIENCE"
 
   # FIXME delete redundant vars for anthos
   # --- osdu-anthos specific variables ---
