@@ -1,21 +1,10 @@
 variables:
-  # --- osdu-gcp specific variables ---
   OSDU_GCP_SERVICE: unit
   OSDU_GCP_VENDOR: gcp
-  OSDU_GCP_APPLICATION_NAME: os-unit
   OSDU_GCP_INT_TEST_TYPE: python
   OSDU_GCP_PYTHON_INT_TEST_SUBDIR: testing/unit_test_gcp
-  OSDU_GCP_HELM_CONFIG_SERVICE_VARS: "--set data.google_audiences=$GOOGLE_AUDIENCE"
-  OSDU_GCP_HELM_CONFIG_SERVICE_VARS_DEV2: "--set data.google_audiences=$GOOGLE_AUDIENCE"
-  OSDU_GCP_HELM_DEPLOYMENT_SERVICE_VARS: >
-    --set data.image=$CI_REGISTRY_IMAGE/osdu-gcp-$OSDU_GCP_SERVICE:$CI_COMMIT_SHORT_SHA 
-    --set data.serviceAccountName=$OSDU_GCP_SERVICE-k8s
-  OSDU_GCP_HELM_CONFIG_SERVICE: unit-config
-  OSDU_GCP_HELM_DEPLOYMENT_SERVICE: unit-deploy
-  OSDU_GCP_HELM_PACKAGE_CHARTS: "devops/gcp/deploy devops/gcp/configmap"
-  OSDU_GCP_HELM_DEPLOYMENT_DIR: "devops/gcp/deploy"
-  OSDU_GCP_HELM_CONFIG_DIR: "devops/gcp/configmap"
 
+  # FIXME delete redundant vars for anthos
   # --- osdu-anthos specific variables ---
   OSDU_ANTHOS_SERVICE: unit
   OSDU_ANTHOS_VENDOR: anthos
