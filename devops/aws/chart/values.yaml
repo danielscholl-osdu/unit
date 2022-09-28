@@ -1,7 +1,7 @@
 
 # Service Config
 image: __CONTAINER__
-imagePullPolicy: IfNotPresent
+imagePullPolicy: Always
 service:
   type: ClusterIP
   port: 8080
@@ -31,7 +31,8 @@ environmentVariables:
     value: "{{ .Values.global.cacheClusterKey }}"
   - name: ENTITLEMENTS_BASE_URL
     value: "http://os-entitlements:8080"
-podAnnotations: {}
+podAnnotations: 
+  seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
 
 # Resource Config
 replicaCount: 1
@@ -61,13 +62,15 @@ cors:
     - Data-Partition-Id
     - Correlation-Id
     - Content-Type
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext: 
+  runAsUser: 10001
+  runAsNonRoot: true
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+
 allowedPrincipals:
   - cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account
   - cluster.local/ns/aws-binary-dms/sa/binary-dms

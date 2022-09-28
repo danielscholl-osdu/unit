@@ -5,7 +5,9 @@ variables:
 
   AWS_BUILD_SUBDIR: provider/unit-aws/build-aws
   AWS_TEST_SUBDIR: testing/unit_test_aws
+  AWS_CHART_SUBDIR: devops/aws/chart
   AWS_SERVICE: unit
+  AWS_SERVICE_GATEWAY: osdu-gateway
   AWS_ENVIRONMENT: dev
   AWS_INT_TEST_TYPE: python
   AWS_DEPLOY_TARGET: EKS
