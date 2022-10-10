@@ -2,6 +2,9 @@ variables:
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
   IBM_INT_TEST_PY_SUBDIR: testing/unit_test_ibm
   IBM_INT_TEST_PY_FILE: run_test.py
+  IBM_HELM_CONFIG_PATH: devops/ibm/ibm-unit-config
+  IBM_HELM_DEPLOY_PATH: devops/ibm/ibm-unit-deploy
+
 
   AWS_BUILD_SUBDIR: provider/unit-aws/build-aws
   AWS_TEST_SUBDIR: testing/unit_test_aws
@@ -37,6 +40,9 @@ include:
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/ibm-python-test.yml"
+
+  - project: "osdu/platform/ci-cd-pipelines"
+    file: "cloud-providers/ibm.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/aws-global.yml"
