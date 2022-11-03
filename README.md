@@ -111,7 +111,7 @@ VSTS release/deployment requires the following environment variables:
 |----------|----------|
 | ENTITLEMENT_URL | Required |
 
-### GCP
-Instructions for deployment the GCP unit-service to App Engine can be found [here](./provider/unit-gcp/unit-gae/README.md)
+### Google Cloud
+Instructions for deployment the Google Cloud unit-service to App Engine can be found [here](./provider/unit-gcp/unit-gae/README.md)
 
-Instructions for deployment the GCP unit-service to GKE can be found [here](./provider/unit-gcp/unit-gke/README.md)
+Instructions for deployment the Google Cloud unit-service to GKE can be found [here](./provider/unit-gcp/unit-gke/README.md)
