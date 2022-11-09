@@ -134,7 +134,7 @@ java -jar %UserProfile%\swagger-codegen-cli-2.2.3.jar generate -i unit_test_core
 #### Environment
 The following parameters are expected as environment variables:
 
-**GCP auth provider (catalog_test_gcp/jwt_client.py)**
+**Google Cloud auth provider (catalog_test_gcp/jwt_client.py)**
 
 | Variable | Contents |
 |----------|----------|

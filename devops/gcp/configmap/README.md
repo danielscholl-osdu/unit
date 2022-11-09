@@ -30,7 +30,7 @@ First you need to set variables in **values.yaml** file using any code editor. S
 |------|-------------|------|---------|---------|
 **logLevel** | logging level | string | INFO | yes
 
-### GCP variables
+### Google Cloud variables
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
