@@ -26,7 +26,14 @@ Packages are only needed for installation from a local computer.
 
 First you need to set variables in **values.yaml** file using any code editor. Some of the values are prefilled, but you need to specify some values as well. You can find more information about them below.
 
-### Common variables
+### Configmap variables
+
+| Name | Description | Type | Default |Required |
+|------|-------------|------|---------|---------|
+**logLevel** | logging level | string | ERROR | yes
+**entitlementsHost** | entitlements service host address | string | `http://entitlements` | yes
+
+### Deployment variables
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
