@@ -21,6 +21,8 @@ variables:
   AZURE_TEST_SUBDIR: testing/unit_test_azure
   AZURE_TEST_TYPE: python
   SHARE_NAME: unit
+  # FIXME remove when all services are migrated to a single helm
+  OSDU_GCP_ENABLE_HELM_CONFIG: "false"
 
 include:
   - project: "osdu/platform/ci-cd-pipelines"
