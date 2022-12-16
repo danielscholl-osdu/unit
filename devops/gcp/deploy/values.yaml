@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 
 data:
+  logLevel: "ERROR"
+  entitlementsHost: "http://entitlements"
   requestsCpu: "0.1"
   requestsMemory: "256M"
   limitsCpu: "1"
