@@ -16,10 +16,6 @@ analyze:
     type: mvn
     target: unit-core/pom.xml
     path: .
-  - name: unit-gae
-    type: mvn
-    target: provider/unit-gcp/unit-gae/pom.xml
-    path: .
   - name: unit-gke
     type: mvn
     target: provider/unit-gcp/unit-gke/pom.xml

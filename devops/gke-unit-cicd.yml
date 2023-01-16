@@ -146,7 +146,7 @@ stages:
               set -e
               pushd $(integrationTestsDir)
               chmod +x run-integration-tests.sh
-              ./run-integration-tests.sh $(INTEGRATION_TESTER) $(GOOGLE_AUDIENCES)
+              ./run-integration-tests.sh $(INTEGRATION_TESTER)
               popd
             displayName: "Run integration tests"
 
@@ -233,6 +233,6 @@ stages:
 
 #              pushd $(integrationTestsDir)
 #              chmod +x run-integration-tests.sh
-#              ./run-integration-tests.sh $(INTEGRATION_TESTER) $(GOOGLE_AUDIENCES)
+#              ./run-integration-tests.sh $(INTEGRATION_TESTER)
 #              popd
 #            displayName: "Run integration tests"
