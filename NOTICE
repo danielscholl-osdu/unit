@@ -278,7 +278,7 @@ The following software have components provided under the terms of this license:
 - Apache Maven Wagon :: Providers :: SSH Provider (from https://repo1.maven.org/maven2/org/apache/maven/wagon/wagon-ssh)
 - Apache Velocity (from http://velocity.apache.org/engine/devel/, http://velocity.apache.org/engine/releases/velocity-1.6.1/, http://velocity.apache.org/engine/releases/velocity-1.6.2/)
 - AppEngine :: appengine-api-1.0-sdk (from https://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk)
-- AssertJ fluent assertions (from ${project.parent.url}#${project.artifactId}, https://repo1.maven.org/maven2/org/assertj/assertj-core)
+- AssertJ Core (from ${project.organization.url}#${project.artifactId})
 - Asynchronous Http Client (from https://repo1.maven.org/maven2/org/asynchttpclient/async-http-client)
 - Asynchronous Http Client Netty Utils (from https://repo1.maven.org/maven2/org/asynchttpclient/async-http-client-netty-utils)
 - AutoValue Annotations (from https://github.com/google/auto/tree/master/value, https://repo1.maven.org/maven2/com/google/auto/value/auto-value-annotations)
@@ -619,7 +619,7 @@ BSD-3-Clause
 ========================================================================
 The following software have components provided under the terms of this license:
 
-- API Common (from https://github.com/googleapis, https://github.com/googleapis/api-common-java)
+- API Common (from https://github.com/googleapis, https://github.com/googleapis/api-common-java, https://repo1.maven.org/maven2/com/google/api/api-common)
 - ASM Analysis (from http://asm.ow2.io/)
 - ASM Commons (from http://asm.ow2.io/, https://repo1.maven.org/maven2/org/ow2/asm/asm-commons)
 - ASM Core (from http://asm.ow2.io/, http://asm.ow2.org/)
