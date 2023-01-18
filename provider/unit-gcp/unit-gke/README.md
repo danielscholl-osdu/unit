@@ -1,4 +1,4 @@
-# Unit-gcp
+# Unit Service for Google Cloud
 
 The Unit service provides dimension/measurement and unit definitions. Given two unit definitions, the service also offers conversion parameters in two different parameterizations.
 
@@ -180,8 +180,12 @@ python3 run_test.py
 ```
 
 ## Deployment
+Unit Service is compatible with Cloud Run and Google Kubernetes Engine.
 
-See Google Documentation: https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke
+* To deploy into Cloud run, please, use this documentation:
+  https://cloud.google.com/run/docs/quickstarts/build-and-deploy
+* To deploy into GKE, please, use this documentation:
+  https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke
 
 ## Licence
 Copyright © Google LLC
