@@ -17,7 +17,7 @@ pr:
   autoCancel: true
   branches:
     include:
-      - '*'
+      - "*"
   paths:
     exclude:
       - /**/*.md
@@ -31,38 +31,38 @@ resources:
       name: open-data-ecosystem/infrastructure-templates
 
 variables:
-  - group: 'Azure Common Secrets'
-  - group: 'Azure - Common'
+  - group: "Azure Common Secrets"
+  - group: "Azure - Common"
 
   - name: serviceName
-    value: 'unit'
+    value: "unit"
 
 stages:
   - template: devops/service-pipelines/build-stage.yml@infrastructure-templates
     parameters:
-      mavenGoal: 'package'
+      mavenGoal: "package"
       mavenPublishJUnitResults: true
-      serviceCoreMavenOptions: '--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P unit-core'
-      mavenOptions: '--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P unit-gke'
+      serviceCoreMavenOptions: "--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P unit-core"
+      mavenOptions: "--settings ./maven/settings.xml -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P unit-gke"
       copyFileContents: |
         pom.xml
         maven/settings.xml
-        provider/unit-gcp/unit-gke/pom.xml
-        provider/unit-gcp/unit-gke/target/unit-aks-*.jar
-      copyFileContentsToFlatten: ''
-      mavenSettingsFile: './maven/settings.xml'
+        provider/unit-gc/unit-gke/pom.xml
+        provider/unit-gc/unit-gke/target/unit-aks-*.jar
+      copyFileContentsToFlatten: ""
+      mavenSettingsFile: "./maven/settings.xml"
       serviceBase: ${{ variables.serviceName }}
-      testingRootFolder: 'testing'
+      testingRootFolder: "testing"
   - template: devops/service-pipelines/deploy-stages.yml@infrastructure-templates
     parameters:
       serviceName: ${{ variables.serviceName }}
-      testCoreMavenPomFile: 'testing/unit-test-core/pom.xml'
-      testCoreMavenOptions: '--settings $(System.DefaultWorkingDirectory)/drop/deploy/testing/maven/settings.xml'
+      testCoreMavenPomFile: "testing/unit-test-core/pom.xml"
+      testCoreMavenOptions: "--settings $(System.DefaultWorkingDirectory)/drop/deploy/testing/maven/settings.xml"
       providers:
-        -  name: GKE
-           # Merges into Master
-           ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
-             environments: ['devint', 'qa', 'prod']
-           # PR updates / creations
-           ${{ if ne(variables['Build.SourceBranchName'], 'master') }}:
-             environments: ['devint']
+        - name: GKE
+          # Merges into Master
+          ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+            environments: ["devint", "qa", "prod"]
+          # PR updates / creations
+          ${{ if ne(variables['Build.SourceBranchName'], 'master') }}:
+            environments: ["devint"]

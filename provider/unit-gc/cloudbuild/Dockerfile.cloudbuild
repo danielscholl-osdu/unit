@@ -5,7 +5,7 @@ WORKDIR /app
 ARG PORT
 ENV PORT $PORT
 # Copy the jar to the production image from the builder stage.
-COPY provider/unit-gcp/unit-gke/target/unit-gke-*.jar unit.jar
+COPY provider/unit-gc/unit-gke/target/unit-gke-*.jar unit.jar
 COPY data/unit_catalog_v2.json /mnt/unit_catalogs/unit_catalog_v2.json
 # Run the web service on container startup.
 CMD java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${PORT} -Dlog4j.formatMsgNoLookups=true -jar /app/unit.jar
