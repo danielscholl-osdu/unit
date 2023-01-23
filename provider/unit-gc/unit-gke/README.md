@@ -5,14 +5,14 @@ The Unit service provides dimension/measurement and unit definitions. Given two 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
- 
+
 ### Prerequisites
- 
+
 - [Maven 3.6.0+](https://maven.apache.org/download.cgi)
 - [AdoptOpenJDK8](https://adoptopenjdk.net/)
 - [Lombok 1.16 or later](https://projectlombok.org/setup/maven)
 - [GCloud SDK with java (latest version)](https://cloud.google.com/sdk/docs/install)
- 
+
 ### Installation
 
 - Setup Apache Maven
@@ -23,6 +23,7 @@ These instructions will get you a copy of the project up and running on your loc
 - Add a configuration for build project in Eclipse(or other IDE)
 
 ### Run Locally
+
 | name | value | description | sensitive? | source |
 | ---  | ---   | ---         | ---        | ---    |
 | `UNIT_CATALOG_FILENAME` | ex `/mnt/unit_catalogs/unit_catalog_v2.json` | File location of the unit catalog | no | - |
@@ -66,30 +67,31 @@ $ cat ~/.m2/settings.xml
 </settings>
 ```
 
-* Update the Google cloud SDK to the latest version:
+- Update the Google cloud SDK to the latest version:
 
 ```bash
 gcloud components update
 ```
-* Set Google Project Id:
+
+- Set Google Project Id:
 
 ```bash
 gcloud config set project <YOUR-PROJECT-ID>
 ```
 
-* Perform a basic authentication in the selected project:
+- Perform a basic authentication in the selected project:
 
 ```bash
 gcloud auth application-default login
 ```
 
-* Navigate to Unit service's root folder and run:
+- Navigate to Unit service's root folder and run:
 
 ```bash
 mvn clean install   
 ```
 
-* If you wish to build the project without running tests
+- If you wish to build the project without running tests
 
 ```bash
 mvn clean install -DskipTests
@@ -98,21 +100,24 @@ mvn clean install -DskipTests
 After configuring your environment as specified above, you can follow these steps to build and run the application. These steps should be invoked from the *repository root.*
 
 ```bash
-cd provider/unit-gcp/unit-gke && mvn spring-boot:run
+cd provider/unit-gc/unit-gke && mvn spring-boot:run
 ```
 
 ## Testing
+
 ### Running E2E Tests
 
 #### Folder structure
-testing/  
-* unit_test_core/  
-  * ...
-* unit_test_$PROVIDER_NAME/  
-  * jwt_client.py  
-  * run_test.py  
 
-This integration test uses a swagger generated Python client to test a 
+testing/  
+
+- unit_test_core/  
+  - ...
+- unit_test_$PROVIDER_NAME/  
+  - jwt_client.py  
+  - run_test.py  
+
+This integration test uses a swagger generated Python client to test a
 deployed unit-service. The source is located in this repository
 ```./api_spec/unit_service_openapi.json```.
 
@@ -121,20 +126,24 @@ created incorrect impost statements for cyclic class references. Therefore the c
 code is generated using [swagger-codegen-cli-2.2.3.jar](https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.2.3/swagger-codegen-cli-2.2.3.jar).
 The command to create the python code is:  
 Linux
+
 ```bash
 cd testing
 java -jar ~/swagger-codegen-cli-2.2.3.jar generate -i unit_test_core/api_spec/unit_service_openapi.json -l python -o unit_test_core/v2
 ```
+
 Windows
+
 ```bat
 cd testing
 java -jar %UserProfile%\swagger-codegen-cli-2.2.3.jar generate -i unit_test_core\api_spec\unit_service_openapi_v2.json -l python -o unit_test_core\v2
 ```
 
 #### Environment
+
 The following parameters are expected as environment variables:
 
-**Google Cloud auth provider (catalog_test_gcp/jwt_client.py)**
+**Google Cloud auth provider (catalog_test_gc/jwt_client.py)**
 
 | Variable | Contents |
 |----------|----------|
@@ -150,53 +159,63 @@ The following parameters are expected as environment variables:
 
 **Entitlements configuration for integration accounts**
 
-| INTEGRATION_TESTER | 
+| INTEGRATION_TESTER |
 | ---  |
 | users<br/>service.entitlements.user<br/>data.test1<br/>data.integration.test<br/>users@{tenant1}@{domain}.com |
 
 #### Building/running
+
 Go to the provider folder:
+
 ```bash
-cd unit_test_$PROVIDER_NAME/ # e.g. unit_test_gcp
+cd unit_test_$PROVIDER_NAME/ # e.g. unit_test_gc
 ```
+
 To set up a virtual environment:
+
 ```bash
 virtualenv venv
 ```
+
 To activate the venv:
+
 ```bash
 venv\Scripts\activate (on Windows)
 source venv/bin/activate (on Linux)
 ```
 
 Install runtime dependencies in venv
+
 ```bash
 python3 -m pip install -r requirements.txt
 ```
 
 To run:
+
 ```bash
 python3 run_test.py
 ```
 
 ## Deployment
+
 Unit Service is compatible with Cloud Run and Google Kubernetes Engine.
 
-* To deploy into Cloud run, please, use this documentation:
-  https://cloud.google.com/run/docs/quickstarts/build-and-deploy
-* To deploy into GKE, please, use this documentation:
-  https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke
+- To deploy into Cloud run, please, use this documentation:
+  <https://cloud.google.com/run/docs/quickstarts/build-and-deploy>
+- To deploy into GKE, please, use this documentation:
+  <https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke>
 
 ## Licence
+
 Copyright © Google LLC
 Copyright © EPAM Systems
- 
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
- 
+
 [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
- 
+
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

@@ -8,27 +8,27 @@ cli:
   project: Unit
 analyze:
   modules:
-  - name: unit-service
-    type: mvn
-    target: pom.xml
-    path: .
-  - name: unit-core
-    type: mvn
-    target: unit-core/pom.xml
-    path: .
-  - name: unit-gke
-    type: mvn
-    target: provider/unit-gcp/unit-gke/pom.xml
-    path: .
-  - name: unit-aks
-    type: mvn
-    target: provider/unit-azure/unit-aks/pom.xml
-    path: .
-  - name: unit-aws
-    type: mvn
-    target: provider/unit-aws/pom.xml
-    path: .
-  - name: unit-ocp
-    type: mvn
-    target: provider/unit-ibm/unit-ocp/pom.xml
-    path: .
+    - name: unit-service
+      type: mvn
+      target: pom.xml
+      path: .
+    - name: unit-core
+      type: mvn
+      target: unit-core/pom.xml
+      path: .
+    - name: unit-gke
+      type: mvn
+      target: provider/unit-gc/unit-gke/pom.xml
+      path: .
+    - name: unit-aks
+      type: mvn
+      target: provider/unit-azure/unit-aks/pom.xml
+      path: .
+    - name: unit-aws
+      type: mvn
+      target: provider/unit-aws/pom.xml
+      path: .
+    - name: unit-ocp
+      type: mvn
+      target: provider/unit-ibm/unit-ocp/pom.xml
+      path: .

@@ -5,7 +5,6 @@ variables:
   IBM_HELM_CONFIG_PATH: devops/ibm/ibm-unit-config
   IBM_HELM_DEPLOY_PATH: devops/ibm/ibm-unit-deploy
 
-
   AWS_BUILD_SUBDIR: provider/unit-aws/build-aws
   AWS_TEST_SUBDIR: testing/unit_test_aws
   AWS_CHART_SUBDIR: devops/aws/chart
@@ -21,8 +20,6 @@ variables:
   AZURE_TEST_SUBDIR: testing/unit_test_azure
   AZURE_TEST_TYPE: python
   SHARE_NAME: unit
-  # FIXME remove when all services are migrated to a single helm
-  OSDU_GCP_ENABLE_HELM_CONFIG: "false"
 
 include:
   - project: "osdu/platform/ci-cd-pipelines"
@@ -38,7 +35,7 @@ include:
     file: "scanners/gitlab-ultimate.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
-    file: "cloud-providers/osdu-gcp-global.yml"
+    file: "cloud-providers/gc-global.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/ibm-python-test.yml"
@@ -55,4 +52,4 @@ include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/azure.yml"
 
-  - local: "devops/gcp/pipeline/override-stages.yml"
+  - local: "devops/gc/pipeline/override-stages.yml"
