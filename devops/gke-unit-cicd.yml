@@ -1,4 +1,3 @@
-
 # Maven
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
@@ -19,8 +18,8 @@ pool:
 
 variables:
   osProjectName: unit
-  buildMavenModules: $(osProjectName)-core,provider/$(osProjectName)-gcp/unit-gke
-  dockerDir: provider/$(osProjectName)-gcp/unit-gke/docker
+  buildMavenModules: $(osProjectName)-core,provider/$(osProjectName)-gc/unit-gke
+  dockerDir: provider/$(osProjectName)-gc/unit-gke/docker
   imageName: os-$(osProjectName)-app
   unitCatalogsImageName: unit-catalogs
   tag: $(Build.BuildNumber)
@@ -29,24 +28,21 @@ variables:
   sourceUnitCatalogsImageName: $(devIntRepository)$(unitCatalogsImageName)
   deploymentName: os-$(osProjectName)-service
   mavenSettings: ./maven/settings.xml
-  integrationTestsDir: testing/unit_test_gcp
+  integrationTestsDir: testing/unit_test_gc
   unitCatalogsDir: data
 
-
-
   integrationTestCorePom: testing/$(osProjectName)-test-core/pom.xml
-  integrationTestGcpPom: testing/$(osProjectName)-test-gcp/pom.xml
+  integrationTestGcpPom: testing/$(osProjectName)-test-gc/pom.xml
 
 stages:
   - stage: Build_Push_DeployToDev
     variables:
-    - group: 'GKE_DEVINT_INTEGRATION_TESTS'
-    - group: 'GKE_UNIT_INTEGRATION_TESTS'
-    - group: 'GKE_CICD_FEED_TOKEN'
+      - group: "GKE_DEVINT_INTEGRATION_TESTS"
+      - group: "GKE_UNIT_INTEGRATION_TESTS"
+      - group: "GKE_CICD_FEED_TOKEN"
     jobs:
       - job: Build_Push_DeployToDev
         steps:
-
           - task: DownloadSecureFile@1
             name: gcrKey
             inputs:
@@ -58,25 +54,25 @@ stages:
               secureFile: kubeconfig
 
           - task: Maven@3
-            displayName: 'Build unit-core'
+            displayName: "Build unit-core"
             inputs:
-              mavenPomFile: 'pom.xml'
-              options: '--settings $(mavenSettings) -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P $(osProjectName)-core install'
+              mavenPomFile: "pom.xml"
+              options: "--settings $(mavenSettings) -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P $(osProjectName)-core install"
               publishJUnitResults: false
-              javaHomeOption: 'JDKVersion'
-              mavenVersionOption: 'Default'
+              javaHomeOption: "JDKVersion"
+              mavenVersionOption: "Default"
               mavenAuthenticateFeed: false
               effectivePomSkip: false
               sonarQubeRunAnalysis: false
 
           - task: Maven@3
-            displayName: 'Package unit-gke'
+            displayName: "Package unit-gke"
             inputs:
-              mavenPomFile: 'provider/unit-gcp/unit-gke/pom.xml'
-              options: '--settings $(mavenSettings) -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P $(osProjectName)-gke -DskipTests package'
+              mavenPomFile: "provider/unit-gc/unit-gke/pom.xml"
+              options: "--settings $(mavenSettings) -DVSTS_FEED_TOKEN=$(VSTS_FEED_TOKEN) -P $(osProjectName)-gke -DskipTests package"
               publishJUnitResults: false
-              javaHomeOption: 'JDKVersion'
-              mavenVersionOption: 'Default'
+              javaHomeOption: "JDKVersion"
+              mavenVersionOption: "Default"
               mavenAuthenticateFeed: false
               effectivePomSkip: false
 
@@ -98,7 +94,7 @@ stages:
               echo 'Push done.'
               popd
             displayName: "Create image for init container"
-             
+
           - bash: |
               #!/bin/bash
               set -e
@@ -106,8 +102,8 @@ stages:
               chmod 700 get_helm.sh
               ./get_helm.sh
               # package helm chart
-              helm package provider/unit-gcp/unit-gke/unit-gke --version 0.0.1 --destination '$(build.artifactstagingdirectory)'
-            displayName: 'install helm 3 and package helm chart'
+              helm package provider/unit-gc/unit-gke/unit-gke --version 0.0.1 --destination '$(build.artifactstagingdirectory)'
+            displayName: "install helm 3 and package helm chart"
           - bash: |
               #!/bin/bash
               set -e
@@ -149,8 +145,6 @@ stages:
               ./run-integration-tests.sh $(INTEGRATION_TESTER)
               popd
             displayName: "Run integration tests"
-
-
 #  - stage: DeployToQA
 #    condition: and(succeeded(), eq(variables['Build.Reason'], 'Manual'))
 #    variables:
@@ -190,10 +184,10 @@ stages:
 #              chmod 700 get_helm.sh
 #              ./get_helm.sh
 #              # package helm chart
-#              helm package provider/unit-gcp/unit-gke/unit-gke --version 0.0.1 --destination '$(build.artifactstagingdirectory)'
+#              helm package provider/unit-gc/unit-gke/unit-gke --version 0.0.1 --destination '$(build.artifactstagingdirectory)'
 #            displayName: 'install helm 3 and package helm chart'
 #          - bash: |
-              #!/bin/bash
+#!/bin/bash
 #              set -e
 #
 #              cat $(gcrKey.secureFilePath) | docker login -u _json_key --password-stdin https://gcr.io
@@ -228,7 +222,7 @@ stages:
 #              done
 #            displayName: "Pull and Push Docker images. Redeploy app"
 #          - bash: |
-              #!/bin/bash
+#!/bin/bash
 #              set -e
 
 #              pushd $(integrationTestsDir)

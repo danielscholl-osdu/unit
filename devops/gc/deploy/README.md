@@ -60,7 +60,7 @@ First you need to set variables in **values.yaml** file using any code editor. S
 Run this command from within this directory:
 
 ```console
-helm install gcp-unit-deploy .
+helm install gc-unit-deploy .
 ```
 
 ## Uninstalling the Chart
@@ -68,7 +68,7 @@ helm install gcp-unit-deploy .
 To uninstall the helm deployment:
 
 ```console
-helm uninstall gcp-unit-deploy
+helm uninstall gc-unit-deploy
 ```
 
 [Move-to-Top](#deploy-helm-chart)
