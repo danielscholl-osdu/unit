@@ -30,30 +30,39 @@ First you need to set variables in **values.yaml** file using any code editor. S
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
-**logLevel** | logging level | string | ERROR | yes
-**entitlementsHost** | entitlements service host address | string | `http://entitlements` | yes
+**data.logLevel** | logging level | string | ERROR | yes
+**data.entitlementsHost** | entitlements service host address | string | `http://entitlements` | yes
 
 ### Deployment variables
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
-**requestsCpu** | amount of requested CPU | string | 0.1 | yes
-**requestsMemory** | amount of requested memory| string | 256M | yes
-**limitsCpu** | CPU limit | string | 1 | yes
-**limitsMemory** | memory limit | string | 1G | yes
-**serviceAccountName** | name of your service account | string | unit | yes
-**imagePullPolicy** | when to pull image | string | IfNotPresent | yes
-**image** | service image | string | - | yes
+**data.requestsCpu** | amount of requested CPU | string | 0.1 | yes
+**data.requestsMemory** | amount of requested memory| string | 256M | yes
+**data.limitsCpu** | CPU limit | string | 1 | yes
+**data.limitsMemory** | memory limit | string | 1G | yes
+**data.serviceAccountName** | name of your service account | string | unit | yes
+**data.imagePullPolicy** | when to pull image | string | IfNotPresent | yes
+**data.image** | service image | string | - | yes
 
 ### Config variables
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
 
-**appName** | name of the app | string | `unit` | yes
-**configmap** | configmap to be used | string | `unit-config` | yes
-**onPremEnabled** | whether on-prem is enabled | boolean | false | yes
-**domain** | your domain | string | - | yes
+**conf.appName** | name of the app | string | `unit` | yes
+**conf.configmap** | configmap to be used | string | `unit-config` | yes
+**conf.onPremEnabled** | whether on-prem is enabled | boolean | false | yes
+**conf.domain** | your domain | string | - | yes
+
+### Istio variables
+
+| Name | Description | Type | Default |Required |
+|------|-------------|------|---------|---------|
+**istio.proxyCPU** | CPU request for Envoy sidecars | string | `50m` | yes
+**istio.proxyCPULimit** | CPU limit for Envoy sidecars | string | `500m` | yes
+**istio.proxyMemory** | memory request for Envoy sidecars | string | `64Mi` | yes
+**istio.proxyMemoryLimit** | memory limit for Envoy sidecars | string | `512Mi` | yes
 
 ### Install the helm chart
 
