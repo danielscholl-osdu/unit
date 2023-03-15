@@ -50,9 +50,21 @@ class TestEnvironment(object):
         return UnitEssenceImpl(scale_offset=so, symbol='us/ft', base_measurement=m_essence, type='USO')
 
     @staticmethod
+    def get_unit_essence_so_number_as_string():
+        m_essence = MeasurementEssenceImpl(ancestry='Time_Per_Length', type='UM')
+        so = ScaleOffsetImpl(offset="0.0", scale="0.000003280839895013123")
+        return UnitEssenceImpl(scale_offset=so, symbol='us/ft', base_measurement=m_essence, type='USO')
+
+    @staticmethod
     def get_unit_essence_abcd():
         m_essence = MeasurementEssenceImpl(ancestry='Time_Per_Length', type='UM')
         abcd = ABCDImpl(a=0.0, b=0.000001, c=0.3048, d=0.0)
+        return UnitEssenceImpl(abcd=abcd, symbol='us/ft', base_measurement=m_essence, type='UAD')
+
+    @staticmethod
+    def get_unit_essence_abcd_number_as_string():
+        m_essence = MeasurementEssenceImpl(ancestry='Time_Per_Length', type='UM')
+        abcd = ABCDImpl(a="0.0", b="0.000001", c="0.3048", d="0.0")
         return UnitEssenceImpl(abcd=abcd, symbol='us/ft', base_measurement=m_essence, type='UAD')
 
     @staticmethod
@@ -102,6 +114,41 @@ class TestConversions(unittest.TestCase):
 
             api_response = self.api_instance.post_conversion_abcd_using_post(request=request,
                                                                     data_partition_id=self.env.data_partition_id)
+            self.assertIsNotNone(api_response)
+            self.assertIsInstance(api_response, ConversionResult)
+            self.assertIsNotNone(api_response.abcd)
+            self.assertIsNone(api_response.scale_offset)
+            self.assertEqual(0.0, api_response.abcd.a)
+            self.assertEqual(1.0, api_response.abcd.b)
+            self.assertEqual(1.0, api_response.abcd.c)
+            self.assertEqual(0.0, api_response.abcd.d)
+        except ApiException as e:
+            self.fail(str(e))
+
+    def test_post_conversion_abcd_using_post_number_passed_as_string(self):
+        """test post_conversion_abcd_using_post"""
+        try:
+            ess_fr = TestEnvironment.get_unit_essence_abcd_number_as_string()
+            ess_to = TestEnvironment.get_unit_essence_so_number_as_string()
+            request = ConversionABCDRequest(from_unit=ess_fr, to_unit=ess_to)
+
+            api_response = self.api_instance.post_conversion_abcd_using_post(request=request,
+                                                                             data_partition_id=self.env.data_partition_id)
+            self.assertIsNotNone(api_response)
+            self.assertIsInstance(api_response, ConversionResult)
+            self.assertIsNotNone(api_response.abcd)
+            self.assertIsNone(api_response.scale_offset)
+            self.assertEqual(0.0, api_response.abcd.a)
+            self.assertEqual(1.0, api_response.abcd.b)
+            self.assertEqual(1.0, api_response.abcd.c)
+            self.assertEqual(0.0, api_response.abcd.d)
+            pr_fr = TestEnvironment.get_unit_persistable_reference(ess_fr)
+            pr_to = TestEnvironment.get_unit_persistable_reference(ess_to)
+            request = ConversionABCDRequest(from_unit_persistable_reference=pr_fr,
+                                            to_unit_persistable_reference=pr_to)
+
+            api_response = self.api_instance.post_conversion_abcd_using_post(request=request,
+                                                                             data_partition_id=self.env.data_partition_id)
             self.assertIsNotNone(api_response)
             self.assertIsInstance(api_response, ConversionResult)
             self.assertIsNotNone(api_response.abcd)
