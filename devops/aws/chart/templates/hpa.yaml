@@ -1,4 +1,0 @@
-{{- template "common.hpa" (list . "os-unit.hpa") -}}
-{{- define "os-unit.hpa" -}}
-## Define overrides for the service HPA resource here
-{{- end -}}
