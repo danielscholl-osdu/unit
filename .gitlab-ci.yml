@@ -12,7 +12,7 @@ variables:
   AWS_SERVICE_GATEWAY: osdu-gateway
   AWS_ENVIRONMENT: dev
   AWS_INT_TEST_TYPE: python
-  AWS_DEPLOY_TARGET: HELM
+  AWS_DEPLOY_TARGET: TF
   AWS_EKS_DEPLOYMENT_NAME: os-unit
 
   AZURE_SERVICE: unit
@@ -24,32 +24,42 @@ variables:
 include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "standard-setup.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "build/maven.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "scanners/fossa-maven.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "scanners/gitlab-ultimate.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/gc-global.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/ibm-python-test.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/aws-global.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/aws-maven.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/aws-python.yml"
+    ref: m18-pipeline-update-mm
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/azure.yml"
+    ref: m18-pipeline-update-mm
 
   - local: "devops/gc/pipeline/override-stages.yml"
