@@ -9,8 +9,8 @@ global:
 data:
   logLevel: "ERROR"
   entitlementsHost: "http://entitlements"
-  requestsCpu: "10m"
-  requestsMemory: "350Mi"
+  requestsCpu: "5m"
+  requestsMemory: "275Mi"
   limitsCpu: "1"
   limitsMemory: "1G"
   serviceAccountName: "unit"
@@ -22,7 +22,7 @@ conf:
   configmap: "unit-config"
 
 istio:
-  proxyCPU: "10m"
+  proxyCPU: "5m"
   proxyCPULimit: "500m"
-  proxyMemory: "100Mi"
+  proxyMemory: "50Mi"
   proxyMemoryLimit: "512Mi"
