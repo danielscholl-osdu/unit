@@ -3,7 +3,7 @@ variables:
   GC_VENDOR: gc
   GC_INT_TEST_TYPE: python
   GC_PYTHON_INT_TEST_SUBDIR: testing/unit_test_gc
-  GC_ANTHOS_PYTHON_INT_TEST_SUBDIR: testing/unit_test_anthos
+  GC_BAREMETAL_PYTHON_INT_TEST_SUBDIR: testing/unit_test_baremetal
 
 gc-test-python:
   variables:
@@ -13,6 +13,6 @@ gc-dev2-test-python:
   variables:
     VIRTUAL_SERVICE_HOST_NAME: $GC_UNIT_HOSTNAME
 
-gc-anthos-test-python:
+gc-baremetal-test-python:
   variables:
-    VIRTUAL_SERVICE_HOST_NAME: $OSDU_ANTHOS_UNIT_HOSTNAME
+    VIRTUAL_SERVICE_HOST_NAME: $OSDU_BAREMETAL_UNIT_HOSTNAME
