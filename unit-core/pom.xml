@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.opengroup.osdu.unit-service</groupId>
         <artifactId>unit-service</artifactId>
-        <version>0.21.0-SNAPSHOT</version>
+        <version>0.22.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>unit-core</artifactId>
@@ -25,6 +25,7 @@
         <jackson-databind.version>2.14.0</jackson-databind.version>
         <jackson.version>2.13.2</jackson.version>
         <spring-webmvc.version>5.3.22</spring-webmvc.version>
+        <org-eclipse-jetty.version>9.4.51.v20230217</org-eclipse-jetty.version>
     </properties>
 
     <prerequisites>
@@ -85,6 +86,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jetty-server</artifactId>
+                    <groupId>org.eclipse.jetty</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -174,6 +181,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.12.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
             <version>3.0.16</version>
@@ -201,6 +214,11 @@
 		    <artifactId>okhttp</artifactId>
 		    <version>4.10.0</version>
 		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${org-eclipse-jetty.version}</version>
+        </dependency>
 
     </dependencies>
 

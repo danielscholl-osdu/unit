@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.opengroup.osdu.unit-service</groupId>
     <artifactId>unit-service</artifactId>
-    <version>0.21.0-SNAPSHOT</version>
+    <version>0.22.0-SNAPSHOT</version>
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
@@ -25,9 +25,10 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>	    
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <osdu.corelibazure.version>0.20.0</osdu.corelibazure.version>
+        <osdu.corelibazure.version>0.21.0</osdu.corelibazure.version>
         <jackson-databind.version>2.14.0</jackson-databind.version>
         <jackson.version>2.13.2</jackson.version>
+        <net-minidev.version>2.4.9</net-minidev.version>
     </properties>
 
     <prerequisites>
@@ -81,6 +82,12 @@
             <groupId>org.opengroup.osdu</groupId>
             <artifactId>core-lib-azure</artifactId>
             <version>${osdu.corelibazure.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>json-smart</artifactId>
+                    <groupId>net.minidev</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Compile/runtime dependencies -->
         <dependency>
@@ -102,6 +109,10 @@
             <groupId>com.azure.spring</groupId>
             <artifactId>azure-spring-boot-starter-active-directory</artifactId>
             <exclusions>
+                <exclusion>
+                    <artifactId>json-smart</artifactId>
+                    <groupId>net.minidev</groupId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
@@ -142,6 +153,11 @@
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+            <version>${net-minidev.version}</version>
         </dependency>
 
     </dependencies>
