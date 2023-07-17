@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.interfaces.UnitEssence;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.interfaces.MeasurementEssence;
@@ -11,14 +13,19 @@ import org.opengroup.osdu.unitservice.interfaces.MeasurementEssence;
 /**
  * A compact class describing the essence of a unit, {@link UnitImpl}.
  */
+@Data
+@Schema(description = "The essence of a unit parameterization")
 public class UnitEssenceImpl implements UnitEssence {
     @Expose @SerializedName("abcd")
+    @Schema(description = "Energistics standard parameterization y = (A+Bx)/(C+Dx)")
     private ABCDImpl abcd;
 
     @Expose @SerializedName("scaleOffset")
+    @Schema(implementation = ScaleOffsetImpl.class)
     private ScaleOffsetImpl scaleOffset;
 
     @Expose @SerializedName("symbol")
+    @Schema(description = "Unit in y = scale*(x-offset) parameterization", type = "string")
     private String symbol;
 
     @Expose @SerializedName("baseMeasurement")
@@ -26,6 +33,7 @@ public class UnitEssenceImpl implements UnitEssence {
 
 	@Expose @SerializedName("type")
 	@JsonProperty("type")
+    @Schema(description = "The type string for this unit essence, either 'USO' for ScaleOffset or 'UAD' for Abcd", type = "string")
     private String type;
 
     private MeasurementImpl baseMeasurement;

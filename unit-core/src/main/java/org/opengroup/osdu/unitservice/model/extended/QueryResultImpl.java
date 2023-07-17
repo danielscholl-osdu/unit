@@ -2,8 +2,8 @@ package org.opengroup.osdu.unitservice.model.extended;
 
 import org.opengroup.osdu.unitservice.interfaces.*;
 import org.opengroup.osdu.unitservice.model.MapStateImpl;
-import org.opengroup.osdu.unitservice.interfaces.*;
-
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +17,22 @@ import java.util.List;
  *     <li>{@link MeasurementMapItem} collection</li>
  * </ol>
  */
+@Data
+@Schema(description ="A result of a query containing unit of measure items.")
 public class QueryResultImpl implements QueryResult {
+    @Schema(description = "Number of items contained in the catalog",type = "integer", example = "0")
     private int totalCount = 0;
+    @Schema(description = "The offset position for this query. Default is 0",type = "integer", example = "0")
     private int offset = 0;
-
+    @Schema(description = "The array of Unit items",type = "array", implementation = Unit.class)
     private List<Unit> units;
+    @Schema(description = "The array of Measurement items",type = "array", implementation = Measurement.class)
     private List<Measurement> measurements;
+    @Schema(description = "The array of UnitMapItems describing unit-to-unit pairs",type = "array", implementation = UnitMapItem.class)
     private List<UnitMapItem> unitMapItems;
+    @Schema(description = "The array of measurement-to-measurement maps",type = "array", implementation = MeasurementMapItem.class)
     private List<MeasurementMapItem> measurementMapItems;
+    @Schema(type = "array", implementation = MapStateImpl.class)
     private List<MapStateImpl> mapStates;
 
     /**

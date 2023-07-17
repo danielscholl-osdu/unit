@@ -11,7 +11,8 @@ import java.io.Reader;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.interfaces.*;
 import org.opengroup.osdu.unitservice.helper.MapStateHelper;
 import org.opengroup.osdu.unitservice.helper.Utility;
@@ -24,6 +25,8 @@ import org.opengroup.osdu.unitservice.model.extended.*;
 /**
  * The root container of the unit catalog.
  */
+@Data
+@Schema(description = "The unit of measure catalog")
 public class CatalogImpl {
     private static final Logger log= Logger.getLogger( CatalogImpl.class.getName() );
     private Map<String, UnitSystemImpl> nameUnitSystems = null;
@@ -34,33 +37,43 @@ public class CatalogImpl {
     private Indexer indexer;
 
     @Expose @SerializedName("nextID")
+    @Schema(type = "string")
     private String nextID;
 
     @Expose @SerializedName("name")
+    @Schema(type = "string")
     private String name;
 
     @Expose @SerializedName("lastModified")
+    @Schema(description = "The unit of measure catalog's last modification date.",type = "string")
     private String lastModified;
 
     @Expose @SerializedName("listOfBaseMeasurements")
+    @Schema(type = "array", implementation = MeasurementImpl.class)
     private List<MeasurementImpl> baseMeasurements;
 
     @Expose @SerializedName("listOfChildMeasurements")
+    @Schema(type = "array", implementation = MeasurementImpl.class)
     private List<MeasurementImpl> childMeasurements;
 
     @Expose @SerializedName("listOfUnits")
+    @Schema(description = "The array of units defined in this catalog",type = "array", implementation = UnitImpl.class)
     private List<UnitImpl> units;
 
     @Expose @SerializedName("listOfUnitSystems")
+    @Schema(type = "array", implementation = UnitSystemImpl.class)
     private List<UnitSystemImpl> unitSystems;
 
     @Expose @SerializedName("listOfMeasurementMaps")
+    @Schema(type = "array", implementation = MeasurementMapImpl.class)
     private List<MeasurementMapImpl> measurementMaps;
 
     @Expose @SerializedName("listOfUnitMaps")
+    @Schema(type = "array", implementation = UnitMapImpl.class)
     private List<UnitMapImpl> unitMaps;
 
     @Expose @SerializedName("wellKnownMapStates")
+    @Schema(type = "array", implementation = MapStateImpl.class)
     private List<MapStateImpl> wellknownMapStates;
 
     @JsonIgnore

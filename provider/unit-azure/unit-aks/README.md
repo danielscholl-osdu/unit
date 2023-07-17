@@ -101,6 +101,14 @@ After the service has started it should be accessible via a web browser by visit
 
 These tests are written in python follow the process below for a linux/mac.
 
+### Open API 3.0 - Swagger
+Swagger UI: http://localhost:8080/api/unit/swagger (will redirect to http://localhost:8080/api/unit/swagger-ui/index.html)
+- api-docs [All Versions] (JSON) : http://localhost:8080/api/unit/api-docs
+- api-docs [All versions] (YAML) : http://localhost:8080/api/unit/api-docs.yaml
+- api-docs [Version V2] (JSON) : http://localhost:8080/api/unit/api-docs/v2
+- api-docs [Version V3] (JSON) : http://localhost:8080/api/unit/api-docs/v3
+
+
 ## Building/running
 Go to the provider folder:
 ```bash

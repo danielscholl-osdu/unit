@@ -1,5 +1,7 @@
 package org.opengroup.osdu.unitservice.model.extended;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.interfaces.ConversionResult;
 import org.opengroup.osdu.unitservice.interfaces.ScaleOffset;
 import org.opengroup.osdu.unitservice.interfaces.Unit;
@@ -8,10 +10,16 @@ import org.opengroup.osdu.unitservice.interfaces.ABCD;
 /**
  * A class implements {@link ConversionResult}.
  */
+@Data
+@Schema(description = "The response to a unit conversion request")
 public class ConversionResultImpl implements ConversionResult {
+    @Schema(description = "Energistics standard parameterization y = (A+Bx)/(C+Dx)",implementation = ABCD.class)
     private ABCD abcd;
+    @Schema(description = "Unit in y = scale*(x-offset) parameterization",implementation = ScaleOffset.class)
     private ScaleOffset scaleOffset;
+    @Schema(implementation = Unit.class)
     private Unit fromUnit;
+    @Schema(implementation = Unit.class)
     private Unit toUnit;
 
     /**

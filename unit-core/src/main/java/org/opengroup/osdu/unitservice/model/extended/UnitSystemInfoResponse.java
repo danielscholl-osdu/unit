@@ -1,6 +1,8 @@
 package org.opengroup.osdu.unitservice.model.extended;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +10,14 @@ import java.util.List;
 /**
  * A type of class to describe a block of string items
  * */
+@Data
+@Schema(description = "The unit system info structures")
 public class UnitSystemInfoResponse {
+    @Schema(description = "The array of unit system names")
     private List<UnitSystemInfo> unitSystemInfoList;
+    @Schema(description = "The total number of elements in the list defined in the catalog",type = "integer")
     private int totalCount;
+    @Schema(description = "The offset into the list as requested",type = "integer")
     private int offset;
 
     /**

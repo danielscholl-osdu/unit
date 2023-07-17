@@ -3,11 +3,15 @@ package org.opengroup.osdu.unitservice.model.extended;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.helper.Utility;
-
+@Data
+@Schema(description = "A unit system essence")
 public class UnitSystemEssenceImpl {
 
     @Expose @SerializedName("ancestry")
+    @Schema(description = "The full ancestry of this unit system.",type = "string")
     private String ancestry;
 
     /**
