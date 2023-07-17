@@ -25,7 +25,7 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>	    
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <osdu.corelibazure.version>0.21.0</osdu.corelibazure.version>
+        <osdu.corelibazure.version>0.22.0</osdu.corelibazure.version>
         <jackson-databind.version>2.14.0</jackson-databind.version>
         <jackson.version>2.13.2</jackson.version>
         <net-minidev.version>2.4.9</net-minidev.version>
