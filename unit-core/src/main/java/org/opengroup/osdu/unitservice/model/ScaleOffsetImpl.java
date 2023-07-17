@@ -4,17 +4,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.interfaces.ScaleOffset;
 import org.opengroup.osdu.unitservice.helper.Utility;
 
 /**
  * Container class for the y = scale*(x-offset) parameterization.
  */
+@Data
+@Schema(description = "Unit in y = scale*(x-offset) parameterization")
 public class ScaleOffsetImpl implements ScaleOffset {
     @Expose @SerializedName("scale")
+    @Schema(description = "The offset in y = scale*(x-offset)",type = "number", format = "double")
     private double scale;
 
     @Expose @SerializedName("offset")
+    @Schema(description = "The scale in y = scale*(x-offset)",type = "number", format = "double")
     private double offset;
 
     /*

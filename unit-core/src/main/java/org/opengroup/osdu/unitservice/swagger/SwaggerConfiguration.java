@@ -1,20 +1,25 @@
 package org.opengroup.osdu.unitservice.swagger;
 
-import io.swagger.v3.oas.models.servers.Server;
-import org.springdoc.core.GroupedOpenApi;
-import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.tags.Tag;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
+import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springdoc.core.customizers.OperationCustomizer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import javax.servlet.ServletContext;
 import java.util.Collections;
-import org.springframework.context.annotation.Profile;
 
 
 
@@ -22,22 +27,46 @@ import org.springframework.context.annotation.Profile;
 @Profile("!noswagger")
 public class SwaggerConfiguration {
 
+    @Value("${api.title}")
+    private String apiTitle;
+
+    @Value("${api.description}")
+    private String apiDescription;
+
+    @Value("${api.contact.name}")
+    private String contactName;
+
+    @Value("${api.contact.email}")
+    private String contactEmail;
+
+    @Value("${api.license.name}")
+    private String licenseName;
+
+    @Value("${api.license.url}")
+    private String licenseUrl;
+
     @Bean
     public GroupedOpenApi apiV2() {
+        String[] paths = {"/v2/**"};
         return GroupedOpenApi.builder()
-                .group("~v2")
+                .group("v2")
                 .pathsToExclude("/api/unit/error")
-                .pathsToMatch("/api/unit/v2", "/api/unit/_ah")
+                .pathsToMatch(paths)
+                .addOpenApiCustomiser(buildV2OpenAPI())
+                .addOperationCustomizer(customize())
                 .build();
     }
 
     @Bean
     public GroupedOpenApi apiV3() {
+        String[] paths = {"/v3/**"};
         return GroupedOpenApi.builder()
                 .group("v3")
                 .pathsToExclude("/api/unit/error")
-                .pathsToMatch("/api/unit/v3", "/api/unit/_ah", "/api/unit/v3/info")
-                .packagesToScan("src/main/java/org/opengroup/osdu/unitservice")
+                .pathsToMatch(paths)
+                .packagesToScan("org.opengroup.osdu.unitservice")
+                .addOpenApiCustomiser(buildV3OpenAPI())
+                .addOperationCustomizer(customize())
                 .build();
     }
 
@@ -46,10 +75,6 @@ public class SwaggerConfiguration {
         Server server = new Server().url(servletContext.getContextPath());
         return new OpenAPI()
                 .servers(Collections.singletonList(server))
-                .info(new Info()
-                        .description("Unit Service that provides a set of APIs ")
-                        .title("Unit API V3 ")
-                        .version("2.0"))
                 .components(new Components()
                         .addSecuritySchemes("Authorization",
                                 new SecurityScheme()
@@ -58,10 +83,10 @@ public class SwaggerConfiguration {
                                         .bearerFormat("Authorization")
                                         .in(SecurityScheme.In.HEADER)
                                         .name("Authorization")))
+                .info(apiInfo())
                 .addSecurityItem(
                         new SecurityRequirement()
                                 .addList("Authorization"));
-
     }
 
     @Bean
@@ -75,5 +100,35 @@ public class SwaggerConfiguration {
                             .name(DpsHeaders.DATA_PARTITION_ID));
             return operation;
         };
+    }
+
+    public OpenApiCustomiser buildV2OpenAPI() {
+        return openApi -> {
+            openApi.info(openApi.getInfo().version("2.0.0"));
+            openApi.addTagsItem(new Tag().name("UoM Catalog (DEPRECATED)").description("UoM Catalog endpoints are <b>DEPRECATED</b>"));
+            openApi.addTagsItem(new Tag().name("Measurements (DEPRECATED)").description("Measurements endpoints are <b>DEPRECATED</b>"));
+            openApi.addTagsItem(new Tag().name("Units (DEPRECATED)").description("Units endpoints are <b>DEPRECATED</b>"));
+            openApi.addTagsItem(new Tag().name("Unit Systems (DEPRECATED)").description("Unit Systems endpoints are <b>DEPRECATED</b>"));
+            openApi.addTagsItem(new Tag().name("Conversions (DEPRECATED)").description("Conversions endpoints are <b>DEPRECATED</b>"));
+
+
+        };
+    }
+
+    public OpenApiCustomiser buildV3OpenAPI() {
+        return openApi -> {
+            openApi.info(openApi.getInfo().version("3.0.0"));
+            openApi.addTagsItem(new Tag().name("info-api-v3").description("Version info endpoint"));
+            openApi.addTagsItem(new Tag().name("health-check-api").description("Health related API"));
+            openApi.addTagsItem(new Tag().name("unit-api-v3").description("Unit related API"));
+        };
+    }
+
+    private Info apiInfo() {
+        return new Info()
+                .title(apiTitle)
+                .description(apiDescription)
+                .license(new License().name(licenseName).url(licenseUrl))
+                .contact(new Contact().name(contactName).email(contactEmail));
     }
 }

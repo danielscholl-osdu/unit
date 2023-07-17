@@ -1,6 +1,13 @@
 package org.opengroup.osdu.unitservice.api;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.opengroup.osdu.core.common.model.http.AppError;
 import org.opengroup.osdu.unitservice.interfaces.*;
 import org.opengroup.osdu.unitservice.model.*;
 import org.opengroup.osdu.unitservice.model.extended.QueryResultImpl;
@@ -9,6 +16,7 @@ import org.opengroup.osdu.unitservice.model.extended.UnitSystemInfoResponse;
 import org.opengroup.osdu.unitservice.request.*;
 import org.opengroup.osdu.unitservice.util.AppException;
 import org.opengroup.osdu.unitservice.helper.Utility;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +58,20 @@ public class UnitApiV2 {
      * @return A full catalog
      */
     @Deprecated
-	@GetMapping("/catalog")
+    @Operation(summary = "${unitApiV2.catalog.summary}", description = "${unitApiV2.catalog.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"UoM Catalog (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = Catalog.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/catalog", produces = MediaType.APPLICATION_JSON_VALUE)
     public Catalog getCatalog() {
         return catalog.getCatalogResponse();
     }
@@ -60,7 +81,20 @@ public class UnitApiV2 {
      * @return  the last update time.
      */
     @Deprecated
-	@GetMapping("/catalog/lastmodified")
+    @Operation(summary = "${unitApiV2.catalogLastmodified.summary}", description = "${unitApiV2.catalogLastmodified.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"UoM Catalog (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = CatalogLastModified.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/catalog/lastmodified", produces = MediaType.APPLICATION_JSON_VALUE)
     public CatalogLastModified getLastModified() {
         return new CatalogLastModifiedImpl(catalog.getLastModified());
     }
@@ -76,7 +110,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the startIndex is out of the range
      */
     @Deprecated
-	@GetMapping("/measurement")
+    @Operation(summary = "${unitApiV2.measurement.summary}", description = "${unitApiV2.measurement.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Measurements (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/measurement", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getMeasurements(@RequestParam(value = "offset", defaultValue = "0") int offset,
                                        @RequestParam(value = "limit", defaultValue = "100") int limit) {
         assertRange(offset, limit);
@@ -98,7 +145,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the essence or code is invalid
      */
     @Deprecated
-	@PostMapping("/measurement")
+    @Operation(summary = "${unitApiV2.oneMeasurement.summary}", description = "${unitApiV2.oneMeasurement.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Measurements (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = Measurement.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/measurement", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Measurement postMeasurement(@RequestBody MeasurementRequest request) {
 
         try {
@@ -120,7 +180,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the ancestry is invalid
      */
     @Deprecated
-	@GetMapping("/measurement/{ancestry}")
+    @Operation(summary = "${unitApiV2.oneMeasurementAncestry.summary}", description = "${unitApiV2.oneMeasurementAncestry.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Measurements (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = Measurement.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/measurement/{ancestry}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Measurement getMeasurement(@PathVariable("ancestry") String ancestry) {
 
         try {
@@ -142,7 +215,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the startIndex is out of the range
      */
     @Deprecated
-	@GetMapping("/unit")
+    @Operation(summary = "${unitApiV2.units.summary}", description = "${unitApiV2.units.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unit", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getUnits(@RequestParam(value = "offset", defaultValue = "0") int offset,
                                 @RequestParam(value = "limit", defaultValue = "100") int limit) {
         assertRange(offset, limit);
@@ -162,7 +248,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the essence Json is invalid
      */
     @Deprecated
-	@PostMapping("/unit")
+    @Operation(summary = "${unitApiV2.oneUnit.summary}", description = "${unitApiV2.oneUnit.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = Unit.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/unit", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Unit postUnit(@RequestBody UnitRequest request) {
         try {
             UnitEssenceImpl essence = request.getUnitEssence();
@@ -181,7 +280,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the symbol is invalid
      */
     @Deprecated
-	@GetMapping("/unit/symbol/{symbol}")
+    @Operation(summary = "${unitApiV2.unitsBySymbol.summary}", description = "${unitApiV2.unitsBySymbol.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unit/symbol/{symbol}", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getUnitsBySymbol(@PathVariable(value = "symbol") String symbol) {
         try {
             return Utility.createQueryResultForUnits(catalog.getUnitsBySymbol(symbol));
@@ -201,7 +313,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the symbol is invalid or the symbol does exist in the given namespaces.
      */
     @Deprecated
-	@GetMapping("/unit/symbol/{namespaces}/{symbol}")
+    @Operation(summary = "${unitApiV2.oneUnitByNamespaceSymbol.summary}", description = "${unitApiV2.oneUnitByNamespaceSymbol.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = Unit.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unit/symbol/{namespaces}/{symbol}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Unit getUnitBySymbol(@PathVariable("namespaces") String namespaces, @PathVariable("symbol") String symbol) {
         try {
             return catalog.getUnitBySymbol(namespaces, symbol);
@@ -219,7 +344,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the essence of the measurement is invalid
      */
     @Deprecated
-	@PostMapping("/unit/measurement")
+    @Operation(summary = "${unitApiV2.unitsForMeasurement.summary}", description = "${unitApiV2.unitsForMeasurement.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/unit/measurement", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult postUnitsByMeasurement(@RequestBody MeasurementRequest request) {
         try {
             MeasurementEssenceImpl essence = request.getMeasurementEssence();
@@ -238,7 +376,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the ancestry of the measurement is invalid
      */
     @Deprecated
-	@GetMapping("/unit/measurement/{ancestry}")
+    @Operation(summary = "${unitApiV2.unitsForMeasurementByAncestry.summary}", description = "${unitApiV2.unitsForMeasurementByAncestry.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unit/measurement/{ancestry}", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getUnitsByMeasurement(@PathVariable("ancestry") String ancestry) {
 
         try {
@@ -257,7 +408,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the essence of the measurement is invalid
      */
     @Deprecated
-	@PostMapping("/unit/measurement/preferred")
+    @Operation(summary = "${unitApiV2.preferredUnitsMeasurement.summary}", description = "${unitApiV2.preferredUnitsMeasurement.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/unit/measurement/preferred", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult postPreferredUnitsByMeasurement(@RequestBody MeasurementRequest request) {
         try {
             MeasurementEssenceImpl essence = request.getMeasurementEssence();
@@ -276,7 +440,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the ancestry of the measurement is invalid
      */
     @Deprecated
-	@GetMapping("/unit/measurement/preferred/{ancestry}")
+    @Operation(summary = "${unitApiV2.preferredUnitsMeasurementAncestry.summary}", description = "${unitApiV2.preferredUnitsMeasurementAncestry.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unit/measurement/preferred/{ancestry}", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getPreferredUnitsByMeasurement(@PathVariable("ancestry") String ancestry) {
 
         try {
@@ -298,7 +475,20 @@ public class UnitApiV2 {
      * 
      */
     @Deprecated
-	@PostMapping("/unit/unitsystem/{unitSystemName}")
+    @Operation(summary = "${unitApiV2.unitsystems.summary}", description = "${unitApiV2.unitsystems.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Unit Systems (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = Unit.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/unit/unitsystem/{unitSystemName}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Unit postUnitBySystemAndMeasurement(@PathVariable("unitSystemName") String unitSystemName,
                                                @RequestBody MeasurementRequest request) {
         try {
@@ -321,7 +511,20 @@ public class UnitApiV2 {
      * 
      */
     @Deprecated
-	@GetMapping("/unit/unitsystem/{unitSystemName}/{ancestry}")
+    @Operation(summary = "${unitApiV2.unitsystemsAncestry.summary}", description = "${unitApiV2.unitsystemsAncestry.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Unit Systems (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = Unit.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unit/unitsystem/{unitSystemName}/{ancestry}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Unit getUnitBySystemAndMeasurement(@PathVariable("unitSystemName") String unitSystemName,
                                               @PathVariable("ancestry") String ancestry) {
 
@@ -345,7 +548,20 @@ public class UnitApiV2 {
      * </ul>
      */
     @Deprecated
-	@PostMapping("/conversion/scale")
+    @Operation(summary = "${unitApiV2.conversions.summary}", description = "${unitApiV2.conversions.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Conversions (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = ConversionResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/conversion/scale", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ConversionResult postConversionScaleOffset(@RequestBody ConversionScaleOffsetRequest request) {
         try {
             UnitEssenceImpl fromUnitEssence = request.getFromUnitEssence();
@@ -369,7 +585,20 @@ public class UnitApiV2 {
      * </ul>
      */
     @Deprecated
-	@PostMapping("/conversion/abcd")
+    @Operation(summary = "${unitApiV2.conversionsABCD.summary}", description = "${unitApiV2.conversionsABCD.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Conversions (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = ConversionResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/conversion/abcd", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ConversionResult postConversionABCD(@RequestBody ConversionABCDRequest request) {
         try {
             UnitEssenceImpl fromUnitEssence = request.getFromUnitEssence();
@@ -396,7 +625,20 @@ public class UnitApiV2 {
      * </ul>
      */
     @Deprecated
-	@GetMapping("/conversion/scale/{namespaces}/{fromSymbol}/{toSymbol}")
+    @Operation(summary = "${unitApiV2.conversionsScale.summary}", description = "${unitApiV2.conversionsScale.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Conversions (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = ConversionResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/conversion/scale/{namespaces}/{fromSymbol}/{toSymbol}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ConversionResult getConversionScaleOffsetBySymbols(@PathVariable("namespaces") String namespaces,
                                                               @PathVariable("fromSymbol") String fromSymbol,
                                                               @PathVariable("toSymbol") String toSymbol) {
@@ -424,7 +666,20 @@ public class UnitApiV2 {
      * </ul>
      */
     @Deprecated
-	@GetMapping("/conversion/abcd/{namespaces}/{fromSymbol}/{toSymbol}")
+    @Operation(summary = "${unitApiV2.conversionsUnitABCD.summary}", description = "${unitApiV2.conversionsUnitABCD.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Conversions (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = ConversionResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/conversion/abcd/{namespaces}/{fromSymbol}/{toSymbol}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ConversionResult getConversionABCDBySymbols(@PathVariable("namespaces") String namespaces,
                                                        @PathVariable("fromSymbol") String fromSymbol,
                                                        @PathVariable("toSymbol") String toSymbol) {
@@ -446,7 +701,20 @@ public class UnitApiV2 {
      * @return A list of unit system infos {@link UnitSystemInfoResponse}
      */
     @Deprecated
-	@GetMapping("/unitsystem/list")
+    @Operation(summary = "${unitApiV2.unitsystemList.summary}", description = "${unitApiV2.unitsystemList.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Unit Systems (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response containing the list of UnitSystemInfo structures", content = { @Content(schema = @Schema(implementation = UnitSystemInfoResponse.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad input format - offset/limit out of range",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unitsystem/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public UnitSystemInfoResponse getUnitSystemInfoList(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -462,7 +730,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the essence of the unit system is invalid
      */
     @Deprecated
-	@PostMapping("/unitsystem")
+    @Operation(summary = "${unitApiV2.unitsystem.summary}", description = "${unitApiV2.unitsystem.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Unit Systems (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = UnitSystem.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/unitsystem", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public UnitSystem postUnitSystem(@RequestBody UnitSystemRequest request,
                                      @RequestParam(value = "offset", defaultValue = "0") int offset,
                                      @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -483,7 +764,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the name of the unit system is invalid
      */
     @Deprecated
-	@GetMapping("/unitsystem/{name}")
+    @Operation(summary = "${unitApiV2.unitsystemName.summary}", description = "${unitApiV2.unitsystemName.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Unit Systems (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = UnitSystem.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unitsystem/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UnitSystem getUnitSystem(@PathVariable("name") String name,
                                     @RequestParam(value = "offset", defaultValue = "0") int offset,
                                     @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -508,7 +802,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the startIndex is out of the range or the keyword is empty or null
      */
     @Deprecated
-	@PostMapping("/unit/search")
+    @Operation(summary = "${unitApiV2.unitsSearch.summary}", description = "${unitApiV2.unitsSearch.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/unit/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult postSearchUnits(@RequestBody SearchRequest request,
                                        @RequestParam(value = "offset", defaultValue = "0") int offset,
                                        @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -530,7 +837,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the startIndex is out of the range or the keyword is empty or null
      */
     @Deprecated
-	@PostMapping("/measurement/search")
+    @Operation(summary = "${unitApiV2.measurementsSearch.summary}", description = "${unitApiV2.measurementsSearch.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Measurements (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/measurement/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult postSearchMeasurements(@RequestBody SearchRequest request,
                                               @RequestParam(value = "offset", defaultValue = "0") int offset,
                                               @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -552,7 +872,20 @@ public class UnitApiV2 {
      * @throws AppException An exception will be thrown if the startIndex is out of the range or the keyword is empty or null
      */
     @Deprecated
-    @PostMapping("/catalog/search")
+    @Operation(summary = "${unitApiV2.catalogSearch.summary}", description = "${unitApiV2.catalogSearch.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"UoM Catalog (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @PostMapping(value = "/catalog/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult postSearch(@RequestBody SearchRequest request,
                                   @RequestParam(value = "offset", defaultValue = "0") int offset,
                                   @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -566,7 +899,20 @@ public class UnitApiV2 {
     }
 
     @Deprecated
-    @GetMapping("/unit/maps")
+    @Operation(summary = "${unitApiV2.unitMaps.summary}", description = "${unitApiV2.unitMaps.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Units (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/unit/maps", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getUnitMaps(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -589,7 +935,20 @@ public class UnitApiV2 {
     }
 
     @Deprecated
-    @GetMapping("/measurement/maps")
+    @Operation(summary = "${unitApiV2.measurementsMaps.summary}", description = "${unitApiV2.measurementsMaps.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"Measurements (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/measurement/maps", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getMeasurementMaps(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
@@ -612,7 +971,20 @@ public class UnitApiV2 {
     }
     
     @Deprecated
-    @GetMapping("/catalog/mapstates")
+    @Operation(summary = "${unitApiV2.catalogMap.summary}", description = "${unitApiV2.catalogMap.description}",
+            security = {@SecurityRequirement(name = "Authorization")}, tags = {"UoM Catalog (DEPRECATED)"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A successful response", content = { @Content(schema = @Schema(implementation = QueryResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "403", description = "User not authorized to perform the action.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "404", description = "Not Found",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "409", description = "A LegalTag with the given name already exists.",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "502", description = "Bad Gateway",  content = {@Content(schema = @Schema(implementation = AppError.class ))}),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable",  content = {@Content(schema = @Schema(implementation = AppError.class ))})
+    })
+    @GetMapping(value = "/catalog/mapstates", produces = MediaType.APPLICATION_JSON_VALUE)
     public QueryResult getMapStates(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit) {

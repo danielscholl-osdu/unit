@@ -6,15 +6,20 @@ package org.opengroup.osdu.unitservice.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.JsonSyntaxException;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.model.UnitEssenceImpl;
 
 /**
  *  UnitRequest is class which encapsulates the request body for a unit object.
  */
+@Data
+@Schema(description = "Request to get a single unit instance given an essence.")
 public class UnitRequest {
-
+	@Schema(description = "The essence of a unit parameterization")
 	private UnitEssenceImpl unitEssence;
+	@Schema(description = "The persistable reference string for the unit; optional, only one 'persistableReference' or 'essence' must be defined")
 	private String persistableReference;
 
 	/**

@@ -5,40 +5,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.opengroup.osdu.unitservice.interfaces.Unit;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.logging.Logger;
 
 /**
  * The class describing a unit of measure, {@link MeasurementImpl}.
  */
+
+@Schema(description = "The full description of a unit")
 public class UnitImpl implements Unit {
     private static final Logger log = Logger.getLogger( UnitImpl.class.getName() );
 
     @Expose @SerializedName("id")
+    @Schema(type = "string")
     private String id;
 
     @Expose @SerializedName("essence")
+    @Schema(description = "The essence of a unit parameterization",implementation = UnitEssenceImpl.class)
     private UnitEssenceImpl essence;
 
     @Expose @SerializedName("deprecationInfo")
+    @Schema(implementation = UnitDeprecationInfoImpl.class)
     private UnitDeprecationInfoImpl deprecationInfo;
 
     @Expose @SerializedName("displaySymbol")
+    @Schema(description = "The unit symbol or unit abbreviation",type = "string")
     private String displaySymbol;
 
     @Expose @SerializedName("name")
+    @Schema(description = "The full name of this unit",type = "string")
     private String name;
 
     @Expose @SerializedName("description")
+    @Schema(description = "Any additional remarks about this unit or blank.",type = "string")
     private String description;
 
     @Expose @SerializedName("lastModified")
+    @Schema(description = "The last modification date of this unit in the format YYYYMMDD",type = "string")
     private String lastModified;
 
     @Expose @SerializedName("source")
+    @Schema(description = "The source of this unit definition",type = "string")
     private String source;
 
     @Expose @SerializedName("namespace")
+    @Schema(description = "The namespace, in which this unit's symbol is unique. Example namespaces: 'Energistics_UoM', 'RP66', 'ECL', 'LIS'.",type = "string")
     private String namespace;
 
     /**

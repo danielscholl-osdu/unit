@@ -6,15 +6,22 @@ package org.opengroup.osdu.unitservice.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.opengroup.osdu.unitservice.model.UnitEssenceImpl;
-
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 /**
  *  ConversionScaleOffsetRequest is class which encapsulates the request body for a scale offset conversion object.
  */
+@Data
+@Schema(description = "A scale offset unit conversion request. The requested units are either passed as persistable reference strings (JSON serialized Unit 'essence') or as Unit essence structure.")
 public class ConversionScaleOffsetRequest {
-
+	@Schema(description = "The essence of a unit parameterization",implementation = UnitEssenceImpl.class)
 	private UnitEssenceImpl fromUnitEssence;
+
+	@Schema(description = "The essence of a unit parameterization",implementation = UnitEssenceImpl.class)
 	private UnitEssenceImpl toUnitEssence;
+	@Schema(description = "The persistable reference string (JSON serialized Unit 'essence') representing toe 'from Unit'. Either 'fromUnitPersistableReference' or 'fromUnit' must be populated.",type = "string")
 	private String fromUnitPersistableReference;
+	@Schema(description = "The persistable reference string (JSON serialized Unit 'essence') representing toe 'to Unit'. Either 'toUnitPersistableReference' or 'toUnit' must be populated.",type = "string")
 	private String toUnitPersistableReference;
 
 	/**
