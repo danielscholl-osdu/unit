@@ -1,6 +1,7 @@
 package org.opengroup.osdu.unitservice.model.extended;
 
-import org.opengroup.osdu.unitservice.interfaces.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.interfaces.*;
 
 import java.util.ArrayList;
@@ -9,19 +10,33 @@ import java.util.List;
 /**
  * A class implements API {@link Catalog} to return a customized copy of the catalog.
  * */
+@Data
 public class CatalogResponse implements Catalog {
+    @Schema(type = "string")
     private String lastModified;
+    @Schema(type = "array", implementation = Unit.class)
     private List<Unit> units;
+    @Schema(type = "integer")
     private int totalUnitCount;
+    @Schema(type = "array", implementation = Measurement.class)
     private List<Measurement> measurements;
+    @Schema(type = "integer")
     private int totalMeasurementCount;
+    @Schema(type = "array", implementation = UnitSystemInfo.class)
     private List<UnitSystemInfo> unitSystemInfos;
+    @Schema(type = "integer")
     private int totalUnitSystemCount;
+    @Schema(type = "array", implementation = UnitMap.class)
     private List<UnitMap> unitMaps;
+    @Schema(type = "integer")
     private int totalUnitMapCount;
+    @Schema(type = "array", implementation = MeasurementMap.class)
     private List<MeasurementMap> measurementMaps;
+    @Schema(type = "integer")
     private int totalMeasurementMapCount;
+    @Schema(type = "array", implementation = MapState.class)
     private List<MapState> mapStates;
+    @Schema(type = "integer")
     private int totalMapStateCount;
 
     /**

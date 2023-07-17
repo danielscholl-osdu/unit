@@ -3,6 +3,7 @@ package org.opengroup.osdu.unitservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.opengroup.osdu.unitservice.interfaces.UnitMap;
 import org.opengroup.osdu.unitservice.interfaces.UnitMapItem;
 import org.opengroup.osdu.unitservice.helper.MapStateHelper;
@@ -16,16 +17,21 @@ import java.util.logging.Logger;
 /**
  * An class defines mapping of {@link UnitImpl}s between two namespaces.
  */
+
+@Schema(description = "A list of UnitMapItems given a 'from' and a 'to' namespace.")
 public class UnitMapImpl implements UnitMap {
     private static final Logger log = Logger.getLogger( UnitMapImpl.class.getName() );
 
     @Expose @SerializedName("listOfMaps")
+    @Schema(description = "The array of UnitMapItem")
     List<UnitMapItemImpl> mapItems;
 
     @Expose @SerializedName("fromNamespace")
+    @Schema(description = "The source or 'from' namespace")
     private String fromNamespace;
 
     @Expose @SerializedName("toNamespace")
+    @Schema(description = "The source or 'to' namespace")
     private String toNamespace;
 
     /**

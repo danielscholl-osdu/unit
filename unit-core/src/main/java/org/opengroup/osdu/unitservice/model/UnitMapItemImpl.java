@@ -2,6 +2,7 @@ package org.opengroup.osdu.unitservice.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.opengroup.osdu.unitservice.interfaces.UnitMapItem;
 
 import java.util.Map;
@@ -9,18 +10,23 @@ import java.util.Map;
 /**
  * A class defines the mapping state between two {@link UnitImpl}s
  */
+@Schema(description = "The definition of a uni-directional unit-to-unit map pair")
 public class UnitMapItemImpl implements UnitMapItem {
 
     @Expose @SerializedName("fromUnitID")
+    @Schema(type = "string")
     private String fromUnitId;
 
     @Expose @SerializedName("toUnitID")
+    @Schema(type = "string")
     private String toUnitId;
 
     @Expose @SerializedName("state")
+    @Schema(description ="The state of the mapping; one of the following: 'identical', 'corrected', 'precision', 'conversion', 'conditional', 'unsupported', 'different', 'unresolved'.", type = "string")
     private String state;
 
     @Expose @SerializedName("note")
+    @Schema(description = "Any additional remarks and notes about this mapping",type = "string")
     private String note;
 
     private UnitImpl fromUnit;

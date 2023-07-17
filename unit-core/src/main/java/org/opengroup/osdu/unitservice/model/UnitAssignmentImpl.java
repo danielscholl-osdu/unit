@@ -2,6 +2,7 @@ package org.opengroup.osdu.unitservice.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.opengroup.osdu.unitservice.interfaces.UnitAssignment;
 
 import java.util.Map;
@@ -9,15 +10,19 @@ import java.util.Map;
 /**
  * A {@link UnitAssignmentImpl} assigns a {@link UnitImpl} to a {@link MeasurementImpl} for a given {@link UnitSystemImpl}
  */
+@Schema(description = "A unit to measurement assignment in the conetxt of a unit system.")
 public class UnitAssignmentImpl implements UnitAssignment {
 
     @Expose @SerializedName("measurementID")
+    @Schema(type = "string")
     private String measurementId;
 
     @Expose @SerializedName("unitID")
+    @Schema(type = "string")
     private String unitId;
 
     @Expose @SerializedName("lastModified")
+    @Schema(description = "The last modification date of the assignment in the format YYYYMMDD.", type = "string")
     private String lastModified;
 
     private MeasurementImpl measurement;

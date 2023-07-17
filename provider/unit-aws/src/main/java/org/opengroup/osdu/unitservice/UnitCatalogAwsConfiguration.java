@@ -23,6 +23,7 @@ import org.opengroup.osdu.unitservice.model.CatalogImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.StringUtils;
 
 import java.io.InputStreamReader;
@@ -33,6 +34,7 @@ import java.util.logging.Logger;
 import java.io.FileReader;
 
 @Configuration
+@PropertySource("classpath:swagger.properties")
 public class UnitCatalogAwsConfiguration {
 
     private static final Logger log = Logger.getLogger(UnitCatalogAwsConfiguration.class.getName());

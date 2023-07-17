@@ -2,6 +2,7 @@ package org.opengroup.osdu.unitservice.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.opengroup.osdu.unitservice.interfaces.MeasurementDeprecationInfo;
 import org.opengroup.osdu.unitservice.helper.Utility;
 
@@ -11,15 +12,19 @@ import java.util.Map;
  * A class declaring the owner/container as deprecated.
  * The properties provide additional information about the status and potential recommended {@link MeasurementImpl}s.
  */
+@Schema(description = "A deprecation information record for a measurement.")
 public class MeasurementDeprecationInfoImpl implements MeasurementDeprecationInfo {
 
     @Expose @SerializedName("state")
+    @Schema(description = "The deprecation state - one of the following: 'identical', 'corrected', 'precision', 'conversion', 'conditional', 'unsupported', 'different', 'unresolved'.",type = "string")
     private String state;
 
     @Expose @SerializedName("remarks")
+    @Schema(description = "Optional additional remarks about this deprecation.",type = "string")
     private String remarks;
 
     @Expose @SerializedName("supersededByUnitMeasurementID")
+    @Schema(description = "If defined, the essence Json string identifying the unit superseding the deprecated unit.",type = "string")
     private String supersededByUnitMeasurementID;
 
     private MeasurementImpl supersededByUnitMeasurement;

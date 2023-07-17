@@ -2,6 +2,7 @@ package org.opengroup.osdu.unitservice.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.opengroup.osdu.unitservice.interfaces.MeasurementMapItem;
 
 import java.util.Map;
@@ -10,19 +11,24 @@ import java.util.logging.Logger;
 /**
  * A class defines the mapping state between two {@link MeasurementImpl}s
  */
+@Schema(description = "The definition of a uni-directional measurement-to-measurement map pair.")
 public class MeasurementMapItemImpl implements MeasurementMapItem {
     private static final Logger log = Logger.getLogger( MeasurementMapItemImpl.class.getName() );
 
     @Expose @SerializedName("fromMeasurementID")
+    @Schema(description = "The full definition of a measurement (base measurement/dimension or child measurement).",type = "string")
     private String fromMeasurementId;
 
     @Expose @SerializedName("toMeasurementID")
+    @Schema(description = "The full definition of a measurement (base measurement/dimension or child measurement)",type = "string")
     private String toMeasurementId;
 
     @Expose @SerializedName("state")
+    @Schema(description = "The state of the mapping; one of the following: 'identical', 'corrected', 'precision', 'conversion', 'conditional', 'unsupported', 'different', 'unresolved'.",type = "string")
     private String state;
 
     @Expose @SerializedName("note")
+    @Schema(description = "Any additional remarks and notes about this mapping.",type = "string")
     private String note;
 
     private MeasurementImpl fromMeasurement;

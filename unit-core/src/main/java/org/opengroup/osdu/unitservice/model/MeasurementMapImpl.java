@@ -7,21 +7,25 @@ import org.opengroup.osdu.unitservice.interfaces.MeasurementMap;
 import org.opengroup.osdu.unitservice.interfaces.MeasurementMapItem;
 import org.opengroup.osdu.unitservice.helper.MapStateHelper;
 import org.opengroup.osdu.unitservice.helper.Utility;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * An class defines mapping of {@link MeasurementImpl}s between two namespaces.
  */
+@Schema(description = "A list of MeasurementMapItems given a 'from' and a 'to' namespace.")
 public class MeasurementMapImpl implements MeasurementMap {
     @Expose @SerializedName("listOfMaps")
+    @Schema(type = "array", implementation = MeasurementMapItemImpl.class)
     private List<MeasurementMapItemImpl> mapItems;
 
     @Expose @SerializedName("fromNamespace")
+    @Schema(description = "The source or 'from' namespace",type = "string")
     private String fromNamespace;
 
     @Expose @SerializedName("toNamespace")
+    @Schema(description = "The source or 'from' namespace",type = "string")
     private String toNamespace;
 
     /**

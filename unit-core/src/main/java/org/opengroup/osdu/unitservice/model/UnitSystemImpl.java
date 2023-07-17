@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.opengroup.osdu.unitservice.interfaces.UnitAssignment;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.interfaces.UnitSystem;
@@ -17,26 +18,34 @@ import static java.lang.Math.min;
 /**
  * A class describing a unit system, i.e. a set of {@link UnitImpl}s assigned to {@link MeasurementImpl}s.
  */
+@Schema(description = "A unit system definition with containing unit-to-measurement assignments")
 public class UnitSystemImpl implements UnitSystem {
     @Expose @SerializedName("name")
+    @Schema(description = "The name of this unit system",type = "string")
     private String name;
 
     @Expose @SerializedName("description")
+    @Schema(description = "Any further description of this unit system",type = "string")
     private String description;
 
     @Expose @SerializedName("referenceUnitSystem")
+    @Schema(description = "The unit system code, from which this unit system is derived - or a blank string.",type = "string")
     private String referenceUnitSystem;
 
     @Expose @SerializedName("ancestry")
+    @Schema(description = "The full ancestry of this unit system",type = "string")
     private String ancestry;
 
     @Expose @SerializedName("lastModified")
+    @Schema(description = "The last modification of this unit system core properties formatted as YYYYMMDD",type = "string")
     private String lastModified;
 
     @Expose @SerializedName("source")
+    @Schema(description = "Source of the unit system definition",type = "string")
     private String source;
 
     @Expose @SerializedName("unitAssignmentCountInResponse")
+    @Schema(type = "integer")
     private int countInResponse;
 
     private int countInTotal;
