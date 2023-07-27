@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.opengroup.osdu.unitservice.interfaces.Measurement;
 import org.opengroup.osdu.unitservice.interfaces.MeasurementEssence;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,46 +15,60 @@ import java.util.logging.Logger;
 /**
  * A measurement, which is either a base {@link Measurement} or a child {@link Measurement}.
  */
+@Schema(description = "The full definition of a measurement (base measurement/dimension or child measurement).")
 public class MeasurementImpl implements Measurement {
     private static final Logger log = Logger.getLogger( MeasurementImpl.class.getName() );
 
     @Expose @SerializedName("id")
+    @Schema(type = "string")
     private String id;
 
     @Expose @SerializedName("essence")
+    @Schema(implementation = MeasurementEssenceImpl.class)
     private MeasurementEssenceImpl essence;
 
     @Expose @SerializedName("deprecationInfo")
+    @Schema(implementation = MeasurementDeprecationInfoImpl.class)
     private MeasurementDeprecationInfoImpl deprecationInfo;
 
     @Expose @SerializedName("code")
+    @Schema(description = "The measurement code",type = "string")
     private String code;
 
     @Expose @SerializedName("name")
+    @Schema(description = "The name of the current measurement",type = "string")
     private String name;
 
     @Expose @SerializedName("description")
+    @Schema(description = "A description string further describing the meaning and purpose of the current measurement",type = "string")
     private String description;
 
     @Expose @SerializedName("dimensionCode")
+    @Schema(description = "The OSDD dimension code in case of 'SLB' or the dimension for namespace 'Energistics_UoM'.",type = "string")
     private String dimensionCode;
 
     @Expose @SerializedName("unitQuantityCode")
+    @Schema(description = "The OSDD UnitQuantity code associated with this measurement - only meaningful for namespace 'SLB'.",type = "string")
     private String unitQuantityCode;
 
     @Expose @SerializedName("namespace")
+    @Schema(description = "The namespace in which the current code is unique; typical values are 'SLB', 'Energistics_UoM'",type = "string")
     private String namespace;
 
     @Expose @SerializedName("lastModified")
+    @Schema(type = "string")
     private String lastModified;
 
     @Expose @SerializedName("dimensionAnalysis")
+    @Schema(description = "The date this measurement was last updated in the format YYYYMMDD.",type = "string")
     private String dimensionAnalysis;
 
     @Expose @SerializedName("childMeasurementIDs")
+    @Schema(type = "array", implementation = String.class)
     private List<String> childMeasurementIds;
 
     @Expose @SerializedName("preferredUnitIDs")
+    @Schema(type = "array", implementation = String.class)
     private List<String> preferredUnitIds;
 
     private List<UnitImpl> units;

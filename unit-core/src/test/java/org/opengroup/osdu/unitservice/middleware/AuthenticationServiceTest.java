@@ -51,9 +51,10 @@ public class AuthenticationServiceTest {
         boolean result = authenticationService.isAuthorized(httpServletRequest, httpServletResponse);
 
         Assert.assertFalse(result);
-        Mockito.verify(jaxRsDpsLog).error("User not authenticated. Response: HttpResponse(headers=null," +
-                " body=, contentType=, responseCode=0, exception=java.net.MalformedURLException: no protocol:" +
-                " entitlementsUrl/groups, request=entitlementsUrl/groups, httpMethod=GET, latency=0)");
+        Mockito.verify(jaxRsDpsLog)
+            .error("User not authenticated. Response: HttpResponse(headers=null," +
+                " body=, contentType=, responseCode=0, exception=org.apache.http.client.ClientProtocolException, "
+                + "request=entitlementsUrl/groups, httpMethod=GET, latency=0)");
         Mockito.verify(handlerExceptionResolver).resolveException(Mockito.eq(httpServletRequest),
                 Mockito.eq(httpServletResponse), Mockito.eq(null), Mockito.any(AppException.class));
     }

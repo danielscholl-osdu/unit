@@ -6,15 +6,20 @@ package org.opengroup.osdu.unitservice.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.JsonSyntaxException;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.model.MeasurementEssenceImpl;
 
 /**
  *  MeasurementRequest is class which encapsulates the request body for a Measurement.
  */
+@Data
+@Schema(description = "Request to get a specific measurement given a persistable reference string or measurement essence structure.")
 public class MeasurementRequest {
-
+	@Schema(description = "The essence of a measurement definition")
 	private MeasurementEssenceImpl measurementEssence;
+	@Schema(type = "string")
 	private String measurementEssenceJson;
 
 	/**

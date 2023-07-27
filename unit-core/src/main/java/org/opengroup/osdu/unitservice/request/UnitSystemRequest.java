@@ -5,17 +5,22 @@
 package org.opengroup.osdu.unitservice.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.model.extended.UnitSystemEssenceImpl;
 
 /**
  *  UnitSystemRequest is class which encapsulates the request body for a unit system object.
  */
+@Data
+@Schema(description = "Request to get all unit assignments for the given unit system")
 public class UnitSystemRequest {
-
+	@Schema(description = "A unit system essence")
 	private UnitSystemEssenceImpl unitSystemEssence;
 
 	@JsonProperty("persistableReference")
+	@Schema(description = "The unit system's persistable reference string",type = "string")
 	private String persistableReference;
 
 	/**
