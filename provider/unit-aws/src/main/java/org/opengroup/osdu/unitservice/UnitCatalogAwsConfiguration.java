@@ -24,11 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.util.StringUtils;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.io.FileReader;
@@ -45,43 +41,4 @@ public class UnitCatalogAwsConfiguration {
             return CatalogImpl.createCatalog(reader);
         }
     }
-
-   
-
-    /**
-     * Note: This code is for if we swtich to an S3 implementation.  
-     * Common implementation for now is to use the included Units file rather than allow custom ones. 
-     * */ 
-
-    // @Value("${aws.region}")
-    // private String s3Region;
-
-    // @Value("${aws.s3.endpoint}")
-    // private String s3Endpoint;
-
-    // private AmazonS3 s3;
-
-    // @Bean
-    // public CatalogImpl createV2Catalog(@Value("${osdu.unit.aws.catalog.bucket}") String bucketName,
-    //                                    @Value("${osdu.unit.aws.catalog.file}") String catalogFileName) throws Exception {
-
-    //     if (StringUtils.isEmpty(bucketName)) {
-    //         log.info("UNIT_CATALOG_BUCKET is not provided");
-    //         bucketName = "dev-unit-service-catalog-bucket";
-    //     }
-    //     log.log(Level.INFO, "Loading unit catalogs from bucketName={0}", bucketName);
-    //     S3Config config = new S3Config(s3Endpoint, s3Region);
-    //     s3 = config.amazonS3();
-    //     S3Object s3object = s3.getObject(new GetObjectRequest(bucketName, catalogFileName));
-    //     Reader reader = new InputStreamReader(s3object.getObjectContent());
-    //     log.info("Start creating the catalog");
-    //     CatalogImpl catalogImpl = CatalogImpl.createCatalog(reader);
-    //     log.info("Finished creating the catalog");
-
-
-    //     return catalogImpl;
-    // }
-
-    
-
 }
