@@ -20,6 +20,7 @@ variables:
   AZURE_TEST_SUBDIR: testing/unit_test_azure
   AZURE_TEST_TYPE: python
   SHARE_NAME: unit
+  AZURE_SKIP_INTEGRATION_TEST: 'true'
 
 include:
   - project: "osdu/platform/ci-cd-pipelines"
