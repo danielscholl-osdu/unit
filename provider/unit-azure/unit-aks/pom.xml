@@ -26,10 +26,11 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>	    
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <osdu.corelibazure.version>0.22.0</osdu.corelibazure.version>
+        <osdu.corelibazure.version>0.23.1</osdu.corelibazure.version>
         <jackson-databind.version>2.14.0</jackson-databind.version>
         <jackson.version>2.13.2</jackson.version>
         <net-minidev.version>2.4.9</net-minidev.version>
+        <netty.version>4.1.96.Final</netty.version>
     </properties>
 
     <prerequisites>
@@ -38,6 +39,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- netty-bom dependency to be declared before spring-boot-dependencies,
+           to pull all netty-transitive dependencies with same version -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-bom</artifactId>
+                <version>${netty.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.opengroup.osdu</groupId>
                 <artifactId>core-lib-azure</artifactId>
@@ -87,6 +97,10 @@
                 <exclusion>
                     <artifactId>json-smart</artifactId>
                     <groupId>net.minidev</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.microsoft.azure</groupId>
+                    <artifactId>documentdb-bulkexecutor</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
