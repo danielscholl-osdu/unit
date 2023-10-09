@@ -44,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       "/v3/info",
       "/webjars/**",
       "/_ah/**",
+      "/v3/_ah/**",
       "/error",
       "/favicon.ico",
       "/csrf",
