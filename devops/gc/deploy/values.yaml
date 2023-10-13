@@ -21,6 +21,7 @@ data:
 conf:
   appName: "unit"
   configmap: "unit-config"
+  replicas: 1
 
 istio:
   proxyCPU: "5m"
