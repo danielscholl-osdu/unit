@@ -10,13 +10,10 @@ import org.opengroup.osdu.unitservice.model.UnitImpl;
 import org.opengroup.osdu.unitservice.model.extended.QueryResultImpl;
 import org.opengroup.osdu.unitservice.model.extended.Result;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -176,32 +173,6 @@ public final class Utility {
     public static Gson createGson() {
         GsonBuilder builder = new GsonBuilder();
         return builder.excludeFieldsWithoutExposeAnnotation().create();
-    }
-
-    public static InputStream getTestFileInputStream(String fileName) throws IOException {
-        return Utility.class.getClass().getResourceAsStream("/v2/" + fileName);
-    }
-
-    public static String readTestFile(String fileName) throws IOException {
-        InputStream inputStream = getTestFileInputStream(fileName);
-        if(inputStream == null) {
-            throw new IOException();
-        }
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, length);
-        }
-        return outputStream.toString(StandardCharsets.UTF_8.toString());
-    }
-
-    public static CatalogImpl CreateTestingCatalog(String fileName) throws Exception {
-        InputStream inputStream = getTestFileInputStream(fileName);
-        if(inputStream == null)
-            throw new IOException("Catalog resource file '" + fileName + "' does not exist.");
-        Reader reader = new InputStreamReader(inputStream);
-        return CatalogImpl.createCatalog(reader);
     }
 
 }
