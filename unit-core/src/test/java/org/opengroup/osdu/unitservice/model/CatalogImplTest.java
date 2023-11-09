@@ -11,6 +11,10 @@ import org.opengroup.osdu.unitservice.model.extended.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +26,11 @@ public class CatalogImplTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        catalog = Utility.CreateTestingCatalog("TestCatalog.json");
+        InputStream inputStream = CatalogImplTest.class.getResourceAsStream("/TestCatalog.json");
+        if(inputStream == null)
+            throw new IOException("Catalog resource file does not exist.");
+        Reader reader = new InputStreamReader(inputStream);
+        catalog = CatalogImpl.createCatalog(reader);
         assertNotNull(catalog);
         catalog.validate();
     }
