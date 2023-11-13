@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html
-FROM public.ecr.aws/amazoncorretto/amazoncorretto:8
+FROM public.ecr.aws/amazoncorretto/amazoncorretto:17
 
 ARG JAR_FILE=provider/unit-aws/target/*spring-boot.jar
 
