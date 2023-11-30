@@ -198,6 +198,7 @@ The following software have components provided under the terms of this license:
 - KeePassJava2 :: Simple (from https://repo1.maven.org/maven2/org/linguafranca/pwdb/KeePassJava2-simple)
 - Kotlin Stdlib (from https://kotlinlang.org/, https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-stdlib)
 - Kotlin Stdlib Common (from https://kotlinlang.org/)
+- Kotlin Stdlib Jdk7 (from <https://kotlinlang.org/>, https://kotlinlang.org/)
 - Kotlin Stdlib Jdk8 (from <https://kotlinlang.org/>, https://kotlinlang.org/)
 - Lucene Common Analyzers (from <https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-common>, https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-common)
 - Lucene Core (from https://repo1.maven.org/maven2/org/apache/lucene/lucene-core)
@@ -332,7 +333,6 @@ The following software have components provided under the terms of this license:
 - micrometer-core (from https://github.com/micrometer-metrics/micrometer)
 - micrometer-registry-azure-monitor (from https://github.com/micrometer-metrics/micrometer)
 - org.apiguardian:apiguardian-api (from https://github.com/apiguardian-team/apiguardian)
-- org.jetbrains.kotlin:kotlin-stdlib-jdk7 (from https://kotlinlang.org/)
 - org.opentest4j:opentest4j (from https://github.com/ota4j-team/opentest4j)
 - org.xmlunit:xmlunit-core (from http://www.xmlunit.org/, https://www.xmlunit.org/)
 - resilience4j (from https://github.com/resilience4j/resilience4j, https://resilience4j.readme.io, ttps://resilience4j.readme.io)
@@ -811,13 +811,6 @@ Plexus
 The following software have components provided under the terms of this license:
 
 - classworlds (from http://classworlds.codehaus.org/, https://repo1.maven.org/maven2/classworlds/classworlds)
-
-========================================================================
-RSA-MD
-========================================================================
-The following software have components provided under the terms of this license:
-
-- AWS Java SDK for Amazon SQS (from https://aws.amazon.com/sdkforjava)
 
 ========================================================================
 SAX-PD
