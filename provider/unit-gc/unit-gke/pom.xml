@@ -19,17 +19,27 @@
     <app.version>1</app.version>
     <app.id>unit-gke</app.id>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <lucene.version>8.0.0</lucene.version>
-    <resteasy.version>3.6.2.Final</resteasy.version>
-    <objectify.version>5.1.22</objectify.version>
     <slf4j.version>1.7.25</slf4j.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <spring-webmvc.version>5.3.22</spring-webmvc.version>
     <jackson-databind.version>2.14.0</jackson-databind.version>
   </properties>
+
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.7.17</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -53,11 +63,6 @@
       <artifactId>lombok</artifactId>
       <version>1.18.26</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.googlecode.objectify</groupId>
-      <artifactId>objectify</artifactId>
-      <version>${objectify.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
