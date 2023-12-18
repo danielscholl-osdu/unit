@@ -25,6 +25,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <spring-webmvc.version>5.3.22</spring-webmvc.version>
     <jackson-databind.version>2.14.0</jackson-databind.version>
+    <spring-security-core.version>5.8.4</spring-security-core.version>
   </properties>
 
 
@@ -102,6 +103,11 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson-databind.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring-security-core.version}</version>
     </dependency>
   </dependencies>
 

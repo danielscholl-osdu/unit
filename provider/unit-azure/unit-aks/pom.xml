@@ -32,7 +32,7 @@
         <net-minidev.version>2.4.9</net-minidev.version>
         <netty.version>4.1.101.Final</netty.version>
         <reactor-netty-http.version>1.1.13</reactor-netty-http.version>
-        <spring-security-core.version>5.8.2</spring-security-core.version>
+        <spring-security-core.version>5.8.4</spring-security-core.version>
     </properties>
 
 
