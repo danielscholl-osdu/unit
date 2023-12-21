@@ -27,7 +27,7 @@
         <jackson.version>2.15.1</jackson.version>
         <spring-webmvc.version>5.3.22</spring-webmvc.version>
         <org-eclipse-jetty.version>11.0.14</org-eclipse-jetty.version>
-        <spring-security-core.version>5.8.4</spring-security-core.version>
+        <spring-security-core.version>5.8.8</spring-security-core.version>
     </properties>
 
     <dependencies>
