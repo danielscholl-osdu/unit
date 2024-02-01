@@ -14,36 +14,21 @@ import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import org.springdoc.core.GroupedOpenApi;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springdoc.core.customizers.OperationCustomizer;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import javax.servlet.ServletContext;
+
 import java.util.Collections;
 
-
+import javax.servlet.ServletContext;
 
 @Configuration
 @Profile("!noswagger")
 public class SwaggerConfiguration {
 
-    @Value("${api.title}")
-    private String apiTitle;
-
-    @Value("${api.description}")
-    private String apiDescription;
-
-    @Value("${api.contact.name}")
-    private String contactName;
-
-    @Value("${api.contact.email}")
-    private String contactEmail;
-
-    @Value("${api.license.name}")
-    private String licenseName;
-
-    @Value("${api.license.url}")
-    private String licenseUrl;
+    @Autowired
+    private SwaggerConfigurationProperties configurationProperties;
 
     @Bean
     public GroupedOpenApi apiV2() {
@@ -73,8 +58,7 @@ public class SwaggerConfiguration {
     @Bean
     public OpenAPI openApi(ServletContext servletContext) {
         Server server = new Server().url(servletContext.getContextPath());
-        return new OpenAPI()
-                .servers(Collections.singletonList(server))
+        OpenAPI openAPI = new OpenAPI()
                 .components(new Components()
                         .addSecuritySchemes("Authorization",
                                 new SecurityScheme()
@@ -87,6 +71,11 @@ public class SwaggerConfiguration {
                 .addSecurityItem(
                         new SecurityRequirement()
                                 .addList("Authorization"));
+        if (configurationProperties.isApiServerFullUrlEnabled())
+            return openAPI;
+        return openAPI
+                .servers(Collections.singletonList(server));
+
     }
 
     @Bean
@@ -126,9 +115,9 @@ public class SwaggerConfiguration {
 
     private Info apiInfo() {
         return new Info()
-                .title(apiTitle)
-                .description(apiDescription)
-                .license(new License().name(licenseName).url(licenseUrl))
-                .contact(new Contact().name(contactName).email(contactEmail));
+                .title(configurationProperties.getApiTitle())
+                .description(configurationProperties.getApiDescription())
+                .license(new License().name(configurationProperties.getLicenseName()).url(configurationProperties.getLicenseUrl()))
+                .contact(new Contact().name(configurationProperties.getContactName()).email(configurationProperties.getContactEmail()));
     }
 }
