@@ -8,10 +8,12 @@ variables:
 gc-test-python:
   variables:
     VIRTUAL_SERVICE_HOST_NAME: $GC_UNIT_HOSTNAME
+    GOOGLE_APPLICATION_CREDENTIALS: $GC_INTEGRATION_TESTER_ENCODE
 
 gc-dev2-test-python:
   variables:
     VIRTUAL_SERVICE_HOST_NAME: $GC_UNIT_HOSTNAME
+    GOOGLE_APPLICATION_CREDENTIALS: $GC_INTEGRATION_TESTER_ENCODE
 
 gc-baremetal-test-python:
   variables:
