@@ -22,13 +22,13 @@ python3 -m pip install -r requirements.txt
 # Run tests
 export API_VER="v2"
 echo ***RUNNING UNIT API $API_VER TESTS***
-python3 run_test.py
+python3 -W ignore run_test.py
 TEST_STATUS_V2=$?
 echo ***FINISHED UNIT API $API_VER TESTS***
 echo ""
 export API_VER="v3"
 echo ***RUNNING UNIT API $API_VER TESTS***
-python3 run_test.py
+python3 -W ignore run_test.py
 TEST_STATUS_V3=$?
 echo ***FINISHED UNIT API $API_VER TESTS***
 

@@ -14,57 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import sys
 
-
-def main(argv):
-    pass
-
-
-if __name__ == '__main__':
-    main(sys.argv)
-import http.client
-import time
-import google.auth.crypt
-import google.auth.jwt
-import json
-import base64
-import os
-from urllib.parse import urlencode
-
-def generate_jwt():
-    INTEGRATION_TESTER = str(os.getenv('INTEGRATION_TESTER'))
-    decoded_user_key = base64.b64decode(INTEGRATION_TESTER).decode("utf-8")
-    signer = google.auth.crypt.RSASigner.from_string(json.loads(decoded_user_key)['private_key'])
-    integration_test_service_account = json.loads(decoded_user_key)['client_email']
-    now = int(time.time())
-    
-    payload = {
-        'iat': now,
-        "exp": now + 3600,
-        'iss': integration_test_service_account,
-        "target_audience": 'osdu',
-        "aud": "https://www.googleapis.com/oauth2/v4/token"
-    }
-
-    jwt = google.auth.jwt.encode(signer, payload)
-
-    return jwt
+import google
+import google.auth
+from google.auth.transport.requests import Request
 
 
 def get_id_token():
     try:
-        jwt = generate_jwt()
-        params = urlencode({
-            'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-            'assertion': jwt
-        })
-        headers = {"Content-Type": "application/x-www-form-urlencoded"}
-        conn = http.client.HTTPSConnection("www.googleapis.com")
-        conn.request("POST", "/oauth2/v4/token", params, headers)
-        res = json.loads(conn.getresponse().read().decode('utf-8'))
-        conn.close()
-        return res['id_token']
+        credentials, _  = google.auth.default(scopes=["email", "openid", "profile"])
+        credentials.refresh(Request())
+        token = credentials.token
+        return token
     except (IOError, KeyError, ValueError) as e:
         print (e)
         raise ValueError('Bearer token could not be obtained - missing service account file? ' + repr(e) + ' ' + str(e))
