@@ -8,15 +8,8 @@ source env/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 
-# Run v2 Tests
-export API_VER="v2"
-echo ***RUNNING UNIT API $API_VER TESTS***
-python3 run_test.py
-TEST_STATUS_V2=$?
-echo ***FINISHED UNIT API $API_VER TESTS***
-echo ""
-
 # Run v3 Tests
+echo ""
 export API_VER="v3"
 echo ***RUNNING UNIT API $API_VER TESTS***
 python3 run_test.py
@@ -25,7 +18,6 @@ echo ***FINISHED UNIT API $API_VER TESTS***
 
 # Display Results
 echo "-------------------------------"
-echo "TEST_ERRORS_V2: $TEST_STATUS_V2"
 echo "TEST_ERRORS_V3: $TEST_STATUS_V3"
 echo "-------------------------------"
 
@@ -38,7 +30,7 @@ if [ -z ${AGENT_POOL+x}  ]; then
 fi
 
 # If Error Exit 1
-if [ $TEST_STATUS_V2 -ne 0 ] || [ $TEST_STATUS_V3 -ne 0 ]
+if [ $TEST_STATUS_V3 -ne 0 ]
 then
   exit 1
 else

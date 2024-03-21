@@ -22,12 +22,12 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <openapi.version>1.7.0</openapi.version>
+        <openapi.version>2.3.0</openapi.version>
         <jackson-databind.version>2.15.1</jackson-databind.version>
         <jackson.version>2.15.1</jackson.version>
-        <spring-webmvc.version>5.3.22</spring-webmvc.version>
         <org-eclipse-jetty.version>11.0.14</org-eclipse-jetty.version>
-        <spring-security-core.version>5.8.8</spring-security-core.version>
+        <os-core-common.version>0.26.0-rc2</os-core-common.version>
+        <spring-security.version>6.0.7</spring-security.version>
     </properties>
 
     <dependencies>
@@ -35,18 +35,9 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>${spring-security.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>5.3.23</version>
-        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -63,47 +54,14 @@
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jetty</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jetty-server</artifactId>
-                    <groupId>org.eclipse.jetty</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${openapi.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -116,11 +74,6 @@
     		<version>1.9.4</version>
 		</dependency>
         <dependency>
-    		<groupId>org.mortbay.jetty</groupId>
-    		<artifactId>jetty</artifactId>
-    		<version>6.1.26</version>
-		</dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
@@ -128,7 +81,8 @@
         </dependency>
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
-            <artifactId>os-core-common</artifactId>
+            <artifactId>os-core-common-spring6</artifactId>
+            <version>${os-core-common.version}</version>
         </dependency>
 
         <!-- Lucene Indexing Dependencies -->
@@ -147,12 +101,6 @@
             <artifactId>lucene-queryparser</artifactId>
             <version>${lucene.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring-security-core.version}</version>
-        </dependency>
-
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -201,16 +149,17 @@
             <version>3.5.1</version>
             <scope>test</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-core</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-beans</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
 		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-io -->
 		<dependency>
 		    <groupId>org.eclipse.jetty</groupId>
@@ -228,7 +177,16 @@
             <artifactId>jetty-server</artifactId>
             <version>${org-eclipse-jetty.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-common</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>

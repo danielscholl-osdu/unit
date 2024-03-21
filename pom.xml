@@ -9,7 +9,7 @@
         <docker.image.prefix>org.opengroup.osdu</docker.image.prefix>
         <powermock.version>2.0.6</powermock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <os-core-common.version>0.25.0</os-core-common.version>
+        <os-core-common.version>0.26.0-rc2</os-core-common.version>
         <snakeyaml.version>2.0</snakeyaml.version>
         <lucene.version>8.0.0</lucene.version>
         <log4j.version>2.17.1</log4j.version>
@@ -65,20 +65,15 @@
             </dependency>
             <dependency>
                 <groupId>org.opengroup.osdu</groupId>
-                <artifactId>os-core-common</artifactId>
+                <artifactId>os-core-common-spring6</artifactId>
                 <version>${os-core-common.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.opengroup.osdu</groupId>
-                <artifactId>os-core-common</artifactId>
+                <artifactId>os-core-common-spring6</artifactId>
                 <version>${os-core-common.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>5.7.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -118,7 +113,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.7.4</version>
+                    <version>3.2.2</version>
                     <executions>
                         <execution>
                             <goals>

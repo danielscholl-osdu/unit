@@ -27,9 +27,9 @@
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
-		<os-core-lib-ibm.version>0.25.0</os-core-lib-ibm.version>
+		<os-core-lib-ibm.version>0.26.0-rc8</os-core-lib-ibm.version>
 		<jackson-databind.version>2.13.4.2</jackson-databind.version>
-		<spring-security-core.version>5.8.8</spring-security-core.version>
+		<spring-security-core.version>6.0.7</spring-security-core.version>
 	</properties>
 
 	<dependencies>
@@ -50,11 +50,7 @@
 			<version>${lucene.version}</version>
 		</dependency>
 		<!-- Compile/runtime dependencies -->
-		<dependency>
-			<groupId>javax.jdo</groupId>
-			<artifactId>jdo-api</artifactId>
-			<version>3.1</version>
-		</dependency>
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -110,6 +106,22 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring-security-core.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>6.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -117,7 +129,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.7.4</version>
+				<version>3.2.2</version>
 				  <executions>
                     <execution>
                         <goals>

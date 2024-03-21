@@ -14,11 +14,12 @@ limitations under the License. */
 
 package org.opengroup.osdu.unitservice;
 
-import org.opengroup.osdu.core.aws.security.WebSecurity;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 
 
 @ComponentScan(basePackages = {"org.opengroup.osdu"}, excludeFilters = { @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = { WebSecurity.class }) })

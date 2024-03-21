@@ -31,55 +31,11 @@
         <jackson.version>2.13.2</jackson.version>
         <netty.version>4.1.101.Final</netty.version>
         <reactor-netty-http.version>1.1.14</reactor-netty-http.version>
-        <spring-security-core.version>5.8.8</spring-security-core.version>
+        <spring-security-core.version>6.0.7</spring-security-core.version>
     </properties>
 
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- netty-bom dependency to be declared before spring-boot-dependencies,
-           to pull all netty-transitive dependencies with same version -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-bom</artifactId>
-                <version>${netty.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.opengroup.osdu</groupId>
-                <artifactId>core-lib-azure</artifactId>
-                <version>${osdu.corelibazure.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-jul</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
 
     <dependencies>
         <dependency>
@@ -89,21 +45,11 @@
         </dependency>
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
-            <artifactId>core-lib-azure</artifactId>
-            <version>${osdu.corelibazure.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>json-smart</artifactId>
-                    <groupId>net.minidev</groupId>
-                </exclusion>
-            </exclusions>
+            <artifactId>core-lib-azure-spring6</artifactId>
+            <version>0.26.0-rc6</version>
         </dependency>
+
         <!-- Compile/runtime dependencies -->
-        <dependency>
-        <groupId>javax.jdo</groupId>
-        <artifactId>jdo-api</artifactId>
-        <version>3.1</version>
-        </dependency>        
 		<dependency>
 	        <groupId>com.google.code.gson</groupId>
 	        <artifactId>gson</artifactId>
@@ -116,23 +62,14 @@
         </dependency>
         <dependency>
             <groupId>com.azure.spring</groupId>
-            <artifactId>azure-spring-boot-starter-active-directory</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>json-smart</artifactId>
-                    <groupId>net.minidev</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-boot-starter-webflux</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
+            <artifactId>spring-cloud-azure-starter-active-directory</artifactId>
+            <version>5.8.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>6.0.7</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -149,21 +86,6 @@
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.6.6</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>${spring-security-core.version}</version>
@@ -173,6 +95,17 @@
             <artifactId>reactor-netty-http</artifactId>
             <version>${reactor-netty-http.version}</version>
         </dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -180,7 +113,7 @@
           <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.7.4</version>
+            <version>3.2.2</version>
             <executions>
                 <execution>
                     <goals>
