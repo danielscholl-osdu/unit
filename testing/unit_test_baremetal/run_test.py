@@ -1,6 +1,6 @@
 #
-#  Copyright 2020-2022 Google LLC
-#  Copyright 2020-2022 EPAM Systems, Inc
+#  Copyright 2020-2024 Google LLC
+#  Copyright 2020-2024 EPAM Systems, Inc
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -19,14 +19,7 @@ import os
 import sys
 sys.path.append("..")
 
-
-API_VER = os.environ.get('API_VER', 'v2').lower()
-
-if API_VER == 'v2':
-    from unit_test_core.test_unit_service_v2 import *
-else:
-    from unit_test_core.test_unit_service_v3 import *
-
+from unit_test_core.test_unit_service_v3 import *
 
 if __name__ == '__main__':
     unittest.main()

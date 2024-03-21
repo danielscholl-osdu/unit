@@ -41,11 +41,9 @@
         <lucene.version>8.0.0</lucene.version>
         <resteasy.version>3.6.2.Final</resteasy.version>
         <objectify.version>5.1.22</objectify.version>
-        <slf4j.version>1.7.25</slf4j.version>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <jackson.version>2.15.1</jackson.version>
         <junit.version>4.13.2</junit.version>
     </properties>
 
@@ -58,21 +56,22 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-		        <groupId>org.springframework.security</groupId>
-		        <artifactId>spring-security-core</artifactId>
-		        <version>5.8.8</version>
-		    </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-
-        <!-- Internal packages -->
         <dependency>
             <groupId>org.opengroup.osdu.core.aws</groupId>
             <artifactId>os-core-lib-aws</artifactId>
-            <version>0.26.0-rc2</version>
+            <version>0.26.0-spring6-rc1</version>
+        </dependency>
+
+
+        <!-- Internal packages -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>6.0.7</version>
         </dependency>
         <dependency>
             <groupId>org.opengroup.osdu.unit-service</groupId>
@@ -83,22 +82,14 @@
         <!-- AWS-managed packages -->
         <!-- Third party Apache 2.0 license packages -->
         <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
-        </dependency>
-
-        <!-- Testing packages --> 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -111,30 +102,30 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- Testing packages --> 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
          <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 
@@ -144,7 +135,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.7.4</version>
+                <version>3.2.2</version>
                 <executions>
                     <execution>
                         <goals>

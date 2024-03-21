@@ -11,8 +11,8 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
-import org.springdoc.core.GroupedOpenApi;
-import org.springdoc.core.customizers.OpenApiCustomiser;
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.Collections;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 @Configuration
 @Profile("!noswagger")
@@ -37,7 +37,7 @@ public class SwaggerConfiguration {
                 .group("v2")
                 .pathsToExclude("/api/unit/error")
                 .pathsToMatch(paths)
-                .addOpenApiCustomiser(buildV2OpenAPI())
+                .addOpenApiCustomizer(buildV2OpenAPI())
                 .addOperationCustomizer(customize())
                 .build();
     }
@@ -50,7 +50,7 @@ public class SwaggerConfiguration {
                 .pathsToExclude("/api/unit/error")
                 .pathsToMatch(paths)
                 .packagesToScan("org.opengroup.osdu.unitservice")
-                .addOpenApiCustomiser(buildV3OpenAPI())
+                .addOpenApiCustomizer(buildV3OpenAPI())
                 .addOperationCustomizer(customize())
                 .build();
     }
@@ -91,7 +91,7 @@ public class SwaggerConfiguration {
         };
     }
 
-    public OpenApiCustomiser buildV2OpenAPI() {
+    public OpenApiCustomizer buildV2OpenAPI() {
         return openApi -> {
             openApi.info(openApi.getInfo().version("2.0.0"));
             openApi.addTagsItem(new Tag().name("UoM Catalog (DEPRECATED)").description("UoM Catalog endpoints are <b>DEPRECATED</b>"));
@@ -104,7 +104,7 @@ public class SwaggerConfiguration {
         };
     }
 
-    public OpenApiCustomiser buildV3OpenAPI() {
+    public OpenApiCustomizer buildV3OpenAPI() {
         return openApi -> {
             openApi.info(openApi.getInfo().version("3.0.0"));
             openApi.addTagsItem(new Tag().name("info-api-v3").description("Version info endpoint"));

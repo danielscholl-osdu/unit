@@ -1,86 +1,90 @@
 /*
-  Copyright 2020 Google LLC
-  Copyright 2020 EPAM Systems, Inc
+ Copyright 2020-2024 Google LLC
+ Copyright 2020-2024 EPAM Systems, Inc
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
- */
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
 
 package org.opengroup.osdu.unitservice.security;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
+import org.apache.tomcat.util.buf.EncodedSolidusHandling;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
-  private static final String[] ALLOWED_URLS = {
-      "/",
-      "/v2/api-docs",
-      "/v3/api-docs",
-      "/api-docs/**",
-      "/swagger",
-      "/swagger-resources/**",
-      "/swagger-ui/**",
-      "/api-docs/swagger-config",
-      "/v3/info",
-      "/webjars/**",
-      "/_ah/**",
-      "/v3/_ah/**",
-      "/error",
-      "/favicon.ico",
-      "/csrf",
-      "/api/unit",
-      "/api/unit/v2/api-docs",
-      "/api/unit/v3/api-docs",
-      "/api/unit/swagger-resources/**",
-      "/api/unit/swagger-ui.html",
-      "/api/unit/webjars/**",
-      "/api/unit/_ah/**",
-      "/api/unit/error",
-      "/api/unit/favicon.ico",
-      "/api/unit/csrf" // Required to prevent errors in logs while Swagger is trying to discover a valid csrf token. Should be deleted after the issue on the Swagger's side https://github.com/springfox/springfox/issues/2578 is resolved
+  private final AuthenticationRequestFilter authFilter;
+
+  private static final String[] AUTH_WHITELIST = {
+    "/",
+    "/v2/api-docs",
+    "/v3/api-docs",
+    "/swagger",
+    "/swagger-resources/**",
+    "/swagger-ui.html",
+    "/v3/info",
+    "**/v3/info",
+    "/v3/_ah/**",
+    "/api/unit/v3/info",
+    "/webjars/**",
+    "/_ah/**",
+    "/actuator/**",
+    "/error",
+    "/favicon.ico",
+    "/csrf",
+    "/error",
+    "/favicon.ico",
+    "/api/unit/actuator/health",
+    "**/swagger-ui/**/",
+    "**/api-docs/**",
+    "/unit"
   };
 
-  private final AuthenticationService authenticationService;
-
   public SecurityConfiguration(AuthenticationService authenticationService) {
-    this.authenticationService = authenticationService;
+    authFilter = new AuthenticationRequestFilter(authenticationService);
   }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    AuthenticationRequestFilter authhenticationFilter = new AuthenticationRequestFilter(authenticationService);
-    http.csrf().disable()
-        .sessionManagement().sessionCreationPolicy(STATELESS)
-        .and()
-        .authorizeRequests()
-        .anyRequest().authenticated()
-        .and()
-        .addFilterBefore(authhenticationFilter, UsernamePasswordAuthenticationFilter.class);
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(
+            authorizeRequests ->
+                authorizeRequests
+                    .requestMatchers(AUTH_WHITELIST)
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .sessionManagement(
+            sessionManagement ->
+                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.NEVER))
+        .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+        .csrf(csrf -> csrf.disable());
+    return http.build();
   }
 
-  @Override
-  public void init(WebSecurity web) throws Exception {
-    web.ignoring().mvcMatchers(ALLOWED_URLS);
-    super.init(web);
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return web -> web.ignoring().requestMatchers(AUTH_WHITELIST);
   }
+
 }

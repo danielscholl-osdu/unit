@@ -18,8 +18,8 @@ import org.opengroup.osdu.unitservice.util.AppException;
 import org.powermock.reflect.Whitebox;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 
 @RunWith(MockitoJUnitRunner.class)
