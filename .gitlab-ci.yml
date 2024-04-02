@@ -64,7 +64,12 @@ include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/azure.yml"
 
+  - project: "osdu/platform/ci-cd-pipelines"
+    file: "cloud-providers/core-global.yml"
+
   - local: "devops/gc/pipeline/override-stages.yml"
+  
+  - local: "devops/core-plus/pipeline/override-stages.yml"
 
 azure_containerize:
   variables:

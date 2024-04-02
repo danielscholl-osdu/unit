@@ -1,0 +1,30 @@
+# Default values for unit-deploy.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  domain: ""
+  onPremEnabled: false
+  limitsEnabled: true
+
+data:
+  logLevel: "ERROR"
+  entitlementsHost: "http://entitlements"
+  requestsCpu: "5m"
+  requestsMemory: "275Mi"
+  limitsCpu: "1"
+  limitsMemory: "1G"
+  serviceAccountName: "unit"
+  imagePullPolicy: "IfNotPresent"
+  image: ""
+
+conf:
+  appName: "unit"
+  configmap: "unit-config"
+  replicas: 1
+
+istio:
+  proxyCPU: "5m"
+  proxyCPULimit: "500m"
+  proxyMemory: "50Mi"
+  proxyMemoryLimit: "512Mi"
