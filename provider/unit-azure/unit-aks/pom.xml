@@ -26,7 +26,7 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>	    
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <osdu.corelibazure.version>0.26.0-rc5</osdu.corelibazure.version>
+        <osdu.corelibazure.version>0.26.0</osdu.corelibazure.version>
         <jackson-databind.version>2.14.0</jackson-databind.version>
         <jackson.version>2.13.2</jackson.version>
         <netty.version>4.1.101.Final</netty.version>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
             <artifactId>core-lib-azure-spring6</artifactId>
-            <version>0.26.0-rc6</version>
+            <version>0.26.0</version>
         </dependency>
 
         <!-- Compile/runtime dependencies -->

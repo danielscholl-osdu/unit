@@ -26,7 +26,7 @@
         <jackson-databind.version>2.15.1</jackson-databind.version>
         <jackson.version>2.15.1</jackson.version>
         <org-eclipse-jetty.version>11.0.14</org-eclipse-jetty.version>
-        <os-core-common.version>0.26.0-rc2</os-core-common.version>
+        <os-core-common.version>0.26.0</os-core-common.version>
         <spring-security.version>6.0.7</spring-security.version>
     </properties>
 
