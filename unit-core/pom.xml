@@ -25,18 +25,12 @@
         <openapi.version>2.3.0</openapi.version>
         <jackson-databind.version>2.15.1</jackson-databind.version>
         <jackson.version>2.15.1</jackson.version>
-        <org-eclipse-jetty.version>11.0.14</org-eclipse-jetty.version>
-        <os-core-common.version>0.26.0</os-core-common.version>
-        <spring-security.version>6.0.7</spring-security.version>
+        <org-eclipse-jetty.version>12.0.8</org-eclipse-jetty.version>
+        <os-core-common-spring6.version>0.27.0-rc1</os-core-common-spring6.version>
     </properties>
 
     <dependencies>
         <!-- Compile/runtime dependencies -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -88,7 +82,7 @@
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
             <artifactId>os-core-common-spring6</artifactId>
-            <version>${os-core-common.version}</version>
+            <version>${os-core-common-spring6.version}</version>
         </dependency>
 
         <!-- Lucene Indexing Dependencies -->
@@ -155,23 +149,22 @@
             <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-io -->
 		<dependency>
 		    <groupId>org.eclipse.jetty</groupId>
 		    <artifactId>jetty-io</artifactId>
-		    <version>11.0.14</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
-		<dependency>
-		    <groupId>com.squareup.okhttp3</groupId>
-		    <artifactId>okhttp</artifactId>
-		    <version>4.12.0</version>
+            <version>${org-eclipse-jetty.version}</version>
 		</dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>${org-eclipse-jetty.version}</version>
         </dependency>
+		<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>4.12.0</version>
+		</dependency>
+
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-common</artifactId>
