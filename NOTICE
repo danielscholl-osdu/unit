@@ -558,9 +558,12 @@ The following software have components provided under the terms of this license:
 - Spring Cloud Azure Starter (from https://microsoft.github.io/spring-cloud-azure)
 - Spring Cloud Azure Starter Active Directory (from https://microsoft.github.io/spring-cloud-azure)
 - Spring Data for Azure Cosmos DB SQL API (from https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/cosmos/azure-spring-data-cosmos, https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-data-cosmos)
+- System Stubs Core (from https://repo1.maven.org/maven2/uk/org/webcompere/system-stubs-core)
+- System Stubs JUnit4 (from https://repo1.maven.org/maven2/uk/org/webcompere/system-stubs-junit4)
 - adal4j (from https://github.com/AzureAD/azure-activedirectory-library-for-java)
 - micrometer-commons (from https://github.com/micrometer-metrics/micrometer)
 - micrometer-core (from https://github.com/micrometer-metrics/micrometer)
+- mockito-inline (from http://mockito.org, https://github.com/mockito/mockito)
 - mockito-junit-jupiter (from https://github.com/mockito/mockito)
 - msal4j (from https://github.com/AzureAD/microsoft-authentication-library-for-java)
 - msal4j-persistence-extension (from https://github.com/AzureAD/microsoft-authentication-extensions-for-java, https://github.com/AzureAD/microsoft-authentication-library-for-java)
@@ -626,7 +629,6 @@ gpl-2.0-classpath
 The following software have components provided under the terms of this license:
 
 - Jakarta Annotations API (from https://projects.eclipse.org/projects/ee4j.ca)
-- Jakarta Validation API (from https://beanvalidation.org)
 
 ========================================================================
 public-domain
