@@ -17,10 +17,8 @@
 
 package org.opengroup.osdu.unitservice.security;
 
-import org.apache.tomcat.util.buf.EncodedSolidusHandling;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
-import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,7 +56,8 @@ public class SecurityConfiguration {
     "/api/unit/actuator/health",
     "**/swagger-ui/**/",
     "**/api-docs/**",
-    "/unit"
+    "/unit",
+    "/health/**"
   };
 
   public SecurityConfiguration(AuthenticationService authenticationService) {
@@ -86,5 +85,4 @@ public class SecurityConfiguration {
   public WebSecurityCustomizer webSecurityCustomizer() {
     return web -> web.ignoring().requestMatchers(AUTH_WHITELIST);
   }
-
 }
