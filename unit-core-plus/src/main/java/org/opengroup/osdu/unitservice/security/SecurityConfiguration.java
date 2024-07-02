@@ -58,7 +58,8 @@ public class SecurityConfiguration {
     "/api/unit/actuator/health",
     "**/swagger-ui/**/",
     "**/api-docs/**",
-    "/unit"
+    "/unit",
+    "/health/**"
   };
 
   public SecurityConfiguration(AuthenticationService authenticationService) {
