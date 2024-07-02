@@ -24,37 +24,24 @@ spec:
         sidecar.istio.io/proxyMemoryLimit: {{ .Values.istio.proxyMemoryLimit | quote }}
     spec:
       containers:
-      - name: {{ .Values.conf.appName | quote }}
-        image: {{ .Values.data.image | quote }}
-        imagePullPolicy: {{ .Values.data.imagePullPolicy | quote }}
-        envFrom:
-        - configMapRef:
-            name: {{ .Values.conf.configmap | quote }}
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-        ports:
-        - containerPort: 8080
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /health/liveness
-            port: 8081
-          initialDelaySeconds: 120
-          periodSeconds: 10
-        readinessProbe:
-          failureThreshold: 2
-          httpGet:
-            path: /health/readiness
-            port: 8081
-          periodSeconds: 15
-        resources:
-          requests:
-            cpu: {{ .Values.data.requestsCpu | quote }}
-            memory: {{ .Values.data.requestsMemory | quote }}
-          {{- if .Values.global.limitsEnabled }}
-          limits:
-            cpu: {{ .Values.data.limitsCpu | quote }}
-            memory: {{ .Values.data.limitsMemory | quote }}
-          {{- end }}
+        - name: {{ .Values.conf.appName | quote }}
+          image: {{ .Values.data.image | quote }}
+          imagePullPolicy: {{ .Values.data.imagePullPolicy | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.conf.configmap | quote }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: {{ .Values.data.requestsCpu | quote }}
+              memory: {{ .Values.data.requestsMemory | quote }}
+            {{- if .Values.global.limitsEnabled }}
+            limits:
+              cpu: {{ .Values.data.limitsCpu | quote }}
+              memory: {{ .Values.data.limitsMemory | quote }}
+            {{- end }}
       serviceAccountName: {{ .Values.data.serviceAccountName | quote }}
