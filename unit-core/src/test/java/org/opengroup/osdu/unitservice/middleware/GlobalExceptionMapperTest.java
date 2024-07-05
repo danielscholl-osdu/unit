@@ -11,9 +11,10 @@ import org.opengroup.osdu.unitservice.util.AppError;
 import org.opengroup.osdu.unitservice.util.AppException;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
-
+import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GlobalExceptionMapperTest {
@@ -62,4 +63,18 @@ public class GlobalExceptionMapperTest {
         assertEquals("Bad Request", body.getReason());
         Mockito.verify(jaxRsDpsLog).error(exception.getError().getMessage(), exception);
     }
+
+    @Test
+    public void should_handleIOException_andReturnInternalServerError() {
+        IOException exception = new IOException("IO error");
+
+        ResponseEntity<AppError> response = globalExceptionMapper.handleIOException(exception);
+        AppError body = response.getBody();
+        assertNotNull(body);
+        assertEquals(INTERNAL_SERVER_ERROR.value(), body.getCode());
+        assertEquals("IO error", body.getMessage());
+        assertEquals("IOException", body.getReason());
+        Mockito.verify(jaxRsDpsLog).error(Mockito.eq("IO error"), Mockito.any(AppException.class));
+    }
+
 }

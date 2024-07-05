@@ -1,4 +1,5 @@
 variables:
+  CORE_BUILD_SUBDIR: unit-core
   IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
   IBM_INT_TEST_PY_SUBDIR: testing/unit_test_ibm
   IBM_INT_TEST_PY_FILE: run_test.py
