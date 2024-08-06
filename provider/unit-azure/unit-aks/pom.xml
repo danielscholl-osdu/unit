@@ -26,7 +26,7 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>	    
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <core-lib-azure-spring6.version>0.27.0-rc3</core-lib-azure-spring6.version>
+        <core-lib-azure-spring6.version>0.27.0-rc4</core-lib-azure-spring6.version>
     </properties>
 
     <dependencies>
