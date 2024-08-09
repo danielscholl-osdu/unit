@@ -24,5 +24,6 @@ public class SpringWebMvcConfiguration implements WebMvcConfigurer {
         UrlPathHelper urlPathHelper = new UrlPathHelper();
         urlPathHelper.setUrlDecode(false);
         configurer.setUrlPathHelper(urlPathHelper);
+        configurer.setUseTrailingSlashMatch(true);
     }
 }

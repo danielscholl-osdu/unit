@@ -53,6 +53,7 @@ from .models.version_info import VersionInfo
 # import apis into sdk package
 from .apis.healthcheck_api import HealthcheckApi
 from .apis.infoapi_api import InfoapiApi
+from .apis.infoapi_api_slash import InfoapiApiSlash
 from .apis.unitapiv3_api import Unitapiv3Api
 
 # import ApiClient
