@@ -6,9 +6,10 @@ global:
   domain: ""
   onPremEnabled: false
   limitsEnabled: true
+  logLevel: "ERROR"
 
 data:
-  logLevel: "ERROR"
+  logLevel: ""
   entitlementsHost: "http://entitlements"
   requestsCpu: "5m"
   requestsMemory: "275Mi"
