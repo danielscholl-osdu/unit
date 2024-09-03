@@ -31,33 +31,33 @@ First you need to set variables in **values.yaml** file using any code editor. S
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
 **global.domain** | your domain for the external endpoint, ex `example.com` | string | - | yes
-**global.onPremEnabled** | whether on-prem is enabled | boolean | false | yes
-**global.limitsEnabled** | whether CPU and memory limits are enabled | boolean | true | yes
+**global.onPremEnabled** | whether on-prem is enabled | boolean | `false` | yes
+**global.limitsEnabled** | whether CPU and memory limits are enabled | boolean | `true` | yes
+**global.logLevel** | severity of logging level | string | `ERROR` | yes
 
 ### Configmap variables
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
-**data.logLevel** | logging level | string | ERROR | yes
+**data.logLevel** | logging severity level for this service only  | string | - | yes, only if differs from the `global.logLevel`
 **data.entitlementsHost** | entitlements service host address | string | `http://entitlements` | yes
 
 ### Deployment variables
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
-**data.requestsCpu** | amount of requested CPU | string | 10m | yes
-**data.requestsMemory** | amount of requested memory| string | 350Mi | yes
-**data.limitsCpu** | CPU limit | string | 1 | only if `global.limitsEnabled` is true
-**data.limitsMemory** | memory limit | string | 1G | only if `global.limitsEnabled` is true
-**data.serviceAccountName** | name of your service account | string | unit | yes
-**data.imagePullPolicy** | when to pull image | string | IfNotPresent | yes
+**data.requestsCpu** | amount of requested CPU | string | `10m` | yes
+**data.requestsMemory** | amount of requested memory| string | `350Mi` | yes
+**data.limitsCpu** | CPU limit | string | `1` | only if `global.limitsEnabled` is true
+**data.limitsMemory** | memory limit | string | `1G` | only if `global.limitsEnabled` is true
+**data.serviceAccountName** | name of your service account | string | `unit` | yes
+**data.imagePullPolicy** | when to pull image | string | `IfNotPresent` | yes
 **data.image** | service image | string | - | yes
 
 ### Config variables
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
-
 **conf.appName** | name of the app | string | `unit` | yes
 **conf.configmap** | configmap to be used | string | `unit-config` | yes
 
