@@ -28,7 +28,6 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<os-core-lib-ibm.version>0.26.0</os-core-lib-ibm.version>
-		<jackson-databind.version>2.13.4.2</jackson-databind.version>
 		<spring-security-core.version>6.2.3</spring-security-core.version>
 	</properties>
 
@@ -168,7 +167,6 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${jackson-databind.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.netty</groupId>
