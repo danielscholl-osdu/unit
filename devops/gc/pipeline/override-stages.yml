@@ -3,7 +3,6 @@ variables:
   GC_VENDOR: gc
   GC_INT_TEST_TYPE: python
   GC_PYTHON_INT_TEST_SUBDIR: testing/unit_test_gc
-  GC_BAREMETAL_PYTHON_INT_TEST_SUBDIR: testing/unit_test_baremetal
 
 gc-test-python:
   variables:
@@ -14,7 +13,3 @@ gc-dev2-test-python:
   variables:
     VIRTUAL_SERVICE_HOST_NAME: $GC_UNIT_HOSTNAME
     GOOGLE_APPLICATION_CREDENTIALS: $GC_INTEGRATION_TESTER_SA_FILE
-
-gc-baremetal-test-python:
-  variables:
-    VIRTUAL_SERVICE_HOST_NAME: $OSDU_BAREMETAL_UNIT_HOSTNAME
