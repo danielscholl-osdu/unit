@@ -79,19 +79,23 @@
 	</dependencies>
 
 	<build>
-		<!-- for hot reload of the web application-->
-		<outputDirectory>
-			${project.build.directory}/${project.build.finalName}/WEB-INF/classes
-    </outputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>3.2.2</version>
-				<configuration>
-					<mainClass>
-						org.opengroup.osdu.unitservice.UomApplication</mainClass>
-				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>spring-boot</classifier>
+							<mainClass>
+								org.opengroup.osdu.unitservice.UomApplication
+							</mainClass>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -100,7 +104,6 @@
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
