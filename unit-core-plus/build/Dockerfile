@@ -4,7 +4,7 @@ ARG PORT
 ENV PORT $PORT
 
 # Copy the jar to the production image from the builder stage.
-COPY unit-core-plus/target/unit-core-plus-*.jar unit.jar
+COPY unit-core-plus/target/unit-core-plus-*-spring-boot.jar unit.jar
 COPY data/unit_catalog_v2.json /mnt/unit_catalogs/unit_catalog_v2.json
 
 # Add a non-root user
