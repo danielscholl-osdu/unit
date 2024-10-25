@@ -6,7 +6,3 @@ variables:
 core-containerize-gitlab:
   needs:
     - "compile-and-unit-test"
-    
-gc-baremetal-test-python:
-  variables:
-    VIRTUAL_SERVICE_HOST_NAME: $OSDU_BAREMETAL_UNIT_HOSTNAME
