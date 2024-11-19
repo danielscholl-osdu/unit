@@ -1,7 +1,10 @@
 package org.opengroup.osdu.unitservice;
 
+import org.apache.tomcat.util.buf.EncodedSolidusHandling;
 import org.opengroup.osdu.unitservice.model.CatalogImpl;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -24,5 +27,11 @@ public class UnitAksConfiguration {
         try (FileReader reader = new FileReader(location)) {
             return CatalogImpl.createCatalog(reader);
         }
+    }
+    
+    @Bean
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
+        logger.info("Configuring Tomcat to allow encoded slashes.");
+        return factory -> factory.addConnectorCustomizers(connector -> connector.setEncodedSolidusHandling(EncodedSolidusHandling.DECODE.getValue()));
     }
 }
