@@ -62,6 +62,7 @@ First you need to set variables in **values.yaml** file using any code editor. S
 |------|-------------|------|---------|---------|
 **conf.appName** | name of the app | string | `unit` | yes
 **conf.configmap** | configmap to be used | string | `unit-config` | yes
+**conf.replicas** | Number of pods for service | integer | 2 | yes 
 
 ### Istio variables
 
