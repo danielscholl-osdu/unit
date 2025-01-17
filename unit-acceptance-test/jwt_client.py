@@ -20,12 +20,19 @@ import os
 
 import requests
 
-TEST_OPENID_PROVIDER_CLIENT_ID = os.environ["TEST_OPENID_PROVIDER_CLIENT_ID"]
-TEST_OPENID_PROVIDER_URL = os.environ["TEST_OPENID_PROVIDER_URL"]
-TEST_OPENID_PROVIDER_CLIENT_SECRET = os.environ["TEST_OPENID_PROVIDER_CLIENT_SECRET"]
+
 
 
 def get_id_token():
+    # Get the token from the environment variable if exists (injected token)
+    if os.environ.get("INTEGRATION_TESTER_TOKEN"):
+        return os.environ["INTEGRATION_TESTER_TOKEN"]
+    
+    # Get the OpenID provider details from the environment variables
+    TEST_OPENID_PROVIDER_CLIENT_ID = os.environ["TEST_OPENID_PROVIDER_CLIENT_ID"]
+    TEST_OPENID_PROVIDER_URL = os.environ["TEST_OPENID_PROVIDER_URL"]
+    TEST_OPENID_PROVIDER_CLIENT_SECRET = os.environ["TEST_OPENID_PROVIDER_CLIENT_SECRET"]
+
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
     }
@@ -44,6 +51,12 @@ def get_id_token():
     )
     response.raise_for_status()
     id_token = response.json()["id_token"]
+
+    # Open a file in write mode
+    with open("example.txt", "w") as file:
+        # Write the string to the file
+        file.write(id_token)
+
     return id_token
 
 
