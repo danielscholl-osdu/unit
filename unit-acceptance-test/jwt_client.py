@@ -25,13 +25,13 @@ import requests
 
 def get_id_token():
     # Get the token from the environment variable if exists (injected token)
-    if os.environ.get("INTEGRATION_TESTER_TOKEN"):
-        return os.environ["INTEGRATION_TESTER_TOKEN"]
+    if os.environ.get("PRIVILEGED_USER_TOKEN"):
+        return os.environ["PRIVILEGED_USER_TOKEN"]
     
     # Get the OpenID provider details from the environment variables
-    TEST_OPENID_PROVIDER_CLIENT_ID = os.environ["TEST_OPENID_PROVIDER_CLIENT_ID"]
+    PRIVILEGED_USER_OPENID_PROVIDER_CLIENT_ID = os.environ["PRIVILEGED_USER_OPENID_PROVIDER_CLIENT_ID"]
     TEST_OPENID_PROVIDER_URL = os.environ["TEST_OPENID_PROVIDER_URL"]
-    TEST_OPENID_PROVIDER_CLIENT_SECRET = os.environ["TEST_OPENID_PROVIDER_CLIENT_SECRET"]
+    PRIVILEGED_USER_OPENID_PROVIDER_CLIENT_SECRET = os.environ["PRIVILEGED_USER_OPENID_PROVIDER_CLIENT_SECRET"]
 
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -39,8 +39,8 @@ def get_id_token():
     request_body = {
         'grant_type': 'client_credentials',
         'scope': "openid",
-        'client_id': TEST_OPENID_PROVIDER_CLIENT_ID,
-        'client_secret': TEST_OPENID_PROVIDER_CLIENT_SECRET
+        'client_id': PRIVILEGED_USER_OPENID_PROVIDER_CLIENT_ID,
+        'client_secret': PRIVILEGED_USER_OPENID_PROVIDER_CLIENT_SECRET
     }
 
 

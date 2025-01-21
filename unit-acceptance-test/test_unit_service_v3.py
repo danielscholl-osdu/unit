@@ -86,7 +86,7 @@ class TestInfo(unittest.TestCase):
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
-                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+                'Test environment is not properly set up; MY_TENANT, HOST_URL not set.')
         """Common set up for environment"""
         cls.api_instance = InfoapiApi(cls.env.client())
 
@@ -109,7 +109,7 @@ class TestConversions(unittest.TestCase):
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
-                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+                'Test environment is not properly set up; MY_TENANT, HOST_URL not set.')
         """Common set up for environment"""
         cls.api_instance = Unitapiv3Api(cls.env.client())
 
@@ -219,7 +219,7 @@ class TestUnits(unittest.TestCase):
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
-                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+                'Test environment is not properly set up; MY_TENANT, HOST_URL not set.')
         """Common set up for environment"""
         cls.env = TestEnvironment()
         cls.api_instance = Unitapiv3Api(cls.env.client())
@@ -436,7 +436,7 @@ class TestMeasurements(unittest.TestCase):
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
-                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+                'Test environment is not properly set up; MY_TENANT, HOST_URL not set.')
         """Common set up for environment"""
         cls.env = TestEnvironment()
         cls.api_instance = Unitapiv3Api(cls.env.client())
@@ -540,7 +540,7 @@ class TestUnitSystems(unittest.TestCase):
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
-                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+                'Test environment is not properly set up; MY_TENANT, HOST_URL not set.')
         """Common set up for environment"""
         cls.env = TestEnvironment()
         cls.api_instance = Unitapiv3Api(cls.env.client())
@@ -637,7 +637,7 @@ class TestUoMCatalog(unittest.TestCase):
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
-                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+                'Test environment is not properly set up; MY_TENANT, HOST_URL not set.')
         """Common set up for environment"""
         cls.env = TestEnvironment()
         cls.api_instance = Unitapiv3Api(cls.env.client())
@@ -706,7 +706,7 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
         cls.env = TestEnvironment()
         if not cls.env.is_ok():
             raise Exception(
-                'Test environment is not properly set up; MY_TENANT, VIRTUAL_SERVICE_HOST_NAME not set.')
+                'Test environment is not properly set up; MY_TENANT, HOST_URL not set.')
         """Common set up for environment"""
         configuration = Configuration()
         # Set the bearer token; use a service account to do this
