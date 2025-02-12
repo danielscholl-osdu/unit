@@ -27,19 +27,17 @@ python3 -m pip install -r requirements.txt
 
 echo ""
 export API_VER="v3"
-echo ***RUNNING UNIT API $API_VER TESTS***
-python3 run_test.py
-TEST_STATUS_V3=$?
-echo ***FINISHED UNIT API $API_VER TESTS***
+echo ***RUNNING CATALOG API $API_VER SCHEMA TESTS***
+pytest -v test_api_v3.py
+TEST_STATUS=$?
+echo ***FINISHED CATALOG API $API_VER SCHEMA TESTS***
 
-echo "TEST_STATUS_V3: $TEST_STATUS_V3"
+echo "TEST STATUS: $TEST_STATUS"
 
-#python3 -m pip uninstall -r requirements.txt -y
 deactivate
 rm -rf env/
 
-
-if [ $TEST_STATUS_V3 -ne 0 ]
+if [ $TEST_STATUS -ne 0 ]
 then
     exit 1
 fi

@@ -39,6 +39,7 @@ docker-compose.override.yml
 **/.venv
 testing/*/venv/
 testing/*/env/
+.hypothesis/
 
 #.pyc files in all directories
 **/*.pyc
