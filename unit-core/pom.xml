@@ -26,11 +26,30 @@
         <jackson-databind.version>2.15.1</jackson-databind.version>
         <jackson.version>2.15.1</jackson.version>
         <org-eclipse-jetty.version>12.0.8</org-eclipse-jetty.version>
-        <os-core-common-spring6.version>0.27.0-rc1</os-core-common-spring6.version>
+        <os-core-common.version>3.3.0</os-core-common.version>
     </properties>
-
+<dependencyManagement>
     <dependencies>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-bom</artifactId>
+            <version>4.1.118.Final</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+    <dependencies>
+
         <!-- Compile/runtime dependencies -->
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.118.Final</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -81,8 +100,8 @@
         </dependency>
         <dependency>
             <groupId>org.opengroup.osdu</groupId>
-            <artifactId>os-core-common-spring6</artifactId>
-            <version>${os-core-common-spring6.version}</version>
+            <artifactId>os-core-common</artifactId>
+            <version>${os-core-common.version}</version>
         </dependency>
 
         <!-- Lucene Indexing Dependencies -->
