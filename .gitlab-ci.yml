@@ -68,7 +68,7 @@ include:
     file: "cloud-providers/azure.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
-    file: "cloud-providers/core-global.yml"
+    file: "cloud-providers/cimpl-global.yml"
 
   - local: "devops/gc/pipeline/override-stages.yml"
   
