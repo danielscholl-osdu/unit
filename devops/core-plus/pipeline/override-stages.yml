@@ -1,8 +1,8 @@
 variables:
-  CIMPL_SERVICE: unit
-  CIMPL_INT_TEST_TYPE: python
-  CIMPL_BAREMETAL_PYTHON_INT_TEST_SUBDIR: testing/unit_test_baremetal
+  CORE_SERVICE: unit
+  CORE_INT_TEST_TYPE: python
+  CORE_BAREMETAL_PYTHON_INT_TEST_SUBDIR: testing/unit_test_baremetal
 
-cimpl-containerize-gitlab:
+core-containerize-gitlab:
   needs:
     - "compile-and-unit-test"
