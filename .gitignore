@@ -30,14 +30,16 @@ docker-compose.override.yml
 /cobertura
 /testresults
 /.cover
-**/__pycache__/**
+**/__pycache__
 # Runtime files created during local run
 /app/*
 
 # Python, virtualenv
-/venv
+**/venv
+**/.venv
 testing/*/venv/
 testing/*/env/
+.hypothesis/
 
 #.pyc files in all directories
 **/*.pyc
