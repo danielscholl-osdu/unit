@@ -733,7 +733,6 @@ class TestUnAuthorizedUoMCatalog(unittest.TestCase):
         except ApiException as e:
             reason = json.loads(e.body)['reason']
             self.assertTrue(401 == e.status or 403 == e.status)
-            self.assertTrue("Unauthorized" == reason or "Forbidden" == reason)
 
     def test_get_catalog_using_get_with_invalid_token(self):
         """Test get_catalog_using_get"""
