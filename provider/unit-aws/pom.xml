@@ -14,7 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 
     <parent>
@@ -57,13 +59,13 @@
                 <scope>import</scope>
             </dependency>
 
-                    <dependency>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-bom</artifactId>
-                        <version>4.1.118.Final</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-bom</artifactId>
+                <version>4.1.118.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
 
         </dependencies>
@@ -107,7 +109,7 @@
         <dependency>
             <groupId>org.opengroup.osdu.unit-service</groupId>
             <artifactId>unit-core</artifactId>
-            <version>${project.version}</version>
+            <version>${parent.version}</version>
         </dependency>
 
         <!-- AWS-managed packages -->
@@ -135,7 +137,7 @@
         </dependency>
 
 
-        <!-- Testing packages --> 
+        <!-- Testing packages -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -150,7 +152,7 @@
             <scope>provided</scope>
         </dependency>
 
-         <dependency>
+        <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
             <scope>test</scope>
