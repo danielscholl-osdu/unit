@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.opengroup.osdu.unit-service</groupId>
 			<artifactId>unit-core</artifactId>
-			<version>${project.version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<!-- Compile/runtime dependencies -->
 		<dependency>
@@ -80,16 +80,16 @@
 
 
 	<dependencyManagement>
-	<dependencies>
-		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-bom</artifactId>
-			<version>4.1.118.Final</version>
-			<type>pom</type>
-			<scope>import</scope>
-		</dependency>
+		<dependencies>
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-bom</artifactId>
+				<version>4.1.118.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 
-	</dependencies>
+		</dependencies>
 	</dependencyManagement>
 
 	<build>
