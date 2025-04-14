@@ -16,20 +16,18 @@ package org.opengroup.osdu.unitservice.security;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opengroup.osdu.unitservice.api.UnitApiV3;
+import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
+import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
-import org.opengroup.osdu.unitservice.api.UnitApiV3;
-import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
 
 
 @SpringBootTest(classes = {
@@ -38,7 +36,7 @@ import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
         AuthSecurityConfig.class,
         AuthenticationService.class})
 @WebAppConfiguration
-public class AuthSecurityConfigTest {
+class AuthSecurityConfigTest {
     private MockMvc mockMvc = null;
 
     @MockBean
@@ -51,12 +49,12 @@ public class AuthSecurityConfigTest {
     private WebApplicationContext context;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test
-    public void testConfigureHttpSecurity() throws Exception {
+    void testConfigureHttpSecurity() throws Exception {
         mockMvc.perform(get("/"))
             .andExpect(status().isNotFound())
             .andReturn();
