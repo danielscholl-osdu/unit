@@ -1,2 +1,53 @@
-.aider*
-!.vscode
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.iml
+target/
+.factorypath
+
+# IDE - VSCode
+.vscode/*
+
+#IDE - Webstorm
+/**/vcs.xml
+/**/works
+
+#Docker
+docker-compose.override.yml
+
+# Misc
+/cloc
+**/bin
+/pkg
+/src/vendor
+/src/api/vendor
+/deploy
+/cobertura
+/testresults
+/.cover
+**/__pycache__
+# Runtime files created during local run
+/app/*
+
+# Python, virtualenv
+**/venv
+**/.venv
+testing/*/venv/
+testing/*/env/
+.hypothesis/
+
+#.pyc files in all directories
+**/*.pyc
+dist
+.env
+.DS_Store
+.sts*
+
+# Environment configuration
+*.env
+.envrc
